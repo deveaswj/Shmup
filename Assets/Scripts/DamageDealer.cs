@@ -21,10 +21,22 @@ using UnityEngine;
 public class DamageDealer : MonoBehaviour
 {
     [SerializeField] int damage = 25;
+    [SerializeField] bool isProjectile = false;
     public int GetDamage() => damage;
 
     public void Hit()
     {
-        Destroy(gameObject);
+        if (isProjectile)
+        {
+            // return it to the pool
+            if (TryGetComponent<Projectile>(out var projectile))
+            {
+                projectile.Deactivate();
+            }
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }
