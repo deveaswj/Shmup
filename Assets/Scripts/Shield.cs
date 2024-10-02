@@ -38,18 +38,22 @@ public class Shield : MonoBehaviour
         // Handle enemies within the shield
         foreach (Collider2D enemy in detectedEnemies)
         {
-            Destroy(enemy.gameObject);  // Destroy or handle the enemy as needed
+            if (enemy.TryGetComponent<Health>(out var health))
+            {
+                health.TakeDamage(int.MaxValue);    // damage the enemy to the max!
+            }
+            else
+            {
+                Destroy(enemy.gameObject);  // Destroy the enemy as needed
+            }
             TakeShieldHit();            // Register the hit on the shield
         }
 
-        // Handle projectiles within the shield
+        // Handle enemy projectiles within the shield
         foreach (Collider2D projectile in detectedProjectiles)
         {
-            if (projectile.gameObject.CompareTag("Enemy"))
-            {
-                Destroy(projectile.gameObject);  // Destroy the projectile
-                TakeShieldHit();                 // Register the hit on the shield
-            }
+            Destroy(projectile.gameObject);  // Destroy the projectile
+            TakeShieldHit();                 // Register the hit on the shield
         }
     }
 

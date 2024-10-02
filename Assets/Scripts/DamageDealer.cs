@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // This class is for objects that cause damage (to things that can take damage) upon collision.
-// It can be attached to any object that has a collider.
+// Works with the Health() script.
+// It can be attached to any object that has a collider (or a script that uses an Overlay function?).
+// : Projectiles and Enemy Ships are DamageDealers with colliders.
+// : Shield is not a DamageDealer; it calls Health() functions directly.
 // Another object can call GetDamage() from a script to determine how much to damage itself,
 // and call Hit() to destroy the object that this is attached to.
-// For example, in the other object's OnTriggerEnter2D():
+// For example, say the other object has a Health script with an OnTriggerEnter2D():
 //
 //       if (other.TryGetComponent<DamageDealer>(out var damageDealer))
 //        {
-//            TakeDamage(damageDealer.GetDamage());
+//            TakeDamage(damageDealer.GetDamage());     // another function in Health script
 //            flashEffect.Flash();
 //            damageDealer.Hit();
 //        }
