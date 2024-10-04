@@ -11,32 +11,60 @@ public class ProjectilePool : MonoBehaviour
 
     void Start()
     {
+        if (projectilePrefab == null)
+        {
+            Debug.LogError("Projectile prefab is null at Start");
+        }
+
         pool = new Queue<Projectile>();
 
         // Pre-instantiate the projectiles in the pool
         for (int i = 0; i < poolSize; i++)
         {
-            GameObject obj = Instantiate(projectilePrefab);
-            obj.SetActive(false);
-
-            Projectile projectile = obj.GetComponent<Projectile>();
+            Projectile projectile = NewProjectileComponent();
             pool.Enqueue(projectile);
         }
     }
 
+    Projectile NewProjectileComponent()
+    {
+        if (projectilePrefab == null)
+        {
+            Debug.LogError("Projectile prefab is null at NewProjectileComponent");
+            return null;
+        }
+
+        GameObject obj = Instantiate(projectilePrefab);
+        if (obj == null)
+        {
+            Debug.LogError("Failed to Instantiate Projectile");
+            return null;
+        }
+        obj.SetActive(false);
+        if (!obj.TryGetComponent<Projectile>(out var projectile))
+        {
+            Debug.LogError("Projectile component not found on instantiated object.");
+            return null;
+        }
+        return projectile;
+    }
+
     public Projectile GetProjectile()
     {
+        Projectile projectile;
         if (pool.Count > 0)
         {
-            Projectile projectile = pool.Dequeue();
-            return projectile;
+            projectile = pool.Dequeue();
         }
         else
         {
-            GameObject newObj = Instantiate(projectilePrefab);
-            newObj.SetActive(false);
-            return newObj.GetComponent<Projectile>();
+            projectile = NewProjectileComponent();
         }
+        if (projectile == null)
+        {
+            Debug.LogError("Failed to GetProjectile");
+        }
+        return projectile;
     }
 
     public void ReturnProjectile(GameObject projectileObj)

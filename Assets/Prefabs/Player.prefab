@@ -441,6 +441,7 @@ GameObject:
   - component: {fileID: 6277942031104508536}
   - component: {fileID: 350435422559544783}
   - component: {fileID: 6202430379768296286}
+  - component: {fileID: 691583284074608442}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -482,6 +483,8 @@ MonoBehaviour:
   moveSpeed: 5
   padding0: {x: 0.7, y: 2}
   padding1: {x: 0.7, y: 5}
+  shieldPrefab: {fileID: 0}
+  boosterPrefab: {fileID: 0}
 --- !u!114 &-313352406710969328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -498,6 +501,7 @@ MonoBehaviour:
   maxHealth: 50
   explodeEffect: {fileID: 3766303964827541746, guid: f1a4f39157dc997468e5269df1835807, type: 3}
   flashEffect: {fileID: -3471540749049660668}
+  applyCameraShake: 1
 --- !u!114 &-3471540749049660668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,10 +530,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 3941528168916015855, guid: f2f31cc4728df0d4cbdc9b3741db55fd, type: 3}
+  projectilePool: {fileID: 691583284074608442}
   projectileSpeed: 12
   projectileLifetime: 1
   baseFiringRate: 0.2
-  useAI: 0
+  enemyAI: 0
   firingRateVariance: 0
   minimumFiringRate: 0.1
 --- !u!114 &5155027296986522556
@@ -638,6 +643,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.44
+--- !u!114 &691583284074608442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6300503877240476345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22f4e6651bea57042aa29477245f8dfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 4519595499847251695, guid: 6f0f996b92a8f8244b90af0a93f2a339, type: 3}
+  poolSize: 10
 --- !u!1 &7516834059524001209
 GameObject:
   m_ObjectHideFlags: 0

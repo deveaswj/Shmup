@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Wave Config", fileName = "New Wave Config")]
+[CreateAssetMenu(fileName = "New Wave Config", menuName = "ScriptableObjects/Wave Config")]
 public class WaveConfigSO : ScriptableObject
 {
     [SerializeField] List<GameObject> enemyPrefabs;
