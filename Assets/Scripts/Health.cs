@@ -10,7 +10,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] int health = 50;
+    [SerializeField] int health;
     [SerializeField] int maxHealth = 50;
     [SerializeField] ParticleSystem explodeEffect;
     [SerializeField] SimpleFlash flashEffect;
@@ -22,10 +22,12 @@ public class Health : MonoBehaviour
     ShakeSettings nextShake;
 
     public int GetHealth() => health;
+    public int GetDamage() => maxHealth - health;
 
     void Awake()
     {
         cameraShake = Camera.main.GetComponent<CameraShake>();
+        health = maxHealth;
     }
 
     void OnTriggerEnter2D(Collider2D other)

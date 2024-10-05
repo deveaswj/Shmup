@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class Pathfinder : MonoBehaviour
 {
+    [SerializeField] EnemyBehaviorType behaviorWhenShot;
     EnemySpawner enemySpawner;
     WaveConfigSO waveConfig;
     List<Transform> waypoints;
     int waypointIndex = 0;
+    Health health;
 
     void Awake()
     {
         enemySpawner = FindObjectOfType<EnemySpawner>();
+        health = GetComponent<Health>();
     }
 
     void Start()
@@ -23,7 +26,31 @@ public class Pathfinder : MonoBehaviour
 
     void Update()
     {
-        FollowPath();
+        int damage = health.GetDamage();
+        if (damage > 0)
+        {
+            ActWhenDamaged();
+        }
+        else
+        {
+            FollowPath();
+        }
+    }
+
+    void ActWhenDamaged()
+    {
+        switch (behaviorWhenShot)
+        {
+            case EnemyBehaviorType.None:
+                FollowPath();
+                break;
+            case EnemyBehaviorType.Flee:
+                break;
+            case EnemyBehaviorType.Dive:
+                break;
+            default:
+                break;
+        }
     }
 
     void FollowPath()
@@ -42,5 +69,23 @@ public class Pathfinder : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    void Flee()
+    {
+        // move upwards, destroy when off screen   
+        float deltaMove = waveConfig.GetMoveSpeed() * Time.deltaTime;
+        transform.position += Vector3.up * deltaMove;
+
+        // TODO: destroy when off screen
+    }
+
+    void Dive()
+    {
+        // move downwards, destroy when off screen
+        float deltaMove = waveConfig.GetMoveSpeed() * Time.deltaTime;
+        transform.position -= Vector3.up * deltaMove;
+
+        // TODO: destroy when off screen
     }
 }
