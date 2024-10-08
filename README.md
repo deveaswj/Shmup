@@ -15,6 +15,7 @@ Expanding on the original tutorial by adding:
     - [ ] Faster shot (higher firing rate and speed)
     - [ ] Photons (high-damage but smaller hitbox)
   - [ ] Shield (big hitbox, takes a few hits and goes away)
-  - [ ] Booster (increases speed but also player's hitbox)
+  - [ ] Booster (speed boost)
+  - [ ] Gold Wings (increases score but also player's hitbox)
   - [ ] Drones (collect up to 3; they trail the ship and fire the same projectile type)
 - [x] Smoother screen shake w/Perlin noise
