@@ -24,10 +24,18 @@ public class CameraShake : MonoBehaviour
 
     public void Play(ShakeSettings shakeSettings)
     {
-        StartCoroutine(Shake(shakeSettings));
+        if (shakeSettings == null) { return; }
+        if (shakeSettings.smooth)
+        {
+        StartCoroutine(SmoothShake(shakeSettings));
+        }
+        else
+        {
+        StartCoroutine(RoughShake(shakeSettings));
+        }
     }
 
-    IEnumerator Shake(ShakeSettings settings)
+    IEnumerator SmoothShake(ShakeSettings settings)
     {
         float elapsedTime = 0;
         float xOffset, yOffset;
@@ -58,35 +66,15 @@ public class CameraShake : MonoBehaviour
         transform.position = initialPosition;
     }
 
-
-    IEnumerator ShakeByParameters(float duration = 0.5f, float magnitude = 0.25f, float frequency = 1f)
+    IEnumerator RoughShake(ShakeSettings settings)
     {
         float elapsedTime = 0;
-        float xOffset, yOffset;
-
-        while (elapsedTime < duration)
+        while (elapsedTime < settings.duration)
         {
-            xOffset = Mathf.PerlinNoise(elapsedTime * frequency, 0) * 2 - 1; // Perlin noise returns values between 0 and 1, so we adjust it
-            yOffset = Mathf.PerlinNoise(0, elapsedTime * frequency) * 2 - 1;
-
-            transform.position = initialPosition + new Vector3(xOffset, yOffset, 0) * magnitude;
-
+            transform.position = initialPosition + (Vector3)Random.insideUnitCircle * settings.magnitude;
             elapsedTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
-
-        // Smoothly return to initial position
-        float returnDuration = 0.1f; // Adjust this for the desired smoothness
-        elapsedTime = 0;
-        Vector3 currentPos = transform.position;
-
-        while (elapsedTime < returnDuration)
-        {
-            transform.position = Vector3.Lerp(currentPos, initialPosition, elapsedTime / returnDuration);
-            elapsedTime += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
-        }
-
         transform.position = initialPosition;
     }
 

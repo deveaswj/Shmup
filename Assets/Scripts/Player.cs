@@ -17,9 +17,15 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject shieldPrefab;
     [SerializeField] GameObject boosterPrefab;
 
+    // [Header("Roll")]
+    // [SerializeField] float rollAmount = 15f;
+    // [SerializeField] float rollSpeed = 5f;
+
+    // Main camera bounds
     Vector2 minBounds;
     Vector2 maxBounds;
 
+    // How we shoot
     Shooter shooter;
 
     void Awake()
@@ -41,7 +47,13 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        Roll();
         Move();
+    }
+
+    void Roll()
+    {
+        // TODO
     }
 
     void Move()

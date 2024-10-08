@@ -16,6 +16,8 @@ public class Shooter : MonoBehaviour
     [SerializeField] float firingRateVariance = 0f;
     [SerializeField] float minimumFiringRate = 0.1f;
 
+    Vector2 minBounds, maxBounds;
+
     bool isFiring = false;
 
     string debugPrefix = "Shooter: ";
@@ -26,6 +28,8 @@ public class Shooter : MonoBehaviour
 
     void Start()
     {
+        InitializeBounds();
+
         debugPrefix = (enemyAI ? "Enemy " : "Player ") + "Shooter: ";
         SetFiring(enemyAI);
 
@@ -34,7 +38,7 @@ public class Shooter : MonoBehaviour
             GameObject enemyProjectilePoolObject = GameObject.FindWithTag("EnemyProjectilePool");
             if (enemyProjectilePoolObject != null)
             {
-                Debug.Log(debugPrefix + "Enemy Projectile Pool object found");
+                // Debug.Log(debugPrefix + "Enemy Projectile Pool object found");
                 projectilePool = enemyProjectilePoolObject.GetComponent<ProjectilePool>();
                 if (projectilePool == null)
                 {
@@ -48,6 +52,15 @@ public class Shooter : MonoBehaviour
         }
     }
 
+    void InitializeBounds()
+    {
+        Camera mainCamera = Camera.main;
+        minBounds = mainCamera.ViewportToWorldPoint(new Vector2(0, 0));
+        maxBounds = mainCamera.ViewportToWorldPoint(new Vector2(1, 1));
+    }
+
+    bool OutOfBounds() => transform.position.x < minBounds.x || transform.position.x > maxBounds.x || transform.position.y < minBounds.y || transform.position.y > maxBounds.y;
+
     void Update()
     {
         Fire();
@@ -57,38 +70,41 @@ public class Shooter : MonoBehaviour
     {
         if (isFiring && firingCoroutine == null)
         {
-            Debug.Log(debugPrefix + "firing, start coroutine");
+            // Debug.Log(debugPrefix + "firing, start coroutine");
             firingCoroutine = StartCoroutine(FireContinuously());
         }
         else if (!isFiring && firingCoroutine != null)
         {
-            Debug.Log(debugPrefix + "not firing, stop coroutine");
+            // Debug.Log(debugPrefix + "not firing, stop coroutine");
             StopCoroutine(firingCoroutine);
             firingCoroutine = null;
         }
         else
         {
             string coroutineState = firingCoroutine == null ? "null" : "not null";
-            Debug.Log(debugPrefix + "firing is " + isFiring + ", coroutine is " + coroutineState);
+            // Debug.Log(debugPrefix + "firing is " + isFiring + ", coroutine is " + coroutineState);
         }
     }
 
     IEnumerator FireContinuously()
     {
-        bool errorState = false;
-        Debug.Log(debugPrefix + "Entered FireContinuously coroutine");
+        bool errorState;
+        float firingRate;
 
         // Ensure the pool is assigned before starting firing
         while (projectilePool == null)
         {
-            Debug.Log(debugPrefix + "Waiting for projectilePool to be assigned...");
             yield return null;
         }
 
         while (true)
         {
-            Debug.Log(debugPrefix + "Firing? " + isFiring);
-            if (isFiring)
+            errorState = false;
+            if (OutOfBounds())
+            {
+                Debug.Log(debugPrefix + "Shooter: Out of bounds");
+            }
+            else if (isFiring)
             {
                 if (projectilePool == null)
                 {
@@ -106,16 +122,17 @@ public class Shooter : MonoBehaviour
                     // player fires up, enemies fire down
                     Vector2 velocity = (enemyAI ? -transform.up : transform.up) * projectileSpeed;
                     projectile.Fire(transform.position, velocity);
-                    Debug.Log(debugPrefix + "Fired projectile");
                     StartCoroutine(ReturnProjectileAfterLifetime(projectile, projectileLifetime));
                 }
             }
-            float firingRate = baseFiringRate;
+
+            firingRate = baseFiringRate;
             if (enemyAI)
             {
                 firingRate += Random.Range(-firingRateVariance, firingRateVariance);
                 firingRate = Mathf.Max(firingRate, minimumFiringRate);
             }
+
             yield return new WaitForSeconds(firingRate);
         }
     }

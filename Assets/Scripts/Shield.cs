@@ -1,83 +1,98 @@
 using UnityEngine;
 using System.Collections;
 
+// revising to be separate from Player but follow its transform
+// assign the object to the scene, but not as a child of Player
+
 public class Shield : MonoBehaviour
 {
-    [SerializeField] float shieldRadius = 5f;          // Radius of the circular shield
-    [SerializeField] Vector2 offset = new Vector2(0f, 0f); // Position offset of the shield
+    [SerializeField] GameObject playerShip;
     [SerializeField] int shieldHitPoints = 10;         // Number of hits the shield can take
     [SerializeField] LayerMask enemyLayer;             // Layer for detecting enemies
     [SerializeField] LayerMask projectileLayer;        // Layer for detecting projectiles
-    [SerializeField] float detectionInterval = 0.1f;   // How often to check for enemies/projectiles
+    [Header("Effects")]
+    [SerializeField] Color shieldHitColor = Color.red;    // Color of the shield
+    [SerializeField] float shieldHitFXDuration = 0.1f;
+
+    LayerMask combinedLayerMask;
+    Color originalColor;
+    SpriteRenderer sr;
+    bool hitShield = false;
+    Transform shipTransform;
+
+    float shieldHitFXTimer = 0f;
 
     private void Start()
     {
-        StartCoroutine(ShieldDetectionRoutine());
+        shipTransform = playerShip.transform;
+        sr = GetComponent<SpriteRenderer>();
+        originalColor = sr.color;
+        combinedLayerMask = enemyLayer | projectileLayer;
+        TurnOn();
     }
 
-    IEnumerator ShieldDetectionRoutine()
+    private void Update()
     {
-        while (shieldHitPoints > 0)
-        {
-            DetectAndDestroyEnemiesAndProjectiles();
-            yield return new WaitForSeconds(detectionInterval);  // Wait before checking again
-        }
+        transform.position = shipTransform.position;
 
-        // Shield is broken, deactivate or destroy
-        DestroyShield();
+        if (shieldHitFXTimer > 0)
+        {
+            shieldHitFXTimer -= Time.deltaTime;
+        }
+        else
+        {
+            hitShield = false;
+        }
+        sr.color = hitShield ? shieldHitColor : originalColor;
     }
 
-    private void DetectAndDestroyEnemiesAndProjectiles()
+    private bool IsInLayerMask(GameObject obj, LayerMask layerMask)
     {
-        Vector2 offsetPosition = (Vector2)transform.position + offset;
+        // The object's layer is compared against the LayerMask using bitwise operations
+        return layerMask == (layerMask | (1 << obj.layer));
+    }
 
-        // For circular shield
-        Collider2D[] detectedEnemies = Physics2D.OverlapCircleAll(offsetPosition, shieldRadius, enemyLayer);
-        Collider2D[] detectedProjectiles = Physics2D.OverlapCircleAll(offsetPosition, shieldRadius, projectileLayer);
-
-        // Handle enemies within the shield
-        foreach (Collider2D enemy in detectedEnemies)
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (IsInLayerMask(other.gameObject, combinedLayerMask))
         {
-            if (enemy.TryGetComponent<Health>(out var health))
+            if (other.TryGetComponent<Health>(out var otherHealth))
             {
-                health.TakeDamage(int.MaxValue);    // damage the enemy to the max!
+                Debug.Log("Shield hit by " + otherHealth.gameObject.name);
+                otherHealth.TakeDamage(int.MaxValue);    // damage the enemy to the max!
             }
-            else
+            else if (other.TryGetComponent<DamageDealer>(out var damageDealer))
             {
-                Destroy(enemy.gameObject);  // Destroy the enemy as needed
+                Debug.Log("Shield hit by " + damageDealer.gameObject.name);
+                damageDealer.Hit();
             }
-            TakeShieldHit();            // Register the hit on the shield
-        }
-
-        // Handle enemy projectiles within the shield
-        foreach (Collider2D projectile in detectedProjectiles)
-        {
-            Destroy(projectile.gameObject);  // Destroy the projectile
-            TakeShieldHit();                 // Register the hit on the shield
+            TakeShieldHit();
         }
     }
 
     private void TakeShieldHit()
     {
+        hitShield = true;
         shieldHitPoints--;
-
-        if (shieldHitPoints <= 0)
+        if (shieldHitPoints > 0)
         {
-            DestroyShield();  // Trigger shield destruction or deactivation
+            shieldHitFXTimer = shieldHitFXDuration;
+        }
+        else
+        {
+            TurnOff();  // Trigger shield destruction or deactivation
         }
     }
 
-    private void DestroyShield()
+    private void TurnOff()
     {
-        // Deactivate or destroy the shield
-        Destroy(gameObject);
+        // Deactivate the shield and move ship to original layer
+        gameObject.SetActive(false);
     }
 
-    private void OnDrawGizmos()
+    private void TurnOn()
     {
-        // For visualization in the Unity Editor (optional)
-        Gizmos.color = Color.red;
-        Vector2 offsetPosition = (Vector2) transform.position + offset;
-        Gizmos.DrawWireSphere(offsetPosition, shieldRadius);
-     }
+        // Activate the shield and move ship to Invulnerable layer
+        gameObject.SetActive(true);
+    }
 }
