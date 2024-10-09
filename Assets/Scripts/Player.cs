@@ -7,26 +7,33 @@ public class Player : MonoBehaviour
 {
 
     [SerializeField] float moveSpeed = 5f;
+    [SerializeField] float boostSpeed = 10f;
+    [SerializeField] float boostDuration = 5f;
+    [SerializeField] bool boosted = false;
+    float boostedTimer = 0f;
+
     Vector2 rawInput;
 
     [Header("Padding")]
     [SerializeField] Vector2 padding0 = new(0.5f, 2f);  // left, bottom
     [SerializeField] Vector2 padding1 = new(0.5f, 5f);  // right, top
 
-    [Header("Power-ups")]
-    [SerializeField] GameObject shieldPrefab;
-    [SerializeField] GameObject boosterPrefab;
+    // [Header("Power-ups")]
+    // [SerializeField] GameObject shieldPrefab;
+    // [SerializeField] GameObject boosterPrefab;
 
     // [Header("Roll")]
     // [SerializeField] float rollAmount = 15f;
     // [SerializeField] float rollSpeed = 5f;
 
     // Main camera bounds
-    Vector2 minBounds;
-    Vector2 maxBounds;
+    Vector2 minBounds, maxBounds;
 
     // How we shoot
     Shooter shooter;
+
+    // powerup objects in scene
+    Shield shieldScript;
 
     void Awake()
     {
@@ -35,6 +42,20 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        // Find the Shield in the scene
+        GameObject shieldObject = GameObject.FindWithTag("PlayerShield");
+        if (shieldObject != null)
+        {
+            shieldScript = shieldObject.GetComponent<Shield>();
+            if (shieldScript == null)
+            {
+                Debug.LogError("Shield script component not found on Player's Shield object");
+            }
+        }
+        else
+        {
+            Debug.LogError("PlayerShield not found in scene");
+        }
         InitializeBounds();
     }
 
@@ -48,6 +69,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         Roll();
+        CheckBoostTimer();
         Move();
     }
 
@@ -56,9 +78,23 @@ public class Player : MonoBehaviour
         // TODO
     }
 
+    void CheckBoostTimer()
+    {
+        if (boosted)
+        {
+            boostedTimer += Time.deltaTime;
+            if (boostedTimer >= boostDuration)
+            {
+                boosted = false;
+                boostedTimer = 0f;
+            }
+        }
+    }
+
     void Move()
     {
-        Vector2 delta = moveSpeed * Time.deltaTime * rawInput;
+        float speed = boosted ? boostSpeed : moveSpeed;
+        Vector2 delta = speed * Time.deltaTime * rawInput;
         Vector2 newPos = new(transform.position.x + delta.x, transform.position.y + delta.y);
         newPos.x = Mathf.Clamp(newPos.x, minBounds.x + padding0.x, maxBounds.x - padding1.x);
         newPos.y = Mathf.Clamp(newPos.y, minBounds.y + padding0.y, maxBounds.y - padding1.y);
@@ -119,11 +155,17 @@ public class Player : MonoBehaviour
     void ShieldPowerUp()
     {
         // Add shield
+        if (shieldScript != null)
+        {
+            shieldScript.TurnOn();
+        }
     }
 
     void SpeedPowerUp()
     {
         // Add speed
+        boosted = true;
+        boostedTimer = 0f;
     }
 
     void Weapon_DoubleShot()

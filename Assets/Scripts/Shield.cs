@@ -84,13 +84,13 @@ public class Shield : MonoBehaviour
         }
     }
 
-    private void TurnOff()
+    public void TurnOff()
     {
         // Deactivate the shield and move ship to original layer
         gameObject.SetActive(false);
     }
 
-    private void TurnOn()
+    public void TurnOn()
     {
         // Activate the shield and move ship to Invulnerable layer
         gameObject.SetActive(true);
