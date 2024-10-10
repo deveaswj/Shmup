@@ -7,7 +7,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] List<WaveConfigSO> waves;
-    [SerializeField] float timeBetweenWaves = 0f;
+    [SerializeField] float timeBetweenWaves = 5f;
     [SerializeField] bool isLooping = false;
     WaveConfigSO currentWave;
 

@@ -26,15 +26,19 @@ public class DamageDealer : MonoBehaviour
 
     public void Hit()
     {
+        bool selfDestroy = !isProjectile;
         if (isProjectile)
         {
-            // return it to the pool
             if (TryGetComponent<Projectile>(out var projectile))
             {
                 projectile.Deactivate();
             }
+            else
+            {
+                selfDestroy = true;
+            }
         }
-        else
+        if (selfDestroy)
         {
             Destroy(gameObject);
         }

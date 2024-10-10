@@ -472,6 +472,10 @@ PrefabInstance:
       value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 3590599260255850654, guid: 9ba56f5feba153540b344745a710e2c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3590599260255850654, guid: 9ba56f5feba153540b344745a710e2c7, type: 3}
       propertyPath: m_TagString
       value: PlayerShield
       objectReference: {fileID: 0}
@@ -568,6 +572,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 691583284074608442, guid: c347bd6a0ed284345b24c2036acf41fb, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 5690343307171632940, guid: 03f1946c5e13e324e9437abae2402e0e, type: 3}
     - target: {fileID: 1092074071029129756, guid: c347bd6a0ed284345b24c2036acf41fb, type: 3}
       propertyPath: m_Layer
       value: 3

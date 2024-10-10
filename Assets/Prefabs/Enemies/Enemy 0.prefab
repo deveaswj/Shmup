@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1557956015073297079}
   - component: {fileID: 3928199785275935830}
   - component: {fileID: 4172715181437232553}
+  - component: {fileID: 7955808420418633069}
   - component: {fileID: -726684176225730681}
   - component: {fileID: 3084993028967645405}
   - component: {fileID: 8742659122454066369}
@@ -51,6 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1976c872b24a384ea68d8977cb5cd60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  behaviorWhenShot: 0
 --- !u!212 &1557956015073297079
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -119,6 +121,17 @@ MonoBehaviour:
   maxHealth: 50
   explodeEffect: {fileID: 3766303964827541746, guid: f1a4f39157dc997468e5269df1835807, type: 3}
   flashEffect: {fileID: 4172715181437232553}
+  applyCameraShake: 0
+  smallShake:
+    duration: 0.25
+    magnitude: 0.1
+    frequency: 1
+    smooth: 1
+  largeShake:
+    duration: 0.25
+    magnitude: 0.1
+    frequency: 1
+    smooth: 1
 --- !u!114 &4172715181437232553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,6 +147,24 @@ MonoBehaviour:
   flashMaterial: {fileID: 2100000, guid: aecbfc7a3d41e6f459cbb452ed849884, type: 2}
   duration: 0.1
   spriteRenderer: {fileID: 1557956015073297079}
+--- !u!114 &7955808420418633069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001191620367743566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b4b8165cb79f9a4bb6f179eab1889ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUpEntries:
+  - powerUpPrefab: {fileID: 3720796078118961184, guid: 87a0078ebc669484caa43fcf6197fca8, type: 3}
+    dropWeight: 1
+  - powerUpPrefab: {fileID: 7815083438072899951, guid: 4b5b9db7eef9b3244922b45b37775add, type: 3}
+    dropWeight: 2
+  dropChance: 0.2
 --- !u!114 &-726684176225730681
 MonoBehaviour:
   m_ObjectHideFlags: 0

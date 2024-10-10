@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
     [SerializeField] float boostSpeed = 10f;
     [SerializeField] float boostDuration = 5f;
     [SerializeField] bool boosted = false;
-    float boostedTimer = 0f;
 
     Vector2 rawInput;
 
@@ -68,27 +67,13 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Roll();
-        CheckBoostTimer();
+        // Roll();
         Move();
     }
 
     void Roll()
     {
         // TODO
-    }
-
-    void CheckBoostTimer()
-    {
-        if (boosted)
-        {
-            boostedTimer += Time.deltaTime;
-            if (boostedTimer >= boostDuration)
-            {
-                boosted = false;
-                boostedTimer = 0f;
-            }
-        }
     }
 
     void Move()
@@ -164,8 +149,11 @@ public class Player : MonoBehaviour
     void SpeedPowerUp()
     {
         // Add speed
-        boosted = true;
-        boostedTimer = 0f;
+        if (!boosted)
+        {
+            // start boost coroutine
+            StartCoroutine(BoostSpeed());
+        }
     }
 
     void Weapon_DoubleShot()
@@ -181,6 +169,13 @@ public class Player : MonoBehaviour
     void Weapon_Photon()
     {
         // Add weapon
+    }
+
+    IEnumerator BoostSpeed()
+    {
+        boosted = true;
+        yield return new WaitForSeconds(boostDuration);
+        boosted = false;
     }
 
 }
