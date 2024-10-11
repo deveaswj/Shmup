@@ -129,6 +129,10 @@ public class PowerUp : MonoBehaviour
             {
                 player.PowerUp(powerUpType);
             }
+            else
+            {
+                Debug.LogError("The other object does not have a Player script with a PowerUp function");
+            }
             Destroy(gameObject);
         }
     }

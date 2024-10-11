@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Designed for use with a pooling system, but not required
-// Can fire itself, provided with a position and velocity
+// Can fire itself, when provided with a position and velocity
 
 public enum ProjectileType
 {
@@ -28,25 +28,20 @@ public class Projectile : MonoBehaviour
 
     void Awake()
     {
-        // Cache the Rigidbody2D for setting velocity when the projectile is fired
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Method to fire the projectile
-    public void Fire(Vector3 position, Vector2 velocity)
+    public void Fire(Vector2 position, Vector2 velocity)
     {
-        // Set position and activate the projectile
         transform.position = position;
         gameObject.SetActive(true);
-
-        // Apply velocity
         rb.velocity = velocity;
     }
 
-    // Method to deactivate the projectile
     public void Deactivate()
     {
-        // Deactivates the entire GameObject, which will disable all components
         gameObject.SetActive(false);
     }
+
+    public ProjectileType GetProjectileType() => projectileType;
 }

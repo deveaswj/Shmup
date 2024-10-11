@@ -8,6 +8,8 @@ TagManager:
   - PowerUp
   - EnemyProjectilePool
   - PlayerShield
+  - PlayerProjectile
+  - EnemyProjectile
   layers:
   - Default
   - TransparentFX

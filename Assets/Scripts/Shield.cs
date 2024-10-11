@@ -17,23 +17,50 @@ public class Shield : MonoBehaviour
     LayerMask combinedLayerMask;
     Color originalColor;
     SpriteRenderer sr;
+    CircleCollider2D cc;
+    bool shieldOn = false;
     bool hitShield = false;
     Transform shipTransform;
+    int startingHitPoints;
+    Vector2 positionOffset;
+    Vector2 localScale;
 
     float shieldHitFXTimer = 0f;
 
+    public void SetPlayerShip(GameObject obj) { playerShip = obj; }
+    public void SetPositionOffset(Vector2 offset) { positionOffset = offset; }
+    public void SetLocalScale(Vector2 scale) { localScale = scale; }
+
+    void Awake()
+    {
+        startingHitPoints = shieldHitPoints;
+        sr = GetComponent<SpriteRenderer>();
+        cc = GetComponent<CircleCollider2D>();
+    }
+
     private void Start()
     {
+        // TurnOn();
+        if (playerShip == null)
+        {
+            playerShip = GameObject.FindWithTag("Player");
+        }
         shipTransform = playerShip.transform;
-        sr = GetComponent<SpriteRenderer>();
         originalColor = sr.color;
         combinedLayerMask = enemyLayer | projectileLayer;
-        TurnOn();
     }
 
     private void Update()
     {
-        transform.position = shipTransform.position;
+        sr.enabled = shieldOn;
+        if (shieldOn)
+        {
+            float newX, newY;
+            newX = shipTransform.position.x + positionOffset.x;
+            newY = shipTransform.position.y + positionOffset.y;
+            transform.position = new Vector2(newX, newY);
+            transform.localScale = new Vector2(localScale.x, localScale.y);
+        }
 
         if (shieldHitFXTimer > 0)
         {
@@ -54,7 +81,7 @@ public class Shield : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (IsInLayerMask(other.gameObject, combinedLayerMask))
+        if (shieldOn && IsInLayerMask(other.gameObject, combinedLayerMask))
         {
             if (other.TryGetComponent<Health>(out var otherHealth))
             {
@@ -86,13 +113,18 @@ public class Shield : MonoBehaviour
 
     public void TurnOff()
     {
-        // Deactivate the shield and move ship to original layer
-        gameObject.SetActive(false);
+        // Deactivate the shield
+        shieldOn = false;
+        // gameObject.SetActive(false);
+        Debug.Log("Shield turned off");
     }
 
     public void TurnOn()
     {
-        // Activate the shield and move ship to Invulnerable layer
-        gameObject.SetActive(true);
+        // Activate the shield
+        shieldOn = true;
+        // gameObject.SetActive(true);
+        shieldHitPoints = startingHitPoints;
+        Debug.Log("Shield turned on");
     }
 }

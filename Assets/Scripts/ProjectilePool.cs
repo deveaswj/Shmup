@@ -67,9 +67,8 @@ public class ProjectilePool : MonoBehaviour
         return projectile;
     }
 
-    public void ReturnProjectile(GameObject projectileObj)
+    public void ReturnProjectile(Projectile projectile)
     {
-        Projectile projectile = projectileObj.GetComponent<Projectile>();
         pool.Enqueue(projectile);
     }
 }

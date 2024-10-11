@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1286808739522342976}
   m_Layer: 11
   m_Name: Shield
-  m_TagString: Untagged
+  m_TagString: PlayerShield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3590599260255850654}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 79bb7246a4ca78240b99fecd414caa05, type: 3}
   m_Color: {r: 0.76792455, g: 0.9054907, b: 1, a: 1}
   m_FlipX: 0
@@ -134,9 +134,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerShip: {fileID: 0}
-  invulnerableLayer:
-    serializedVersion: 2
-    m_Bits: 1024
   shieldHitPoints: 10
   enemyLayer:
     serializedVersion: 2

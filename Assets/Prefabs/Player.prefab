@@ -1077,7 +1077,10 @@ MonoBehaviour:
   boostDuration: 5
   boosted: 0
   padding0: {x: 0.7, y: 2}
-  padding1: {x: 0.7, y: 5}
+  padding1: {x: 0.7, y: 2}
+  shieldPrefab: {fileID: 0}
+  shieldPosition: {x: 0, y: 0}
+  shieldScale: {x: 1, y: 1}
 --- !u!114 &-313352406710969328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1132,7 +1135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e9bbe949f9d53d4b9a8ac0478bff84a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 3941528168916015855, guid: f2f31cc4728df0d4cbdc9b3741db55fd, type: 3}
   projectilePool: {fileID: 691583284074608442}
   projectileSpeed: 12
   projectileLifetime: 1

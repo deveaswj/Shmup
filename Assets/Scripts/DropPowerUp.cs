@@ -16,9 +16,24 @@ public class DropPowerUp : MonoBehaviour
     [SerializeField] List<PowerUpEntry> powerUpEntries = new(); // List of power-up prefabs with weights
     [SerializeField] float dropChance = 0.2f; // Chance to drop a power-up at all (20% in this case)
 
+    private static bool isQuitting = false;
+
+    void Awake()
+    {
+        // Register for shutdown events
+        Application.quitting += OnApplicationQuit;
+    }
+
+    void OnApplicationQuit()
+    {
+        isQuitting = true;
+    }
 
     void OnDestroy()
     {
+        // Skip the logic if the game is quitting
+        if (isQuitting || !Application.isPlaying) return;
+
         // Random chance to drop a power-up
         if (Random.value < dropChance)
         {

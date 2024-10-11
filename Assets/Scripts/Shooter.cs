@@ -102,7 +102,7 @@ public class Shooter : MonoBehaviour
             errorState = false;
             if (OutOfBounds())
             {
-                Debug.Log(debugPrefix + "Shooter: Out of bounds");
+                // Debug.Log(debugPrefix + "Shooter: Out of bounds");
             }
             else if (isFiring)
             {
@@ -147,7 +147,7 @@ public class Shooter : MonoBehaviour
             projectile.Deactivate();
 
             // Return the projectile to the pool
-            projectilePool.ReturnProjectile(projectile.gameObject);
+            projectilePool.ReturnProjectile(projectile);
         }
         else
         {

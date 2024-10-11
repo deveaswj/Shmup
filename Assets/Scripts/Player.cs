@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-
+    [Header("Movement")]
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float boostSpeed = 10f;
     [SerializeField] float boostDuration = 5f;
@@ -17,9 +17,13 @@ public class Player : MonoBehaviour
     [SerializeField] Vector2 padding0 = new(0.5f, 2f);  // left, bottom
     [SerializeField] Vector2 padding1 = new(0.5f, 5f);  // right, top
 
-    // [Header("Power-ups")]
-    // [SerializeField] GameObject shieldPrefab;
-    // [SerializeField] GameObject boosterPrefab;
+    [Header("Shield")]
+    [SerializeField] GameObject shieldPrefab;
+    [SerializeField] Vector2 shieldPosition;
+    [SerializeField] Vector2 shieldScale = new(1f, 1f);
+    GameObject shieldObject;
+    Shield shieldScript;
+    bool shieldCreated = false;
 
     // [Header("Roll")]
     // [SerializeField] float rollAmount = 15f;
@@ -31,9 +35,6 @@ public class Player : MonoBehaviour
     // How we shoot
     Shooter shooter;
 
-    // powerup objects in scene
-    Shield shieldScript;
-
     void Awake()
     {
         shooter = GetComponent<Shooter>();
@@ -41,22 +42,59 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        // Find the Shield in the scene
-        GameObject shieldObject = GameObject.FindWithTag("PlayerShield");
+        InitShield();
+        InitializeBounds();
+    }
+
+    void InitShield()
+    {
+        // Try to find an existing Shield in the scene
+        shieldObject = GameObject.FindWithTag("PlayerShield");
+        // If not found, try to create one
+        if (shieldObject == null)
+        {
+            if (shieldPrefab != null)
+            {
+                // instantiate from the prefab
+                shieldObject = Instantiate(shieldPrefab);
+                shieldCreated = true;
+            }
+        }
+        // Get a reference to the shield script
         if (shieldObject != null)
         {
             shieldScript = shieldObject.GetComponent<Shield>();
-            if (shieldScript == null)
+            if (shieldScript != null)
             {
-                Debug.LogError("Shield script component not found on Player's Shield object");
+                shieldScript.SetPositionOffset(shieldPosition);
+                shieldScript.SetLocalScale(shieldScale);
+                if (shieldCreated)
+                {
+                    // assign the player ship reference
+                    shieldScript.SetPlayerShip(gameObject);
+                }
+            }
+            else
+            {
+                Debug.LogError("Shield script component not found on Shield object");
             }
         }
         else
         {
-            Debug.LogError("PlayerShield not found in scene");
+            Debug.LogError("Shield object could not be found or created");
         }
-        InitializeBounds();
+        // debug verification
+        if (shieldScript != null)
+        {
+            Debug.Log("Shield script ready!");
+            shieldScript.TurnOff();
+        }
+        else
+        {
+            Debug.LogError("Shield script not ready!");
+        }
     }
+
 
     void InitializeBounds()
     {
@@ -142,7 +180,12 @@ public class Player : MonoBehaviour
         // Add shield
         if (shieldScript != null)
         {
+            Debug.Log("Shield ready to turn on");
             shieldScript.TurnOn();
+        }
+        else
+        {
+            Debug.LogError("Shield script is null??");
         }
     }
 
