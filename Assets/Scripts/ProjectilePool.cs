@@ -4,43 +4,53 @@ using UnityEngine;
 
 public class ProjectilePool : MonoBehaviour
 {
-    public GameObject projectilePrefab;
-    public int poolSize = 10;
+    [SerializeField] GameObject[] projectilePrefabs;
+    [SerializeField] int poolSize = 10;
 
-    private Queue<Projectile> pool;
+    private Dictionary<ProjectileType, Queue<Projectile>> poolDictionary;
+	private Dictionary<ProjectileType, GameObject> prefabDictionary;
 
     void Start()
     {
-        if (projectilePrefab == null)
-        {
-            Debug.LogError("Projectile prefab is null at Start");
-        }
+        poolDictionary = new();
+        prefabDictionary = new();
 
-        pool = new Queue<Projectile>();
-
-        // Pre-instantiate the projectiles in the pool
-        for (int i = 0; i < poolSize; i++)
+        // Populate the pool with projectiles from each prefab
+        foreach (GameObject prefab in projectilePrefabs)
         {
-            Projectile projectile = NewProjectileComponent();
-            pool.Enqueue(projectile);
+            if (prefab == null)
+            {
+                Debug.LogError("Cannot instantiate - Projectile prefab is null");
+                continue;
+            }
+            ProjectileType type = prefab.GetComponent<Projectile>().GetProjectileType();
+			prefabDictionary[type] = prefab;
+            Queue<Projectile> pool = new Queue<Projectile>();
+
+            for (int i = 0; i < poolSize; i++)
+            {
+                Projectile newProjectile = NewProjectileComponent(prefab);
+                pool.Enqueue(newProjectile);
+            }
+
+            poolDictionary[type] = pool;
         }
     }
 
-    Projectile NewProjectileComponent()
+    Projectile NewProjectileComponent(GameObject prefab)
     {
-        if (projectilePrefab == null)
+        if (prefab == null)
         {
-            Debug.LogError("Projectile prefab is null at NewProjectileComponent");
+            Debug.LogError("Cannot instantiate - Projectile prefab is null");
             return null;
         }
-
-        GameObject obj = Instantiate(projectilePrefab);
+        GameObject obj = Instantiate(prefab);
         if (obj == null)
         {
-            Debug.LogError("Failed to Instantiate Projectile");
+            Debug.LogError("Failed to instantiate projectile");
             return null;
         }
-        obj.SetActive(false);
+        obj.SetActive(false); // Deactivate the projectile
         if (!obj.TryGetComponent<Projectile>(out var projectile))
         {
             Debug.LogError("Projectile component not found on instantiated object.");
@@ -49,26 +59,47 @@ public class ProjectilePool : MonoBehaviour
         return projectile;
     }
 
-    public Projectile GetProjectile()
+
+    // Get a projectile from the pool based on its type
+    public Projectile GetProjectile(ProjectileType type)
     {
-        Projectile projectile;
-        if (pool.Count > 0)
+        Projectile projectile = null;
+        if (poolDictionary.ContainsKey(type))
         {
-            projectile = pool.Dequeue();
+            if (poolDictionary[type].Count > 0)
+            {
+                projectile = poolDictionary[type].Dequeue();
+            }
+            else
+            {
+				GameObject prefab = prefabDictionary[type];
+                projectile = NewProjectileComponent(prefab);
+            }
         }
         else
         {
-            projectile = NewProjectileComponent();
+            Debug.LogError("No pool found for getting projectile type: " + type);
         }
         if (projectile == null)
         {
             Debug.LogError("Failed to GetProjectile");
         }
-        return projectile;
+		return projectile;
     }
+
 
     public void ReturnProjectile(Projectile projectile)
     {
-        pool.Enqueue(projectile);
+        // pool.Enqueue(projectile);
+        ProjectileType type = projectile.GetProjectileType();
+        if (poolDictionary.ContainsKey(type))
+        {
+            projectile.Deactivate();
+            poolDictionary[type].Enqueue(projectile);
+        }
+        else
+        {
+            Debug.LogError("No pool found for returned projectile type: " + type);
+        }
     }
 }

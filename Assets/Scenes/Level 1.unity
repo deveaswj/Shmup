@@ -151,7 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22f4e6651bea57042aa29477245f8dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 4519595499847251695, guid: 9c10c7f3fbf912a4d9b37a1d3d88e804, type: 3}
+  projectilePrefabs:
+  - {fileID: 4519595499847251695, guid: 9c10c7f3fbf912a4d9b37a1d3d88e804, type: 3}
   poolSize: 10
 --- !u!4 &176181067
 Transform:
@@ -494,6 +495,18 @@ PrefabInstance:
       propertyPath: projectilePrefab
       value: 
       objectReference: {fileID: 5690343307171632940, guid: 03f1946c5e13e324e9437abae2402e0e, type: 3}
+    - target: {fileID: 691583284074608442, guid: c347bd6a0ed284345b24c2036acf41fb, type: 3}
+      propertyPath: projectilePrefabs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 691583284074608442, guid: c347bd6a0ed284345b24c2036acf41fb, type: 3}
+      propertyPath: projectilePrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 5690343307171632940, guid: 03f1946c5e13e324e9437abae2402e0e, type: 3}
+    - target: {fileID: 691583284074608442, guid: c347bd6a0ed284345b24c2036acf41fb, type: 3}
+      propertyPath: projectilePrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 3941528168916015855, guid: f2f31cc4728df0d4cbdc9b3741db55fd, type: 3}
     - target: {fileID: 1092074071029129756, guid: c347bd6a0ed284345b24c2036acf41fb, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -597,6 +610,10 @@ PrefabInstance:
     - target: {fileID: 6673851364067509640, guid: c347bd6a0ed284345b24c2036acf41fb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6748947528034030807, guid: c347bd6a0ed284345b24c2036acf41fb, type: 3}
+      propertyPath: projectileType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6832067960055746664, guid: c347bd6a0ed284345b24c2036acf41fb, type: 3}
       propertyPath: m_Layer

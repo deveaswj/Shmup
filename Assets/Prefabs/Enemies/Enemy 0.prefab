@@ -162,6 +162,8 @@ MonoBehaviour:
   powerUpEntries:
   - powerUpPrefab: {fileID: 3720796078118961184, guid: 87a0078ebc669484caa43fcf6197fca8, type: 3}
     dropWeight: 1
+  - powerUpPrefab: {fileID: 7815083438072899951, guid: 4b5b9db7eef9b3244922b45b37775add, type: 3}
+    dropWeight: 1
   dropChance: 0.2
 --- !u!114 &-726684176225730681
 MonoBehaviour:
@@ -190,6 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePool: {fileID: 0}
+  projectileType: 3
   projectileSpeed: 10
   projectileLifetime: 1
   baseFiringRate: 2

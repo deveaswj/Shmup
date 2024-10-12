@@ -1136,6 +1136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePool: {fileID: 691583284074608442}
+  projectileType: 0
   projectileSpeed: 12
   projectileLifetime: 1
   baseFiringRate: 0.2
@@ -1260,7 +1261,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22f4e6651bea57042aa29477245f8dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 4519595499847251695, guid: 6f0f996b92a8f8244b90af0a93f2a339, type: 3}
+  projectilePrefabs:
+  - {fileID: 4519595499847251695, guid: 6f0f996b92a8f8244b90af0a93f2a339, type: 3}
   poolSize: 10
 --- !u!1 &6832067960055746664
 GameObject:

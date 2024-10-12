@@ -7,6 +7,7 @@ public class Shooter : MonoBehaviour
     [Header("General")]
     // [SerializeField] GameObject projectilePrefab;
     [SerializeField] ProjectilePool projectilePool;
+    [SerializeField] ProjectileType projectileType;
     [SerializeField] float projectileSpeed = 10f;
     [SerializeField] float projectileLifetime = 5f;
     [SerializeField] float baseFiringRate = 0.2f;
@@ -61,6 +62,8 @@ public class Shooter : MonoBehaviour
 
     bool OutOfBounds() => transform.position.x < minBounds.x || transform.position.x > maxBounds.x || transform.position.y < minBounds.y || transform.position.y > maxBounds.y;
 
+    public void SetProjectileType(ProjectileType newType) => projectileType = newType;
+
     void Update()
     {
         Fire();
@@ -111,7 +114,7 @@ public class Shooter : MonoBehaviour
                     errorState = true;
                     Debug.LogError(debugPrefix + "ProjectilePool is null while trying to fire a projectile");
                 }
-                Projectile projectile = projectilePool.GetProjectile();
+                Projectile projectile = projectilePool.GetProjectile(projectileType);
                 if (projectile == null)
                 {
                     errorState = true;
