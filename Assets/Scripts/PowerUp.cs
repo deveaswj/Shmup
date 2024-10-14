@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEditor.EditorTools;
 using UnityEngine;
 
+// Type and Behaviour of PowerUps
+
 public class PowerUp : MonoBehaviour
 {
     [Header("Falling")]
@@ -13,6 +15,7 @@ public class PowerUp : MonoBehaviour
     [SerializeField] float floatSpeed = 1f;
     [SerializeField] float maxFloatRadius = 1f;
     [SerializeField] float directionChangeInterval = 1f;
+    [SerializeField] float anchorMoveSpeed = 0.5f;
     Vector2 randomDirection;
 
     [Header("Expiration")]
@@ -27,13 +30,13 @@ public class PowerUp : MonoBehaviour
     float blinkStartTime;
     float expireTime;
     SpriteRenderer spriteRenderer;
-    Vector3 spawnPosition;
+    Vector3 anchorPoint;
     float directionChangeTimer = 0f;
 
     void Start()
     {
         // Save the spawn position
-        spawnPosition = transform.position;
+        anchorPoint = transform.position;
         // Capture the spawn time
         spawnTime = Time.time;
         blinkStartTime = spawnTime + delayBeforeBlink;
@@ -47,6 +50,7 @@ public class PowerUp : MonoBehaviour
 
     void Update()
     {
+        MoveAnchorPoint();
         FloatAround();
         ChangeDirectionOnTimer();
         BlinkAsNeeded();
@@ -77,6 +81,17 @@ public class PowerUp : MonoBehaviour
         transform.Translate(fallSpeed * Time.deltaTime * Vector2.down);
     }
 
+    void MoveAnchorPoint()
+    {
+        // move anchorPoint downward if it's in the upper half of the screen
+        // because the ship is restricted to the lower part of the screen
+        Vector3 viewportPos = Camera.main.WorldToViewportPoint(anchorPoint);
+        if (viewportPos.y > 0.5f)
+        {
+            anchorPoint = Vector3.Lerp(anchorPoint, new Vector3(anchorPoint.x, anchorPoint.y - 1f, anchorPoint.z), Time.deltaTime * anchorMoveSpeed);
+        }
+    }
+
     void FloatAround()
     {
         // Move the power-up in the random direction
@@ -84,9 +99,9 @@ public class PowerUp : MonoBehaviour
 
         // If it floats too far from the spawn point, move it back in bounds
         // Keep the power-up within a floating radius around its spawn position
-        if (Vector3.Distance(transform.position, spawnPosition) > maxFloatRadius)
+        if (Vector3.Distance(transform.position, anchorPoint) > maxFloatRadius)
         {
-            Vector3 directionToSpawn = (spawnPosition - transform.position).normalized;
+            Vector3 directionToSpawn = (anchorPoint - transform.position).normalized;
             randomDirection = directionToSpawn;  // Change direction back toward the spawn area
             directionChangeTimer = 0f;
         }

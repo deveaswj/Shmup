@@ -13,7 +13,10 @@ public class Shooter : MonoBehaviour
     [SerializeField] float baseFiringRate = 0.2f;
 
     [Header("AI")]
+    [SerializeField] bool droneAI = false;
+    [SerializeField] string droneAIProjectilePoolTag = "PlayerProjectilePool";
     [SerializeField] bool enemyAI = false;
+    [SerializeField] string enemyAIProjectilePoolTag = "EnemyProjectilePool";
     [SerializeField] float firingRateVariance = 0f;
     [SerializeField] float minimumFiringRate = 0.1f;
 
@@ -27,31 +30,45 @@ public class Shooter : MonoBehaviour
 
     public void SetFiring(bool value) => isFiring = value;
 
+    public void SetProjectilePool(ProjectilePool pool) => projectilePool = pool;
+
     void Start()
     {
         InitializeBounds();
-
-        debugPrefix = (enemyAI ? "Enemy " : "Player ") + "Shooter: ";
+        debugPrefix = (enemyAI ? "Enemy " : (droneAI ? "Drone " : "Player ")) + "Shooter: ";
+        FindProjectilePool();
         SetFiring(enemyAI);
+    }
 
-        if (projectilePool == null && enemyAI)
+    void FindProjectilePool()
+    {
+        if (projectilePool == null)
         {
-            GameObject enemyProjectilePoolObject = GameObject.FindWithTag("EnemyProjectilePool");
-            if (enemyProjectilePoolObject != null)
+            if (enemyAI || droneAI)
             {
-                // Debug.Log(debugPrefix + "Enemy Projectile Pool object found");
-                projectilePool = enemyProjectilePoolObject.GetComponent<ProjectilePool>();
-                if (projectilePool == null)
+                string externalProjectilePoolObjectTag = enemyAI ? enemyAIProjectilePoolTag : droneAIProjectilePoolTag;
+                GameObject externalProjectilePoolObject = GameObject.FindWithTag(externalProjectilePoolObjectTag);
+                if (externalProjectilePoolObject != null)
                 {
-                    Debug.LogError(debugPrefix + "... But ProjectilePool component not found!");
+                    // Debug.Log(debugPrefix + "External Projectile Pool object found");
+                    projectilePool = externalProjectilePoolObject.GetComponent<ProjectilePool>();
+                    if (projectilePool == null)
+                    {
+                        Debug.LogError(debugPrefix + "... But ProjectilePool component not found!");
+                    }
+                }
+                else
+                {
+                    Debug.LogError(debugPrefix + "External Projectile Pool not found in the scene!");
                 }
             }
             else
             {
-                Debug.LogError(debugPrefix + "Enemy Projectile Pool not found in the scene!");
+                Debug.LogError(debugPrefix + "ProjectilePool is null!");
             }
         }
     }
+
 
     void InitializeBounds()
     {
@@ -66,10 +83,10 @@ public class Shooter : MonoBehaviour
 
     void Update()
     {
-        Fire();
+        HandleFiring();
     }
 
-    void Fire()
+    void HandleFiring()
     {
         if (isFiring && firingCoroutine == null)
         {
@@ -85,7 +102,7 @@ public class Shooter : MonoBehaviour
         else
         {
             string coroutineState = firingCoroutine == null ? "null" : "not null";
-            // Debug.Log(debugPrefix + "firing is " + isFiring + ", coroutine is " + coroutineState);
+            // Debug.LogError(debugPrefix + "firing is " + isFiring + ", coroutine is " + coroutineState);
         }
     }
 
@@ -109,26 +126,10 @@ public class Shooter : MonoBehaviour
             }
             else if (isFiring)
             {
-                if (projectilePool == null)
-                {
-                    errorState = true;
-                    Debug.LogError(debugPrefix + "ProjectilePool is null while trying to fire a projectile");
-                }
-                Projectile projectile = projectilePool.GetProjectile(projectileType);
-                if (projectile == null)
-                {
-                    errorState = true;
-                    Debug.LogError(debugPrefix + "Projectile is null while trying to fire a projectile");
-                }
-                if (!errorState)
-                {
-                    // player fires up, enemies fire down
-                    Vector2 velocity = (enemyAI ? -transform.up : transform.up) * projectileSpeed;
-                    projectile.Fire(transform.position, velocity);
-                    StartCoroutine(ReturnProjectileAfterLifetime(projectile, projectileLifetime));
-                }
+                errorState = FireOnce();
             }
 
+            // determine when we can fire again
             firingRate = baseFiringRate;
             if (enemyAI)
             {
@@ -139,6 +140,31 @@ public class Shooter : MonoBehaviour
             yield return new WaitForSeconds(firingRate);
         }
     }
+
+    bool FireOnce()
+    {
+        bool errorState = false;
+        if (projectilePool == null)
+        {
+            errorState = true;
+            Debug.LogError(debugPrefix + "ProjectilePool is null while trying to fire a projectile");
+        }
+        Projectile projectile = projectilePool.GetProjectile(projectileType);
+        if (projectile == null)
+        {
+            errorState = true;
+            Debug.LogError(debugPrefix + "Projectile is null while trying to fire a projectile");
+        }
+        if (!errorState)
+        {
+            // player & drones fire up, enemies fire down
+            Vector2 velocity = (enemyAI ? -transform.up : transform.up) * projectileSpeed;
+            projectile.Fire(transform.position, velocity);
+            StartCoroutine(ReturnProjectileAfterLifetime(projectile, projectileLifetime));
+        }
+        return errorState;
+    }
+
 
     private IEnumerator ReturnProjectileAfterLifetime(Projectile projectile, float lifetime)
     {

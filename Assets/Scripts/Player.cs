@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] FireEventChannel fireEventChannel;
+
     [Header("Movement")]
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float boostSpeed = 10f;
@@ -134,6 +136,12 @@ public class Player : MonoBehaviour
         if (shooter != null)
         {
             shooter.SetFiring(value.isPressed);
+        }
+
+        // let any drones know we're firing
+        if (fireEventChannel != null)
+        {
+            fireEventChannel.RaiseEvent(value.isPressed);
         }
     }
     

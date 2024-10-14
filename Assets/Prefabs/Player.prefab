@@ -1033,7 +1033,6 @@ GameObject:
   - component: {fileID: 6277942031104508536}
   - component: {fileID: 350435422559544783}
   - component: {fileID: 6202430379768296286}
-  - component: {fileID: 691583284074608442}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1072,13 +1071,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62713eedbac5f2c4f94c6cb3e439a47c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireEventChannel: {fileID: 11400000, guid: 9dfe36f8268279b4d8594a09a8c63af3, type: 2}
   moveSpeed: 5
   boostSpeed: 10
   boostDuration: 5
   boosted: 0
   padding0: {x: 0.7, y: 2}
   padding1: {x: 0.7, y: 2}
-  shieldPrefab: {fileID: 0}
+  shieldPrefab: {fileID: 3590599260255850654, guid: 9ba56f5feba153540b344745a710e2c7, type: 3}
   shieldPosition: {x: 0, y: 0}
   shieldScale: {x: 1, y: 1}
 --- !u!114 &-313352406710969328
@@ -1135,7 +1135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e9bbe949f9d53d4b9a8ac0478bff84a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePool: {fileID: 691583284074608442}
+  projectilePool: {fileID: 0}
   projectileType: 0
   projectileSpeed: 12
   projectileLifetime: 1
@@ -1249,21 +1249,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.44
---- !u!114 &691583284074608442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6300503877240476345}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22f4e6651bea57042aa29477245f8dfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefabs:
-  - {fileID: 4519595499847251695, guid: 6f0f996b92a8f8244b90af0a93f2a339, type: 3}
-  poolSize: 10
 --- !u!1 &6832067960055746664
 GameObject:
   m_ObjectHideFlags: 0
