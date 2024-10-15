@@ -12,6 +12,8 @@ public class Health : MonoBehaviour
 {
     [SerializeField] int health;
     [SerializeField] int maxHealth = 50;
+    [SerializeField] int minorHealPercent = 20;
+    [SerializeField] int majorHealPercent = 50;
     [SerializeField] ParticleSystem explodeEffect;
     [SerializeField] SimpleFlash flashEffect;
 
@@ -23,6 +25,21 @@ public class Health : MonoBehaviour
 
     public int GetHealth() => health;
     public int GetDamage() => maxHealth - health;
+
+    public void MinorHeal()
+    {
+        AddHealthPercentage(minorHealPercent);
+    }
+
+    public void MajorHeal()
+    {
+        AddHealthPercentage(majorHealPercent);
+    }
+
+    public void FullHeal()
+    {
+        health = maxHealth;
+    }
 
     void Awake()
     {
@@ -39,6 +56,11 @@ public class Health : MonoBehaviour
             ShakeCameraAsNeeded();
             damageDealer.Hit();
         }
+    }
+
+    public void AddHealthPercentage(int percent)
+    {
+        AddHealth(maxHealth * (percent / 100));
     }
 
     public void AddHealth(int amount)

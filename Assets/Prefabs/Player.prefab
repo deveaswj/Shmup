@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: fef8f06db7835c04e8548d7fdf3cfbaa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -98,13 +98,13 @@ GameObject:
   m_Component:
   - component: {fileID: 8754500139629602865}
   - component: {fileID: 1647976212013373373}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: wingYellow_0 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8754500139629602865
 Transform:
   m_ObjectHideFlags: 0
@@ -188,7 +188,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8029777331989460789
 Transform:
   m_ObjectHideFlags: 0
@@ -244,7 +244,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: ee397970656698944a88791c077fb568, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -266,13 +266,13 @@ GameObject:
   m_Component:
   - component: {fileID: 5401258237355917822}
   - component: {fileID: 6925995179818824150}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: engine (L) (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5401258237355917822
 Transform:
   m_ObjectHideFlags: 0
@@ -328,7 +328,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2c51f8a24beb37345bd6436897896382, type: 3}
   m_Color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
   m_FlipX: 0
@@ -350,13 +350,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1461776757062468032}
   - component: {fileID: 3775385453041931265}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: wingYellow_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1461776757062468032
 Transform:
   m_ObjectHideFlags: 0
@@ -500,7 +500,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a989c500765307e499848ae426b46c52, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -528,7 +528,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4139674240872696799
 Transform:
   m_ObjectHideFlags: 0
@@ -584,7 +584,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: ee397970656698944a88791c077fb568, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -606,7 +606,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3904430400993075126}
   - component: {fileID: 2912276253155662529}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: engine (L)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -668,7 +668,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2c51f8a24beb37345bd6436897896382, type: 3}
   m_Color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
   m_FlipX: 0
@@ -690,7 +690,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2003404775812319670}
   - component: {fileID: 2910821121989517955}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: engine (R) (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -752,7 +752,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2c51f8a24beb37345bd6436897896382, type: 3}
   m_Color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
   m_FlipX: 0
@@ -774,7 +774,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8838042917144850485}
   - component: {fileID: 7250887314385746623}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: engine (L) (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -836,7 +836,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2c51f8a24beb37345bd6436897896382, type: 3}
   m_Color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
   m_FlipX: 0
@@ -858,13 +858,13 @@ GameObject:
   m_Component:
   - component: {fileID: 6029245424564391534}
   - component: {fileID: 3528093301493381665}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: wingYellow_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6029245424564391534
 Transform:
   m_ObjectHideFlags: 0
@@ -942,13 +942,13 @@ GameObject:
   m_Component:
   - component: {fileID: 3380691645727998121}
   - component: {fileID: 1974428519280280298}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: engine (R) (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3380691645727998121
 Transform:
   m_ObjectHideFlags: 0
@@ -1004,7 +1004,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2c51f8a24beb37345bd6436897896382, type: 3}
   m_Color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
   m_FlipX: 0
@@ -1033,6 +1033,7 @@ GameObject:
   - component: {fileID: 6277942031104508536}
   - component: {fileID: 350435422559544783}
   - component: {fileID: 6202430379768296286}
+  - component: {fileID: 392398278056835616}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1072,6 +1073,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireEventChannel: {fileID: 11400000, guid: 9dfe36f8268279b4d8594a09a8c63af3, type: 2}
+  ammoEventChannel: {fileID: 11400000, guid: 9c4e91eeec48c8844aa89b5f7fea62b1, type: 2}
   moveSpeed: 5
   boostSpeed: 10
   boostDuration: 5
@@ -1080,7 +1082,7 @@ MonoBehaviour:
   padding1: {x: 0.7, y: 2}
   shieldPrefab: {fileID: 3590599260255850654, guid: 9ba56f5feba153540b344745a710e2c7, type: 3}
   shieldPosition: {x: 0, y: 0}
-  shieldScale: {x: 1, y: 1}
+  shieldScale: {x: 1.3, y: 1}
 --- !u!114 &-313352406710969328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1095,19 +1097,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 50
   maxHealth: 50
+  minorHealPercent: 20
+  majorHealPercent: 50
   explodeEffect: {fileID: 3766303964827541746, guid: f1a4f39157dc997468e5269df1835807, type: 3}
   flashEffect: {fileID: -3471540749049660668}
   applyCameraShake: 1
   smallShake:
     duration: 0.25
-    magnitude: 0.1
-    frequency: 1
+    magnitude: 0.5
+    frequency: 2
     smooth: 1
   largeShake:
-    duration: 0.25
-    magnitude: 0.1
+    duration: 0.5
+    magnitude: 0.5
     frequency: 1
-    smooth: 1
+    smooth: 0
 --- !u!114 &-3471540749049660668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1136,11 +1140,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePool: {fileID: 0}
-  projectileType: 0
+  projectileType: 2
   projectileSpeed: 12
   projectileLifetime: 1
   baseFiringRate: 0.2
+  droneAI: 0
+  droneAIProjectilePoolTag: PlayerProjectilePool
   enemyAI: 0
+  enemyAIProjectilePoolTag: EnemyProjectilePool
   firingRateVariance: 0
   minimumFiringRate: 0.1
 --- !u!114 &5155027296986522556
@@ -1249,6 +1256,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.44
+--- !u!114 &392398278056835616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6300503877240476345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cc3d220261a82745af228816ec5b84d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 6673851364067509640}
+  movingFollowSpeed: 4.5
+  idleFollowSpeed: 0.25
+  bufferLength: 10
+  dronePrefab: {fileID: 7541366192719167101, guid: 88238ae7548c9434ea377155e6725ab5, type: 3}
+  startingDrones: 0
+  maxDrones: 3
+  ammoEventChannel: {fileID: 11400000, guid: 9c4e91eeec48c8844aa89b5f7fea62b1, type: 2}
 --- !u!1 &6832067960055746664
 GameObject:
   m_ObjectHideFlags: 0
@@ -1259,13 +1286,13 @@ GameObject:
   m_Component:
   - component: {fileID: 7725480243399883793}
   - component: {fileID: 5090389642816932548}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: wingYellow_6 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7725480243399883793
 Transform:
   m_ObjectHideFlags: 0
@@ -1343,7 +1370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4327003467715503879}
   - component: {fileID: 7398042353103959729}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1427,7 +1454,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3737218141516840550}
   - component: {fileID: 9123747110756172485}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: engine (R)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1489,7 +1516,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2c51f8a24beb37345bd6436897896382, type: 3}
   m_Color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
   m_FlipX: 0
@@ -1577,7 +1604,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f3077389c0e8ea842bfd500ebe289d60, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -354,6 +354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireEventChannel: {fileID: 11400000, guid: 9dfe36f8268279b4d8594a09a8c63af3, type: 2}
+  ammoEventChannel: {fileID: 11400000, guid: 9c4e91eeec48c8844aa89b5f7fea62b1, type: 2}
 --- !u!114 &6254266709195046256
 MonoBehaviour:
   m_ObjectHideFlags: 0

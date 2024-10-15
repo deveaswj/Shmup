@@ -4,24 +4,47 @@ using UnityEngine;
 
 public class DroneGroupController : MonoBehaviour
 {
-    [SerializeField] Transform player;               // Reference to the player's ship
-    [SerializeField] float movingFollowSpeed = 5f;     // Speed at which drones follow the player while moving
-    [SerializeField] float idleFollowSpeed = 0.5f;     // Speed at which drones follow the player while idle
-    [SerializeField] int bufferLength = 10;          // How many positions to buffer for delay
-    [SerializeField] GameObject dronePrefab;         // The drone prefab to instantiate
-    [SerializeField] int startingDrones = 3;         // How many drones to start with
+    [SerializeField] Transform playerTransform;     // Reference to the player's ship
+    [SerializeField] float movingFollowSpeed = 5f;  // Speed at which drones follow the player while moving
+    [SerializeField] float idleFollowSpeed = 0.5f;  // Speed at which drones follow the player while idle
+    [SerializeField] int bufferLength = 10;         // How many positions to buffer for delay
+    [SerializeField] GameObject dronePrefab;        // The drone prefab to instantiate
+    [SerializeField] int startingDrones = 1;        // How many drones to start with
+    [SerializeField] int maxDrones = 3;             // Maximum number of drones in the group
+    [SerializeField] AmmoEventChannel ammoEventChannel;
 
-    private List<DroneBehavior> drones = new(); // List of active drones
-    private List<Queue<Vector3>> droneBuffers = new(); // Buffers for staggered movement
+    private List<DroneBehavior> drones;             // List of active drones
+    private List<Queue<Vector3>> droneBuffers;      // Buffers for staggered movement
+
+    ProjectileType droneAmmoType = ProjectileType.SingleShot;
+    float droneAmmoSpeed = 1.0f;
 
     Vector3 lastPlayerPosition;
     bool playerIsMoving;
 
+    void OnEnable()
+    {
+        // Subscribe to events
+        ammoEventChannel.OnAmmoTypeChange += HandleAmmoTypeChange;
+        ammoEventChannel.OnAmmoSpeedChange += HandleAmmoSpeedChange;
+    }
+
+    void OnDisable()
+    {
+        // Unsubscribe from events
+        ammoEventChannel.OnAmmoTypeChange -= HandleAmmoTypeChange;
+        ammoEventChannel.OnAmmoSpeedChange -= HandleAmmoSpeedChange;
+    }
+
+
     void Start()
     {
-        lastPlayerPosition = player.position;
+        drones = new();
+        droneBuffers = new();
+        lastPlayerPosition = playerTransform.position;
 
         // Add the starting number of drones to the active list
+        startingDrones = Mathf.Clamp(startingDrones, 0, maxDrones);
         for (int i = 0; i < startingDrones; i++)
         {
             AddDrone();
@@ -31,8 +54,8 @@ public class DroneGroupController : MonoBehaviour
     void Update()
     {
         // Check if the player is moving
-        playerIsMoving = player.position != lastPlayerPosition;
-        lastPlayerPosition = player.position;
+        playerIsMoving = playerTransform.position != lastPlayerPosition;
+        lastPlayerPosition = playerTransform.position;
 
         float followSpeed = playerIsMoving ? movingFollowSpeed : idleFollowSpeed;
 
@@ -40,7 +63,7 @@ public class DroneGroupController : MonoBehaviour
         // Update the buffer for the first drone (following the player)
         if (drones.Count > 0)
         {
-            UpdateBuffer(droneBuffers[0], player.position);
+            UpdateBuffer(droneBuffers[0], playerTransform.position);
         }
 
         // Handle movement and update buffers for each drone
@@ -72,15 +95,25 @@ public class DroneGroupController : MonoBehaviour
     // Method to add a drone to the player's collection (e.g., when a power-up is collected)
     public void AddDrone()
     {
+        if (drones.Count >= maxDrones)
+        {
+            return;  // No more drones can be added
+        }
+
         // Instantiate a new drone object
         GameObject droneObject = Instantiate(dronePrefab);
-        droneObject.transform.position = player.position;
+        droneObject.transform.position = playerTransform.position;
 
-        // Get the DroneBehavior component and add it to the list
+        // Get the DroneBehavior component and set its properties
         DroneBehavior drone = droneObject.GetComponent<DroneBehavior>();
+        // drone.SetAmmoType(droneAmmoType);
+        // drone.SetAmmoSpeed(droneAmmoSpeed);
 
         drones.Add(drone);  // Add the drone to the active list
         droneBuffers.Add(new Queue<Vector3>(new Vector3[bufferLength])); // Add a new buffer for the drone
+
+        SetAmmoType(droneAmmoType);
+        SetAmmoSpeed(droneAmmoSpeed);
     }
 
     // Method to remove a drone (e.g., when destroyed)
@@ -100,5 +133,33 @@ public class DroneGroupController : MonoBehaviour
             buffer.Dequeue();  // Remove the oldest position
         }
         buffer.Enqueue(newPosition);  // Add the new position
+    }
+
+    public void SetAmmoType(ProjectileType type)
+    {
+        droneAmmoType = type;
+        foreach (DroneBehavior drone in drones)
+        {
+            drone.SetAmmoType(type);
+        }
+    }
+
+    public void SetAmmoSpeed(float speed = 1.0f)
+    {
+        droneAmmoSpeed = speed;
+        foreach (DroneBehavior drone in drones)
+        {
+            drone.SetAmmoSpeed(speed);
+        }
+    }
+
+    void HandleAmmoTypeChange(ProjectileType type)
+    {
+        SetAmmoType(type);
+    }
+
+    void HandleAmmoSpeedChange(float speed)
+    {
+        SetAmmoSpeed(speed);
     }
 }

@@ -33,6 +33,21 @@ public class DroneBehavior : MonoBehaviour
         {
             shooter.SetFiring(isFiring);
         }
+    }
 
+    public void SetAmmoType(ProjectileType type)
+    {
+        if (shooter != null)
+        {
+            shooter.SetProjectileType(type);
+        }
+    }
+
+    public void SetAmmoSpeed(float speed = 1.0f)
+    {
+        if (shooter != null)
+        {
+            shooter.SetSpeedMultiplier(speed);
+        }
     }
 }

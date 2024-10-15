@@ -11,6 +11,7 @@ public class Shooter : MonoBehaviour
     [SerializeField] float projectileSpeed = 10f;
     [SerializeField] float projectileLifetime = 5f;
     [SerializeField] float baseFiringRate = 0.2f;
+    float speedMultiplier = 1.0f;
 
     [Header("AI")]
     [SerializeField] bool droneAI = false;
@@ -29,8 +30,10 @@ public class Shooter : MonoBehaviour
     Coroutine firingCoroutine;
 
     public void SetFiring(bool value) => isFiring = value;
+    public void SetProjectileType(ProjectileType newType) => projectileType = newType;
 
-    public void SetProjectilePool(ProjectilePool pool) => projectilePool = pool;
+    public void SetSpeedMultiplier(float newMultiplier) => speedMultiplier = newMultiplier;
+    public void SetSpeedMultiplier() => speedMultiplier = 1.0f;
 
     void Start()
     {
@@ -78,8 +81,6 @@ public class Shooter : MonoBehaviour
     }
 
     bool OutOfBounds() => transform.position.x < minBounds.x || transform.position.x > maxBounds.x || transform.position.y < minBounds.y || transform.position.y > maxBounds.y;
-
-    public void SetProjectileType(ProjectileType newType) => projectileType = newType;
 
     void Update()
     {
@@ -158,7 +159,8 @@ public class Shooter : MonoBehaviour
         if (!errorState)
         {
             // player & drones fire up, enemies fire down
-            Vector2 velocity = (enemyAI ? -transform.up : transform.up) * projectileSpeed;
+            float finalSpeed = speedMultiplier * projectileSpeed;
+            Vector2 velocity = (enemyAI ? -transform.up : transform.up) * finalSpeed;
             projectile.Fire(transform.position, velocity);
             StartCoroutine(ReturnProjectileAfterLifetime(projectile, projectileLifetime));
         }

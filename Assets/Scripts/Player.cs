@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     [SerializeField] FireEventChannel fireEventChannel;
+    [SerializeField] AmmoEventChannel ammoEventChannel;
+    DroneGroupController droneGroupController;
 
     [Header("Movement")]
     [SerializeField] float moveSpeed = 5f;
@@ -37,15 +39,21 @@ public class Player : MonoBehaviour
     // How we shoot
     Shooter shooter;
 
+    // Health
+    Health health;
+
     void Awake()
     {
         shooter = GetComponent<Shooter>();
+        droneGroupController = GetComponent<DroneGroupController>();
+        health = GetComponent<Health>();
     }
 
     void Start()
     {
         InitShield();
         InitializeBounds();
+        Weapon_Default();
     }
 
     void InitShield()
@@ -149,9 +157,11 @@ public class Player : MonoBehaviour
     {
         switch (powerUpType)
         {
-            case PowerUpType.Health:
+            case PowerUpType.MinorHeal:
+            case PowerUpType.MajorHeal:
+            case PowerUpType.FullHeal:
                 Debug.Log("Power up: Health");
-                HealthPowerUp();
+                HealthPowerUp(powerUpType);
                 break;
             case PowerUpType.Shield:
                 Debug.Log("Power up: Shield");
@@ -162,25 +172,50 @@ public class Player : MonoBehaviour
                 SpeedPowerUp();
                 break;
             case PowerUpType.Weapon1:
-                Debug.Log("Power up: Weapon 1 (DoubleShot)");
-                Weapon_DoubleShot();
+                Debug.Log("Power up: Weapon 1 (DoubleSpeed)");
+                Weapon_DoubleSpeed();
                 break;
             case PowerUpType.Weapon2:
-                Debug.Log("Power up: Weapon 2 (DoubleSpeed)");
-                Weapon_DoubleSpeed();
+                Debug.Log("Power up: Weapon 2 (DoubleShot)");
+                Weapon_DoubleShot();
                 break;
             case PowerUpType.Weapon3:
                 Debug.Log("Power up: Weapon 3 (Photon)");
                 Weapon_Photon();
+                break;
+            case PowerUpType.Drone:
+                Debug.Log("Power up: Drone");
+                DronePowerUp();
                 break;
             default:
                 break;
         }
     }
 
-    void HealthPowerUp()
+    void HealthPowerUp(PowerUpType powerUpType)
     {
         // Add health
+        if (health != null)
+        {
+            switch (powerUpType)
+            {
+                case PowerUpType.MinorHeal:
+                    health.MinorHeal();
+                    break;
+                case PowerUpType.MajorHeal:
+                    health.MajorHeal();
+                    break;
+                case PowerUpType.FullHeal:
+                    health.FullHeal();
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            Debug.LogError("Health script is null??");
+        }
     }
 
     void ShieldPowerUp()
@@ -207,19 +242,49 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Weapon_DoubleShot()
+    void Weapon_Default()
     {
         // Add weapon
+        shooter.SetProjectileType(ProjectileType.SingleShot);
+        shooter.SetSpeedMultiplier();
+        ammoEventChannel.RaiseTypeEvent(ProjectileType.SingleShot);
+        ammoEventChannel.RaiseSpeedEvent();
     }
 
     void Weapon_DoubleSpeed()
     {
         // Add weapon
+        shooter.SetProjectileType(ProjectileType.SingleShot);
+        shooter.SetSpeedMultiplier(2.0f);
+        ammoEventChannel.RaiseTypeEvent(ProjectileType.SingleShot);
+        ammoEventChannel.RaiseSpeedEvent(2.0f);
+    }
+
+    void Weapon_DoubleShot()
+    {
+        // Add weapon
+        shooter.SetProjectileType(ProjectileType.DoubleShot);
+        shooter.SetSpeedMultiplier();
+        ammoEventChannel.RaiseTypeEvent(ProjectileType.DoubleShot);
+        ammoEventChannel.RaiseSpeedEvent();
     }
 
     void Weapon_Photon()
     {
         // Add weapon
+        shooter.SetProjectileType(ProjectileType.Photon);
+        shooter.SetSpeedMultiplier();
+        ammoEventChannel.RaiseTypeEvent(ProjectileType.Photon);
+        ammoEventChannel.RaiseSpeedEvent();
+    }
+
+    void DronePowerUp()
+    {
+        // Add drone
+        if (droneGroupController != null)
+        {
+            droneGroupController.AddDrone();
+        }
     }
 
     IEnumerator BoostSpeed()
