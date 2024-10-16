@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Add this to Enemy prefabs
+
 public class Pathfinder : MonoBehaviour
 {
     [SerializeField] EnemyBehaviorType behaviorWhenShot;
@@ -10,11 +12,12 @@ public class Pathfinder : MonoBehaviour
     List<Transform> waypoints;
     int waypointIndex = 0;
     Health health;
+    bool hasHealth;
+    bool isOffScreen;
 
     void Awake()
     {
         enemySpawner = FindObjectOfType<EnemySpawner>();
-        health = GetComponent<Health>();
     }
 
     void Start()
@@ -22,11 +25,12 @@ public class Pathfinder : MonoBehaviour
         waveConfig = enemySpawner.GetCurrentWave();
         waypoints = waveConfig.GetWaypoints();
         transform.position = waypoints[waypointIndex].position;
+        hasHealth = TryGetComponent(out health);
     }
 
     void Update()
     {
-        int damage = health.GetDamage();
+        int damage = hasHealth ? health.GetDamage() : 0;
         if (damage > 0)
         {
             ActWhenDamaged();
@@ -45,8 +49,10 @@ public class Pathfinder : MonoBehaviour
                 FollowPath();
                 break;
             case EnemyBehaviorType.Flee:
+                Flee();
                 break;
             case EnemyBehaviorType.Dive:
+                Dive();
                 break;
             default:
                 break;
@@ -77,7 +83,7 @@ public class Pathfinder : MonoBehaviour
         float deltaMove = waveConfig.GetMoveSpeed() * Time.deltaTime;
         transform.position += Vector3.up * deltaMove;
 
-        // TODO: destroy when off screen
+        if (isOffScreen) Destroy(gameObject);
     }
 
     void Dive()
@@ -86,6 +92,16 @@ public class Pathfinder : MonoBehaviour
         float deltaMove = waveConfig.GetMoveSpeed() * Time.deltaTime;
         transform.position -= Vector3.up * deltaMove;
 
-        // TODO: destroy when off screen
+        if (isOffScreen) Destroy(gameObject);
+    }
+
+    void OnBecameInvisible()
+    {
+        isOffScreen = true;
+    }
+
+    void OnBecameVisible()
+    {
+        isOffScreen = false;
     }
 }

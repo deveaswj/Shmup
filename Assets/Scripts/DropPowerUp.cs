@@ -17,6 +17,7 @@ public class DropPowerUp : MonoBehaviour
     [SerializeField] float dropChance = 0.2f; // Chance to drop a power-up at all (20% in this case)
 
     private static bool isQuitting = false;
+    private bool isOffScreen = false;
 
     void Awake()
     {
@@ -29,16 +30,25 @@ public class DropPowerUp : MonoBehaviour
         isQuitting = true;
     }
 
+    void OnBecameInvisible()
+    {
+        isOffScreen = true;
+    }
+
+    void OnBecameVisible()
+    {
+        isOffScreen = false;
+    }
+
     void OnDestroy()
     {
         // Skip the logic if the game is quitting
+        // or if the enemy is off screen when destroyed
         if (isQuitting || !Application.isPlaying) return;
 
         // Random chance to drop a power-up
-        if (Random.value < dropChance)
+        if (powerUpEntries.Count > 0 && Random.value < dropChance)
         {
-            if (powerUpEntries.Count == 0) return; // Exit if no power-ups are defined
-
             // Calculate the total weight sum
             int totalWeight = 0;
             foreach (var entry in powerUpEntries)

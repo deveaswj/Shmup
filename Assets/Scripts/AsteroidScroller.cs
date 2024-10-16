@@ -11,7 +11,8 @@ public class AsteroidScroller : MonoBehaviour
 
     public ParallaxLayer[] layers; // Array of parallax layers
     public float baseSpeed = 1f; // Base scrolling speed for all layers
-    public Camera mainCamera;
+
+    [SerializeField] Camera mainCamera;
 
     private Vector2 screenBounds; // Store screen bounds to wrap sprites
 
@@ -34,7 +35,7 @@ public class AsteroidScroller : MonoBehaviour
         foreach (GameObject sprite in layer.sprites)
         {
             // Move the sprite downward at the appropriate speed
-            sprite.transform.Translate(Vector3.down * layer.speedMultiplier * baseSpeed * Time.deltaTime);
+            sprite.transform.Translate(baseSpeed * layer.speedMultiplier * Time.deltaTime * Vector3.down, Space.World);
 
             // Check if the sprite has moved off the bottom of the screen
             if (sprite.transform.position.y < -screenBounds.y - sprite.GetComponent<SpriteRenderer>().bounds.size.y / 2)
