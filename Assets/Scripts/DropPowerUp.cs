@@ -30,21 +30,21 @@ public class DropPowerUp : MonoBehaviour
         isQuitting = true;
     }
 
-    void OnBecameInvisible()
-    {
-        isOffScreen = true;
-    }
+    // void OnBecameInvisible()
+    // {
+    //     isOffScreen = true;
+    // }
 
-    void OnBecameVisible()
-    {
-        isOffScreen = false;
-    }
+    // void OnBecameVisible()
+    // {
+    //     isOffScreen = false;
+    // }
 
     void OnDestroy()
     {
         // Skip the logic if the game is quitting
         // or if the enemy is off screen when destroyed
-        if (isQuitting || !Application.isPlaying) return;
+        if (isOffScreen || isQuitting || !Application.isPlaying) return;
 
         // Random chance to drop a power-up
         if (powerUpEntries.Count > 0 && Random.value < dropChance)

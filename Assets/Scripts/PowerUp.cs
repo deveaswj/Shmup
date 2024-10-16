@@ -86,10 +86,17 @@ public class PowerUp : MonoBehaviour
         // move anchorPoint downward if it's in the upper half of the screen
         // because the ship is restricted to the lower part of the screen
         Vector3 viewportPos = Camera.main.WorldToViewportPoint(anchorPoint);
+        Vector2 newAnchorPoint = new(anchorPoint.x, anchorPoint.y);
         if (viewportPos.y > 0.5f)
         {
-            anchorPoint = Vector3.Lerp(anchorPoint, new Vector3(anchorPoint.x, anchorPoint.y - 1f, anchorPoint.z), Time.deltaTime * anchorMoveSpeed);
+            newAnchorPoint.y -= 1f;
         }
+        // move anchorPoint inward if it's near the left or right edge of the screen
+        if (viewportPos.x < 0.2f || viewportPos.x > 0.8f)
+        {
+            newAnchorPoint.x += viewportPos.x < 0.2f ? 2f : -2f;
+        }
+        anchorPoint = Vector3.Lerp(anchorPoint, new Vector3(newAnchorPoint.x, newAnchorPoint.y, anchorPoint.z), Time.deltaTime * anchorMoveSpeed);
     }
 
     void FloatAround()
