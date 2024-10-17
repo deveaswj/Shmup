@@ -14,6 +14,8 @@ public class Pathfinder : MonoBehaviour
     Health health;
     bool hasHealth;
     bool isOffScreen;
+    Vector3 v3up = Vector3.up;
+    int damage = 0;
 
     void Awake()
     {
@@ -30,7 +32,7 @@ public class Pathfinder : MonoBehaviour
 
     void Update()
     {
-        int damage = hasHealth ? health.GetDamage() : 0;
+        damage = hasHealth ? health.GetDamage() : 0;
         if (damage > 0)
         {
             ActWhenDamaged();
@@ -73,7 +75,7 @@ public class Pathfinder : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            DestroyShip();
         }
     }
 
@@ -81,18 +83,27 @@ public class Pathfinder : MonoBehaviour
     {
         // move upwards, destroy when off screen   
         float deltaMove = waveConfig.GetMoveSpeed() * Time.deltaTime;
-        transform.position += Vector3.up * deltaMove;
+        transform.position += v3up * deltaMove;
 
-        if (isOffScreen) Destroy(gameObject);
+        if (isOffScreen) DestroyShip();
     }
 
     void Dive()
     {
         // move downwards, destroy when off screen
         float deltaMove = waveConfig.GetMoveSpeed() * Time.deltaTime;
-        transform.position -= Vector3.up * deltaMove;
+        transform.position -= v3up * deltaMove;
 
-        if (isOffScreen) Destroy(gameObject);
+        if (isOffScreen) DestroyShip();
+    }
+
+    void DestroyShip()
+    {
+        if (TryGetComponent<DropPowerUp>(out var dropPowerUp))
+        {
+            dropPowerUp.SetEnabled(false);
+        }
+        Destroy(gameObject);
     }
 
     void OnBecameInvisible()

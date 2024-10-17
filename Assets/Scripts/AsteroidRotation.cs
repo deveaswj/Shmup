@@ -6,11 +6,12 @@ public class AsteroidRotation : MonoBehaviour
     [SerializeField] float rotationSpeed = 30f;
     [SerializeField] bool alternatesRotation = true;
     int rotationDirection = 1;
+    Vector3 rotationAxis = Vector3.forward;
 
     void Update()
     {
         // Rotate the asteroid based on the rotationSpeed value
-        transform.Rotate(Vector3.forward, -rotationSpeed * rotationDirection * Time.deltaTime);
+        transform.Rotate(rotationAxis, -rotationSpeed * rotationDirection * Time.deltaTime);
     }
 
     void OnBecameInvisible()

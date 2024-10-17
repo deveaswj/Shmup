@@ -17,7 +17,7 @@ public class DropPowerUp : MonoBehaviour
     [SerializeField] float dropChance = 0.2f; // Chance to drop a power-up at all (20% in this case)
 
     private static bool isQuitting = false;
-    private bool isOffScreen = false;
+    private bool canDrop = true;
 
     void Awake()
     {
@@ -25,26 +25,27 @@ public class DropPowerUp : MonoBehaviour
         Application.quitting += OnApplicationQuit;
     }
 
+    public void SetEnabled(bool value)
+    {
+        Debug.Log("DropPowerUp set to " + (value ? "enabled" : "disabled"));
+        canDrop = value;
+    }
+
     void OnApplicationQuit()
     {
         isQuitting = true;
+        SetEnabled(false);
     }
-
-    // void OnBecameInvisible()
-    // {
-    //     isOffScreen = true;
-    // }
-
-    // void OnBecameVisible()
-    // {
-    //     isOffScreen = false;
-    // }
 
     void OnDestroy()
     {
         // Skip the logic if the game is quitting
-        // or if the enemy is off screen when destroyed
-        if (isOffScreen || isQuitting || !Application.isPlaying) return;
+        if (isQuitting || !Application.isPlaying) return;
+        if (!canDrop)
+        {
+            Debug.Log("DropPowerUp on destroy canceled");
+            return;
+        }
 
         // Random chance to drop a power-up
         if (powerUpEntries.Count > 0 && Random.value < dropChance)

@@ -15,6 +15,7 @@ public class AsteroidScroller : MonoBehaviour
     [SerializeField] Camera mainCamera;
 
     private Vector2 screenBounds; // Store screen bounds to wrap sprites
+    Vector3 v3down = Vector3.down;
 
     class SpriteCache
     {
@@ -68,7 +69,7 @@ public class AsteroidScroller : MonoBehaviour
     void ScrollLayer(SpriteCache spriteData)
     {
         float speed = baseSpeed * spriteData.speedMultiplier;
-        Vector3 movement = speed * Time.deltaTime * Vector3.down;
+        Vector3 movement = speed * Time.deltaTime * v3down;
 
         for (int i = 0; i < spriteData.Length; i++)
         {

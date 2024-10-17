@@ -16,6 +16,8 @@ public class VerticalParallaxScroll : MonoBehaviour
     private float[] backgroundHeights; // Stores the height of each background
     private float viewHeight; // Height of the camera view
     int count = 0;
+    Vector3 v3up = Vector3.up;
+    Vector3 v3down = Vector3.down;
 
     void Start()
     {
@@ -39,7 +41,7 @@ public class VerticalParallaxScroll : MonoBehaviour
             backgroundHeights[i] = spriteRenderer.bounds.size.y;
 
             // Instantiate the clone directly above the original
-            backgroundPairs[i, 1] = Instantiate(bg, bg.transform.position + Vector3.up * backgroundHeights[i], Quaternion.identity, transform);
+            backgroundPairs[i, 1] = Instantiate(bg, bg.transform.position + v3up * backgroundHeights[i], Quaternion.identity, transform);
         }
     }
 
@@ -53,8 +55,8 @@ public class VerticalParallaxScroll : MonoBehaviour
             float height = backgroundHeights[i];
 
             // Move both original and clone downwards based on their speed
-            originalTransform.Translate(speed * Time.deltaTime * Vector3.down);
-            cloneTransform.Translate(speed * Time.deltaTime * Vector3.down);
+            originalTransform.Translate(speed * Time.deltaTime * v3down);
+            cloneTransform.Translate(speed * Time.deltaTime * v3down);
 
             // Calculate the point at which the background should be repositioned
             float repositionThreshold = -(height / 2 + viewHeight / 2); // Adjust for the background being larger than the camera view
@@ -62,13 +64,13 @@ public class VerticalParallaxScroll : MonoBehaviour
             // Reposition the original if it moves off-screen
             if (originalTransform.position.y < repositionThreshold)
             {
-                originalTransform.position = cloneTransform.position + Vector3.up * height;
+                originalTransform.position = cloneTransform.position + v3up * height;
             }
 
             // Reposition the clone if it moves off-screen
             if (cloneTransform.position.y < repositionThreshold)
             {
-                cloneTransform.position = originalTransform.position + Vector3.up * height;
+                cloneTransform.position = originalTransform.position + v3up * height;
             }
         }
     }

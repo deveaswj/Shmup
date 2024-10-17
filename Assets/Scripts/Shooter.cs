@@ -9,9 +9,14 @@ public class Shooter : MonoBehaviour
     [SerializeField] ProjectilePool projectilePool;
     [SerializeField] ProjectileType projectileType;
     [SerializeField] float projectileSpeed = 10f;
-    [SerializeField] float projectileLifetime = 5f;
+    [SerializeField] float projectileLifetime = 5f; // maximum lifetime
     [SerializeField] float baseFiringRate = 0.2f;
-    float speedMultiplier = 1.0f;
+    float speedMultiplier;
+    float adjustedSpeed;
+    float adjustedLifetime;
+    Vector2 velocity;
+    Vector3 direction;
+    float cameraHeight;
 
     [Header("AI")]
     [SerializeField] bool droneAI = false;
@@ -32,15 +37,27 @@ public class Shooter : MonoBehaviour
     public void SetFiring(bool value) => isFiring = value;
     public void SetProjectileType(ProjectileType newType) => projectileType = newType;
 
-    public void SetSpeedMultiplier(float newMultiplier) => speedMultiplier = newMultiplier;
-    public void SetSpeedMultiplier() => speedMultiplier = 1.0f;
+    public void SetSpeedMultiplier(float newMultiplier)
+    {
+        speedMultiplier = newMultiplier;
+        // pre-calculate these so we don't have to do it every frame
+        adjustedSpeed = speedMultiplier * projectileSpeed;
+        adjustedLifetime = Mathf.Clamp(cameraHeight / adjustedSpeed, 0f, 2f + projectileLifetime);
+        velocity = direction * adjustedSpeed;
+    }
+
+    public void SetSpeedMultiplier() => SetSpeedMultiplier(1.0f);
 
     void Start()
     {
         InitializeBounds();
+        cameraHeight = 2 * Camera.main.orthographicSize;
+        direction = (enemyAI ? -transform.up : transform.up);
         debugPrefix = (enemyAI ? "Enemy " : (droneAI ? "Drone " : "Player ")) + "Shooter: ";
         FindProjectilePool();
         SetFiring(enemyAI);
+        SetSpeedMultiplier();   // call in Start to precalculate some variables
+        // player & drones fire up, enemies fire down
     }
 
     void FindProjectilePool()
@@ -158,11 +175,11 @@ public class Shooter : MonoBehaviour
         }
         if (!errorState)
         {
-            // player & drones fire up, enemies fire down
-            float finalSpeed = speedMultiplier * projectileSpeed;
-            Vector2 velocity = (enemyAI ? -transform.up : transform.up) * finalSpeed;
+            // float finalSpeed = speedMultiplier * projectileSpeed;
+            // float finalLifetime = cameraHeight / finalSpeed;
+            // Vector2 velocity = direction * finalSpeed;
             projectile.Fire(transform.position, velocity);
-            StartCoroutine(ReturnProjectileAfterLifetime(projectile, projectileLifetime));
+            StartCoroutine(ReturnProjectileAfterLifetime(projectile, adjustedLifetime));
         }
         return errorState;
     }
