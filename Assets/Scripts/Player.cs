@@ -42,11 +42,14 @@ public class Player : MonoBehaviour
     // Health
     Health health;
 
+    AudioPlayer audioPlayer;
+
     void Awake()
     {
         shooter = GetComponent<Shooter>();
         droneGroupController = GetComponent<DroneGroupController>();
         health = GetComponent<Health>();
+        audioPlayer = FindObjectOfType<AudioPlayer>();
     }
 
     void Start()
@@ -173,14 +176,17 @@ public class Player : MonoBehaviour
                 break;
             case PowerUpType.Weapon1:
                 Debug.Log("Power up: Weapon 1 (DoubleSpeed)");
+                audioPlayer.PlayPowerUpClip();
                 Weapon_DoubleSpeed();
                 break;
             case PowerUpType.Weapon2:
                 Debug.Log("Power up: Weapon 2 (DoubleShot)");
+                audioPlayer.PlayPowerUpClip();
                 Weapon_DoubleShot();
                 break;
             case PowerUpType.Weapon3:
                 Debug.Log("Power up: Weapon 3 (Photon)");
+                audioPlayer.PlayPowerUpClip();
                 Weapon_Photon();
                 break;
             case PowerUpType.Drone:
@@ -197,6 +203,7 @@ public class Player : MonoBehaviour
         // Add health
         if (health != null)
         {
+            audioPlayer.PlayPowerUpClip();
             switch (powerUpType)
             {
                 case PowerUpType.MinorHeal:
@@ -224,6 +231,7 @@ public class Player : MonoBehaviour
         if (shieldScript != null)
         {
             Debug.Log("Shield ready to turn on");
+            audioPlayer.PlayShieldOnClip();
             shieldScript.TurnOn();
         }
         else
@@ -237,6 +245,7 @@ public class Player : MonoBehaviour
         // Add speed
         if (!boosted)
         {
+            audioPlayer.PlayPowerUpClip();
             // start boost coroutine
             StartCoroutine(BoostSpeed());
         }
@@ -283,6 +292,7 @@ public class Player : MonoBehaviour
         // Add drone
         if (droneGroupController != null)
         {
+            audioPlayer.PlayPowerUpClip();
             droneGroupController.AddDrone();
         }
     }

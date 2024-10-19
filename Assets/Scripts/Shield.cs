@@ -27,6 +27,8 @@ public class Shield : MonoBehaviour
 
     float shieldHitFXTimer = 0f;
 
+    AudioPlayer audioPlayer;
+
     public void SetPlayerShip(GameObject obj) { playerShip = obj; }
     public void SetPositionOffset(Vector2 offset) { positionOffset = offset; }
     public void SetLocalScale(Vector2 scale) { localScale = scale; }
@@ -36,6 +38,7 @@ public class Shield : MonoBehaviour
         startingHitPoints = shieldHitPoints;
         sr = GetComponent<SpriteRenderer>();
         cc = GetComponent<CircleCollider2D>();
+        audioPlayer = FindObjectOfType<AudioPlayer>();
     }
 
     private void Start()
@@ -107,6 +110,7 @@ public class Shield : MonoBehaviour
         }
         else
         {
+            audioPlayer.PlayShieldOffClip();
             TurnOff();  // Trigger shield destruction or deactivation
         }
     }
@@ -115,7 +119,6 @@ public class Shield : MonoBehaviour
     {
         // Deactivate the shield
         shieldOn = false;
-        // gameObject.SetActive(false);
         Debug.Log("Shield turned off");
     }
 
@@ -123,7 +126,6 @@ public class Shield : MonoBehaviour
     {
         // Activate the shield
         shieldOn = true;
-        // gameObject.SetActive(true);
         shieldHitPoints = startingHitPoints;
         Debug.Log("Shield turned on");
     }

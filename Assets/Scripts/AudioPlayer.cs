@@ -20,6 +20,14 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField] AudioClip powerUpClip;
     [SerializeField] [Range(0f, 1f)] float powerUpVolume = 1f;
 
+    [Header("ShieldOn")]
+    [SerializeField] AudioClip shieldOnClip;
+    [SerializeField] [Range(0f, 1f)] float shieldOnVolume = 1f;
+
+    [Header("ShieldOff")]
+    [SerializeField] AudioClip shieldOffClip;
+    [SerializeField] [Range(0f, 1f)] float shieldOffVolume = 1f;
+
     public void PlayShootingClip()
     {
         PlayClipAtVolume(shootingClip, shootingVolume);
@@ -38,6 +46,16 @@ public class AudioPlayer : MonoBehaviour
     public void PlayPowerUpClip()
     {
         PlayClipAtVolume(powerUpClip, powerUpVolume);
+    }
+
+    public void PlayShieldOnClip()
+    {
+        PlayClipAtVolume(shieldOnClip, shieldOnVolume);
+    }
+
+    public void PlayShieldOffClip()
+    {
+        PlayClipAtVolume(shieldOffClip, shieldOffVolume);
     }
 
     void PlayClipAtVolume(AudioClip clip, float volume)

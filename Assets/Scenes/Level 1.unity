@@ -499,6 +499,7 @@ GameObject:
   m_Component:
   - component: {fileID: 664664699}
   - component: {fileID: 664664698}
+  - component: {fileID: 664664701}
   - component: {fileID: 664664700}
   m_Layer: 0
   m_Name: AudioPlayer
@@ -520,13 +521,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootingClip: {fileID: 8300000, guid: 3eede14b5e3d2fe4abef7283436c9a45, type: 3}
-  shootingVolume: 1
+  shootingVolume: 0.3
   damageClip: {fileID: 8300000, guid: 48764ac72abb06d42a66eb3fd9a52097, type: 3}
   damageVolume: 1
   explosionClip: {fileID: 8300000, guid: d3de54ebf91d3c74f87f746c48ab16aa, type: 3}
-  explosionVolume: 1
+  explosionVolume: 0.5
   powerUpClip: {fileID: 8300000, guid: 10ae85295742bd64b919119225216f93, type: 3}
   powerUpVolume: 1
+  shieldOnClip: {fileID: 8300000, guid: e4b2004b7d6340a468ba08c9d6291a84, type: 3}
+  shieldOnVolume: 1
+  shieldOffClip: {fileID: 8300000, guid: 288f81e9c81d34d4c80d03efaa7b0597, type: 3}
+  shieldOffVolume: 1
 --- !u!4 &664664699
 Transform:
   m_ObjectHideFlags: 0
@@ -638,6 +643,49 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &664664701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664664697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6effb30c22c96db42aaf9fb07c8afbc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCount: 10
+  projectile:
+    audioClip: {fileID: 8300000, guid: 3eede14b5e3d2fe4abef7283436c9a45, type: 3}
+    volume: 1
+    pitch: 1
+    priority: 0
+  damage:
+    audioClip: {fileID: 8300000, guid: 48764ac72abb06d42a66eb3fd9a52097, type: 3}
+    volume: 1
+    pitch: 1
+    priority: 1
+  explosion:
+    audioClip: {fileID: 8300000, guid: d3de54ebf91d3c74f87f746c48ab16aa, type: 3}
+    volume: 1
+    pitch: 1
+    priority: 1
+  powerUp:
+    audioClip: {fileID: 8300000, guid: 10ae85295742bd64b919119225216f93, type: 3}
+    volume: 1
+    pitch: 1
+    priority: 2
+  shieldOn:
+    audioClip: {fileID: 8300000, guid: e4b2004b7d6340a468ba08c9d6291a84, type: 3}
+    volume: 1
+    pitch: 1
+    priority: 3
+  shieldOff:
+    audioClip: {fileID: 8300000, guid: 288f81e9c81d34d4c80d03efaa7b0597, type: 3}
+    volume: 1
+    pitch: 1
+    priority: 3
 --- !u!1 &1043197638
 GameObject:
   m_ObjectHideFlags: 0
