@@ -23,6 +23,8 @@ public class Health : MonoBehaviour
     CameraShake cameraShake;
     ShakeSettings nextShake;
 
+    AudioPlayer audioPlayer;
+
     public int GetHealth() => health;
     public int GetDamage() => maxHealth - health;
 
@@ -45,6 +47,7 @@ public class Health : MonoBehaviour
     {
         cameraShake = Camera.main.GetComponent<CameraShake>();
         health = maxHealth;
+        audioPlayer = FindObjectOfType<AudioPlayer>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -80,11 +83,13 @@ public class Health : MonoBehaviour
         if (health > 0)
         {
             nextShake = smallShake;
+            audioPlayer.PlayDamageClip();
             PlayFlashEffect();
         }
         else
         {
             nextShake = largeShake;
+            audioPlayer.PlayExplosionClip();
             PlayExplosion();
             Die();
         }
