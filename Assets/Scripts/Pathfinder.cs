@@ -7,6 +7,7 @@ using UnityEngine;
 public class Pathfinder : MonoBehaviour
 {
     [SerializeField] EnemyBehaviorType behaviorWhenShot;
+    [SerializeField] [Range(0f, 1f)] float behaviorOdds = 0.5f;
     EnemySpawner enemySpawner;
     WaveConfigSO waveConfig;
     List<Transform> waypoints;
@@ -16,6 +17,9 @@ public class Pathfinder : MonoBehaviour
     bool isOffScreen;
     Vector3 v3up = Vector3.up;
     int damage = 0;
+    int loopCount = 0;
+    float random;
+    bool actOnOdds = false;
 
     void Awake()
     {
@@ -28,12 +32,14 @@ public class Pathfinder : MonoBehaviour
         waypoints = waveConfig.GetWaypoints();
         transform.position = waypoints[waypointIndex].position;
         hasHealth = TryGetComponent(out health);
+        random = Random.Range(0f, 1f);
+        actOnOdds = random < behaviorOdds;
     }
 
     void Update()
     {
         damage = hasHealth ? health.GetDamage() : 0;
-        if (damage > 0)
+        if (damage > 0 && actOnOdds)
         {
             ActWhenDamaged();
         }
@@ -75,7 +81,16 @@ public class Pathfinder : MonoBehaviour
         }
         else
         {
-            DestroyShip();
+			if (loopCount < waveConfig.loops)
+			{
+				loopCount++;
+				waypointIndex = 0;
+				transform.position = waypoints[waypointIndex].position;
+			}
+			else
+			{
+				DestroyShip();
+			}
         }
     }
 

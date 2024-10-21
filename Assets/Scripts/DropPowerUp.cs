@@ -14,7 +14,7 @@ public class DropPowerUp : MonoBehaviour
     }
 
     [SerializeField] List<PowerUpEntry> powerUpEntries = new(); // List of power-up prefabs with weights
-    [SerializeField] float dropChance = 0.2f; // Chance to drop a power-up at all (20% in this case)
+    [SerializeField] [Range(0f,1f)] float dropChance = 0.2f; // Chance to drop a power-up at all (20% in this case)
 
     private static bool isQuitting = false;
     private bool canDrop = true;

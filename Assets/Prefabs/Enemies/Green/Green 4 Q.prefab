@@ -10,12 +10,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1001191620367743566, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: m_Name
-      value: Blue 4
+      value: Green 4 Q
       objectReference: {fileID: 0}
     - target: {fileID: 1557956015073297079, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 5cb19334cc52cec48955633aafdead24, type: 3}
+      objectReference: {fileID: 21300000, guid: 281a84ef5b246ca409f9db7cabf4703c, type: 3}
+    - target: {fileID: 3084993028967645405, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
+      propertyPath: baseFiringRate
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3084993028967645405, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
+      propertyPath: projectileSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3928199785275935830, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
+      propertyPath: health
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3928199785275935830, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
+      propertyPath: maxHealth
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 4623582694837610655, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -54,6 +70,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4623582694837610655, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032558556061735616, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
+      propertyPath: behaviorWhenShot
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

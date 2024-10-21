@@ -207,10 +207,10 @@ public class Player : MonoBehaviour
             switch (powerUpType)
             {
                 case PowerUpType.MinorHeal:
-                    health.MinorHeal();
+                    health.MinorHealPlus();
                     break;
                 case PowerUpType.MajorHeal:
-                    health.MajorHeal();
+                    health.MajorHealPlus();
                     break;
                 case PowerUpType.FullHeal:
                     health.FullHeal();
@@ -300,6 +300,7 @@ public class Player : MonoBehaviour
     IEnumerator BoostSpeed()
     {
         boosted = true;
+        audioPlayer.PlayBoosterClip();
         yield return new WaitForSeconds(boostDuration);
         boosted = false;
     }

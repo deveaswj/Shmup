@@ -37,6 +37,8 @@ public class Shooter : MonoBehaviour
     AudioPlayer audioPlayer;
     bool useAudio = true;
 
+    int counter = 0;
+
     void Awake()
     {
         audioPlayer = FindObjectOfType<AudioPlayer>();
@@ -187,7 +189,8 @@ public class Shooter : MonoBehaviour
             // float finalSpeed = speedMultiplier * projectileSpeed;
             // float finalLifetime = cameraHeight / finalSpeed;
             // Vector2 velocity = direction * finalSpeed;
-            projectile.Fire(transform.position, velocity);
+            projectile.Fire(transform.position, velocity, counter);
+            counter++;
 
             if (useAudio) audioPlayer.PlayShootingClip();
 

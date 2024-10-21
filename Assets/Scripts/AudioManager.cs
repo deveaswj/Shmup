@@ -22,6 +22,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClipData powerUp;
     [SerializeField] AudioClipData shieldOn;
     [SerializeField] AudioClipData shieldOff;
+    [SerializeField] AudioClipData booster;
 
     private class AudioSourceWrapper
     {
@@ -60,6 +61,11 @@ public class AudioManager : MonoBehaviour
     public void PlayShieldOffClip()
     {
         PlaySound(shieldOff);
+    }
+
+    public void PlayBoosterClip()
+    {
+        PlaySound(booster);
     }
 
     void Awake()

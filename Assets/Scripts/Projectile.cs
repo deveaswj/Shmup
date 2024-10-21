@@ -23,6 +23,7 @@ public class Projectile : MonoBehaviour
     //[SerializeField] float minimumFiringRate = 0.1f;
 
     [SerializeField] ProjectileType projectileType;
+    [SerializeField] GameObject spriteSource;
 
     private Rigidbody2D rb;
 
@@ -31,11 +32,16 @@ public class Projectile : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Fire(Vector2 position, Vector2 velocity)
+    public void Fire(Vector2 position, Vector2 velocity, int counter = 0)
     {
         transform.position = position;
         gameObject.SetActive(true);
         rb.velocity = velocity;
+
+        // special code for Photon type
+        // if (projectileType == ProjectileType.Photon)
+        // {
+        // }
     }
 
     public void Deactivate()

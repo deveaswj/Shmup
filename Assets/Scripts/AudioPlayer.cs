@@ -28,6 +28,11 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField] AudioClip shieldOffClip;
     [SerializeField] [Range(0f, 1f)] float shieldOffVolume = 1f;
 
+    [Header("Booster")]
+    [SerializeField] AudioClip boosterClip;
+    [SerializeField] [Range(0f, 1f)] float boosterVolume = 1f;
+
+
     public void PlayShootingClip()
     {
         PlayClipAtVolume(shootingClip, shootingVolume);
@@ -56,6 +61,11 @@ public class AudioPlayer : MonoBehaviour
     public void PlayShieldOffClip()
     {
         PlayClipAtVolume(shieldOffClip, shieldOffVolume);
+    }
+
+    public void PlayBoosterClip()
+    {
+        PlayClipAtVolume(boosterClip, boosterVolume);
     }
 
     void PlayClipAtVolume(AudioClip clip, float volume)

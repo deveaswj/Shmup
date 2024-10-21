@@ -38,6 +38,32 @@ public class Health : MonoBehaviour
         AddHealthPercentage(majorHealPercent);
     }
 
+    public void MinorHealPlus()
+    {
+        // add maxhealth if already at full
+        if (health == maxHealth)
+        {
+            AddMaxHealth(maxHealth * (minorHealPercent / 100));
+        }
+        else
+        {
+            MinorHeal();
+        }
+    }
+
+    public void MajorHealPlus()
+    {
+        // add maxhealth if already at full
+        if (health == maxHealth)
+        {
+            AddMaxHealth(maxHealth * (majorHealPercent / 100));
+        }
+        else
+        {
+            MajorHeal();
+        }
+    }
+
     public void FullHeal()
     {
         health = maxHealth;

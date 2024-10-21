@@ -11,10 +11,12 @@ public class WaveConfigSO : ScriptableObject
     [SerializeField] float timeBetweenSpawns = 0.5f;
     [SerializeField] float spawnTimeVariance = 0.3f;
     [SerializeField] float minimumSpawnTime = 0.2f;
+    [SerializeField] [Range(0, 3)] int _loops = 0;
 
     // [SerializeField] float timeBetweenSpawns = 0.5f;
     // [SerializeField] float spawnRandomFactor = 0.3f;
 
+    public int loops { get { return _loops; } }
     public int GetEnemyCount() => enemyPrefabs.Count;
     public GameObject GetEnemyPrefab(int index) => enemyPrefabs[index];
     public Transform GetStartingWaypoint() => pathPrefab.GetChild(0);
