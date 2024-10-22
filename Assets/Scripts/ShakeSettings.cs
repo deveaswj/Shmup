@@ -15,11 +15,4 @@ public class ShakeSettings
     [Tooltip("Whether the shake should be smooth or rough. Try: true")]
     public bool smooth = true;
 
-    // public ShakeSettings(float duration, float magnitude, float frequency, bool smooth)
-    // {
-    //     this.duration = duration;
-    //     this.magnitude = magnitude;
-    //     this.frequency = frequency;
-    //     this.smooth = smooth;
-    // }
 }

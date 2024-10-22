@@ -81,7 +81,7 @@ public class Pathfinder : MonoBehaviour
         }
         else
         {
-			if (loopCount < waveConfig.loops)
+			if (loopCount < waveConfig.Loops)
 			{
 				loopCount++;
 				waypointIndex = 0;

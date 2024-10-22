@@ -811,10 +811,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3d4d16926a0793e418971a4e7abb31e3, type: 2}
   - {fileID: 11400000, guid: e30c95c9e64fad24bb163d35fac29571, type: 2}
   - {fileID: 11400000, guid: 962c6a261fc39df4da5705b70625c0b5, type: 2}
-  - {fileID: 11400000, guid: 3d4d16926a0793e418971a4e7abb31e3, type: 2}
-  - {fileID: 11400000, guid: 5b99d4df7c4058544b5593fc63e999fc, type: 2}
+  - {fileID: 11400000, guid: 847bfa7036ebc60489a073ce1aab3222, type: 2}
+  - {fileID: 11400000, guid: 4ba4c01b16b88b64a8614d8c78239580, type: 2}
+  - {fileID: 11400000, guid: c26007e9fbef8ca4398577b5a4e94b8c, type: 2}
   - {fileID: 11400000, guid: 962c6a261fc39df4da5705b70625c0b5, type: 2}
   - {fileID: 11400000, guid: e30c95c9e64fad24bb163d35fac29571, type: 2}
+  - {fileID: 11400000, guid: c9fe56aa4128c914d87487cfd647a56c, type: 2}
   timeBetweenWaves: 7
   isLooping: 1
 --- !u!4 &1080349113

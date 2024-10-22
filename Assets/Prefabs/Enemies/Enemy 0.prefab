@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4623582694837610655}
+  - component: {fileID: -4605893000009568254}
   - component: {fileID: 7032558556061735616}
   - component: {fileID: 1557956015073297079}
   - component: {fileID: 3928199785275935830}
@@ -40,6 +41,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-4605893000009568254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001191620367743566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1aa3cdf9258214429ac1eff564f96de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipColor: 0
+  shipType: 0
 --- !u!114 &7032558556061735616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,7 +110,7 @@ SpriteRenderer:
   m_SortingLayerID: 1814592731
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: b2f0f357384126748951572c7c3e11b5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 886bbf3db8cd6cd4aba6897435ab2072, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -164,21 +179,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpEntries:
   - powerUpPrefab: {fileID: 8461991927422028135, guid: 76cf086eb6a49db4a9a58d5556cafe0d, type: 3}
-    dropWeight: 4
+    dropWeight: 1
   - powerUpPrefab: {fileID: 3720796078118961184, guid: 87a0078ebc669484caa43fcf6197fca8, type: 3}
-    dropWeight: 3
+    dropWeight: 1
   - powerUpPrefab: {fileID: 5532539006058511146, guid: e3ccf174fe3ff7046b6fc97aa4b472d0, type: 3}
-    dropWeight: 5
+    dropWeight: 1
   - powerUpPrefab: {fileID: 6211331422924878276, guid: afb2d2ecd60196044bfaccdf968c71e8, type: 3}
-    dropWeight: 2
+    dropWeight: 1
   - powerUpPrefab: {fileID: 5418267657440365159, guid: 31531b20443556b4f8d086f68ca7e487, type: 3}
-    dropWeight: 2
+    dropWeight: 1
   - powerUpPrefab: {fileID: 8475126630025151955, guid: 4231d4ba823099b419363dadb6f7080c, type: 3}
-    dropWeight: 2
+    dropWeight: 1
   - powerUpPrefab: {fileID: 7815083438072899951, guid: 4b5b9db7eef9b3244922b45b37775add, type: 3}
-    dropWeight: 3
+    dropWeight: 1
   - powerUpPrefab: {fileID: 6423175755741915752, guid: 9cd3020987ed69944ae98774e358a772, type: 3}
-    dropWeight: 2
+    dropWeight: 1
   - powerUpPrefab: {fileID: 6423175755741915752, guid: fc711a8ca7fc76e46a5c24bd9c01785c, type: 3}
     dropWeight: 1
   dropChance: 0.2

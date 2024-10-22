@@ -13,18 +13,22 @@ MonoBehaviour:
   m_Name: Wave 2
   m_EditorClassIdentifier: 
   enemyPrefabs:
-  - {fileID: 7285902552304964608, guid: cfb34a79b92b92447ad0dbf1db3d794a, type: 3}
-  - {fileID: 7285902552304964608, guid: 46a9ae9e70441574ba61b9a2bd157352, type: 3}
-  - {fileID: 7285902552304964608, guid: ec8d61532cb420345b7fce4eb91cb85f, type: 3}
-  - {fileID: 7285902552304964608, guid: 22750aba0e3a0bd43a7fbc85e2a63752, type: 3}
-  - {fileID: 7285902552304964608, guid: e5d809bf7356f2c468fc4672dc04d4cd, type: 3}
-  - {fileID: 7285902552304964608, guid: cfb34a79b92b92447ad0dbf1db3d794a, type: 3}
-  - {fileID: 7285902552304964608, guid: 46a9ae9e70441574ba61b9a2bd157352, type: 3}
-  - {fileID: 7285902552304964608, guid: ec8d61532cb420345b7fce4eb91cb85f, type: 3}
-  - {fileID: 7285902552304964608, guid: 22750aba0e3a0bd43a7fbc85e2a63752, type: 3}
-  - {fileID: 7285902552304964608, guid: e5d809bf7356f2c468fc4672dc04d4cd, type: 3}
-  pathPrefab: {fileID: 226911054485595860, guid: dee4be1fae862144bad47723094d248f, type: 3}
+  - {fileID: 411126370440091895, guid: ad904c264b71298448c58a70f791a9e4, type: 3}
+  - {fileID: 4832855796194583430, guid: fbccaeb15fe82cf4bae4644259859f46, type: 3}
+  - {fileID: 3673773955051773386, guid: b1e5c45ad7e6a0743918b01857e764e8, type: 3}
+  - {fileID: 411126370440091895, guid: ad904c264b71298448c58a70f791a9e4, type: 3}
+  - {fileID: 4832855796194583430, guid: fbccaeb15fe82cf4bae4644259859f46, type: 3}
+  - {fileID: 3673773955051773386, guid: b1e5c45ad7e6a0743918b01857e764e8, type: 3}
+  - {fileID: 411126370440091895, guid: ad904c264b71298448c58a70f791a9e4, type: 3}
+  - {fileID: 4832855796194583430, guid: fbccaeb15fe82cf4bae4644259859f46, type: 3}
+  - {fileID: 3673773955051773386, guid: b1e5c45ad7e6a0743918b01857e764e8, type: 3}
+  pathPrefab: {fileID: 6244336412551360043, guid: f2494b123a5aa894e88213c99e0fb581, type: 3}
+  flipX: 0
+  flipY: 0
+  rotationAngle: 0
   moveSpeed: 6
+  reverseOrder: 0
   timeBetweenSpawns: 1
   spawnTimeVariance: 0.3
   minimumSpawnTime: 0.2
+  _loops: 0

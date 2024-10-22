@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 568baf78c744b634d97c9fbd06642420, type: 3}
+  m_Name: Wave 4 X R
+  m_EditorClassIdentifier: 
+  enemyPrefabs:
+  - {fileID: 3673773955051773386, guid: 82e41aa99e5d81d4392a3d821d819c59, type: 3}
+  - {fileID: 3673773955051773386, guid: 82e41aa99e5d81d4392a3d821d819c59, type: 3}
+  - {fileID: 3673773955051773386, guid: 82e41aa99e5d81d4392a3d821d819c59, type: 3}
+  - {fileID: 411126370440091895, guid: fd2153f227dbe9849a8d8a8aca73b865, type: 3}
+  - {fileID: 411126370440091895, guid: fd2153f227dbe9849a8d8a8aca73b865, type: 3}
+  - {fileID: 411126370440091895, guid: fd2153f227dbe9849a8d8a8aca73b865, type: 3}
+  - {fileID: 411126370440091895, guid: fd2153f227dbe9849a8d8a8aca73b865, type: 3}
+  pathPrefab: {fileID: 4441526157831387308, guid: bc9ba0b25c66a2a439ad3178244d1dad, type: 3}
+  flipX: 1
+  flipY: 0
+  rotationAngle: 0
+  moveSpeed: 8
+  reverseOrder: 1
+  timeBetweenSpawns: 0.5
+  spawnTimeVariance: 0.3
+  minimumSpawnTime: 0.2
+  _loops: 1
