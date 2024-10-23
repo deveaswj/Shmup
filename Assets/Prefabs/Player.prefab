@@ -1095,6 +1095,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2629f692fb9710c4b95c314136f02669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayer: 1
+  score: 0
   health: 50
   maxHealth: 50
   minorHealPercent: 20
@@ -1140,7 +1142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePool: {fileID: 0}
-  projectileType: 2
+  projectileType: 0
   projectileSpeed: 12
   projectileLifetime: 1
   baseFiringRate: 0.2

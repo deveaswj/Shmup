@@ -5,11 +5,11 @@ using UnityEngine;
 public class DroneGroupController : MonoBehaviour
 {
     [SerializeField] Transform playerTransform;     // Reference to the player's ship
-    [SerializeField] float movingFollowSpeed = 5f;  // Speed at which drones follow the player while moving
-    [SerializeField] float idleFollowSpeed = 0.5f;  // Speed at which drones follow the player while idle
+    [SerializeField] float movingFollowSpeed = 4.5f;  // Speed at which drones follow the player while moving
+    [SerializeField] float idleFollowSpeed = 0.25f;  // Speed at which drones follow the player while idle
     [SerializeField] int bufferLength = 10;         // How many positions to buffer for delay
     [SerializeField] GameObject dronePrefab;        // The drone prefab to instantiate
-    [SerializeField] int startingDrones = 1;        // How many drones to start with
+    [SerializeField] int startingDrones = 0;        // How many drones to start with
     [SerializeField] int maxDrones = 3;             // Maximum number of drones in the group
     [SerializeField] AmmoEventChannel ammoEventChannel;
 

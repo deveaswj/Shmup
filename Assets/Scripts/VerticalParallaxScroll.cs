@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class VerticalParallaxScroll : MonoBehaviour
@@ -15,6 +16,7 @@ public class VerticalParallaxScroll : MonoBehaviour
     private GameObject[,] backgroundPairs; // Stores original and clone for each background
     private float[] backgroundHeights; // Stores the height of each background
     private float viewHeight; // Height of the camera view
+    private float overlapBuffer = 0f; // small buffer to avoid gaps
     int count = 0;
     Vector3 v3up = Vector3.up;
     Vector3 v3down = Vector3.down;
@@ -27,6 +29,8 @@ public class VerticalParallaxScroll : MonoBehaviour
 
         backgroundPairs = new GameObject[count, 2];
         backgroundHeights = new float[count];
+
+        float height, bufferedHeight;
 
         // Clone and position backgrounds
         for (int i = 0; i < count; i++)
@@ -41,18 +45,22 @@ public class VerticalParallaxScroll : MonoBehaviour
             backgroundHeights[i] = spriteRenderer.bounds.size.y;
 
             // Instantiate the clone directly above the original
-            backgroundPairs[i, 1] = Instantiate(bg, bg.transform.position + v3up * backgroundHeights[i], Quaternion.identity, transform);
+            height = backgroundHeights[i];
+            bufferedHeight = height - overlapBuffer;
+            backgroundPairs[i, 1] = Instantiate(bg, bg.transform.position + v3up * bufferedHeight, Quaternion.identity, transform);
         }
     }
 
     void Update()
     {
+        float speed, height, bufferedHeight;
         for (int i = 0; i < count; i++)
         {
             Transform originalTransform = backgroundPairs[i, 0].transform;
             Transform cloneTransform = backgroundPairs[i, 1].transform;
-            float speed = backgroundData[i].speed;
-            float height = backgroundHeights[i];
+            speed = backgroundData[i].speed;
+            height = backgroundHeights[i];
+            bufferedHeight = height - overlapBuffer;
 
             // Move both original and clone downwards based on their speed
             originalTransform.Translate(speed * Time.deltaTime * v3down);
@@ -64,13 +72,13 @@ public class VerticalParallaxScroll : MonoBehaviour
             // Reposition the original if it moves off-screen
             if (originalTransform.position.y < repositionThreshold)
             {
-                originalTransform.position = cloneTransform.position + v3up * height;
+                originalTransform.position = cloneTransform.position + v3up * bufferedHeight;
             }
 
             // Reposition the clone if it moves off-screen
             if (cloneTransform.position.y < repositionThreshold)
             {
-                cloneTransform.position = originalTransform.position + v3up * height;
+                cloneTransform.position = originalTransform.position + v3up * bufferedHeight;
             }
         }
     }

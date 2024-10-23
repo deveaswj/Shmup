@@ -22,42 +22,48 @@ public class WaveConfigSO : ScriptableObject
     [Header("Looping")]
     [SerializeField] [Range(0, 3)] int _loops = 0;
 
+    List<Vector3> waypoints = new();
 
     public int Loops { get { return _loops; } }
     public int GetEnemyCount() => enemyPrefabs.Count;
     public GameObject GetEnemyPrefab(int index) => enemyPrefabs[index];
-    public Transform GetStartingWaypoint() => pathPrefab.GetChild(0);
+    public Vector3 GetStartingWaypoint() => waypoints.Count > 0 ? waypoints[0] : Vector3.zero;
+    public List<Vector3> GetWaypoints() => waypoints;
     public float GetMoveSpeed() => moveSpeed;
 
-    public List<Transform> GetWaypoints()
+    void OnEnable()
     {
-        if (flipX || flipY) 
-        {
-            pathPrefab.transform.localScale = new Vector3(
-                flipX ? -1 : 1,
-                flipY ? -1 : 1,
-                1
-            );
-        }
-        if (rotationAngle != 0) pathPrefab.transform.rotation = Quaternion.Euler(0, 0, rotationAngle);
-
-        List<Transform> waypoints = new();
-        foreach (Transform child in pathPrefab)
-        {
-            //Vector3 position = child.position;
-            // child.position = ApplyTransform(position);
-
-            waypoints.Add(child);
-        }
-        if (reverseOrder) waypoints.Reverse();
-        return waypoints;
+        CreateWaypoints();
     }
 
-    private Vector3 ApplyTransform(Vector3 originalPosition)
+    void OnDisable()
+    {
+        ClearWaypoints();
+    }
+
+    private void ClearWaypoints()
+    {
+        waypoints.Clear();
+    }
+
+    private void CreateWaypoints()
     {
         // note: better to precalculate rotation outside of the loop
         Quaternion quatRotation = Quaternion.identity;
         if (rotationAngle != 0) quatRotation = Quaternion.Euler(0, 0, rotationAngle);
+
+        ClearWaypoints();
+        foreach (Transform child in pathPrefab.transform)
+        {
+            Vector3 newPosition = ApplyTransform(child.position, quatRotation);
+
+            waypoints.Add(newPosition);
+        }
+        if (reverseOrder) waypoints.Reverse();
+    }
+
+    private Vector3 ApplyTransform(Vector3 originalPosition, Quaternion quatRotation)
+    {
         Vector3 newPosition = originalPosition;
         // flip and rotate
         if (flipX) newPosition.x = -newPosition.x;
@@ -69,10 +75,6 @@ public class WaveConfigSO : ScriptableObject
     public float GetRandomSpawnTime()
     {
         float spawnTime = timeBetweenSpawns + Random.Range(-spawnTimeVariance, spawnTimeVariance);
-        // float spawnTime = Random.Range(
-        //    timeBetweenSpawns - spawnTimeVariance,
-        //    timeBetweenSpawns + spawnTimeVariance
-        // );
         return Mathf.Max(spawnTime, minimumSpawnTime);
     }
 

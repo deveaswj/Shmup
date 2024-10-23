@@ -10,7 +10,7 @@ public class Pathfinder : MonoBehaviour
     [SerializeField] [Range(0f, 1f)] float behaviorOdds = 0.5f;
     EnemySpawner enemySpawner;
     WaveConfigSO waveConfig;
-    List<Transform> waypoints;
+    List<Vector3> waypoints;
     int waypointIndex = 0;
     Health health;
     bool hasHealth;
@@ -30,7 +30,7 @@ public class Pathfinder : MonoBehaviour
     {
         waveConfig = enemySpawner.GetCurrentWave();
         waypoints = waveConfig.GetWaypoints();
-        transform.position = waypoints[waypointIndex].position;
+        transform.position = waypoints[waypointIndex];
         hasHealth = TryGetComponent(out health);
         random = Random.Range(0f, 1f);
         actOnOdds = random < behaviorOdds;
@@ -71,7 +71,7 @@ public class Pathfinder : MonoBehaviour
     {
         if (waypointIndex < waypoints.Count)
         {
-            Vector3 targetPosition = waypoints[waypointIndex].position;
+            Vector3 targetPosition = waypoints[waypointIndex];
             float deltaMove = waveConfig.GetMoveSpeed() * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, deltaMove);
             if (transform.position == targetPosition)
@@ -85,7 +85,7 @@ public class Pathfinder : MonoBehaviour
 			{
 				loopCount++;
 				waypointIndex = 0;
-				transform.position = waypoints[waypointIndex].position;
+				transform.position = waypoints[waypointIndex];
 			}
 			else
 			{

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 // Track health and damage. Flash when hit, explode when health runs out.
 // Used by Player ship and Enemy ships.
@@ -10,6 +11,8 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    [SerializeField] bool isPlayer;
+    [SerializeField] int score = 50;
     [SerializeField] int health;
     [SerializeField] int maxHealth = 50;
     [SerializeField] int minorHealPercent = 20;
@@ -22,7 +25,7 @@ public class Health : MonoBehaviour
     [SerializeField] ShakeSettings largeShake;
     CameraShake cameraShake;
     ShakeSettings nextShake;
-
+    ScoreKeeper scoreKeeper;
     AudioPlayer audioPlayer;
 
     public int GetHealth() => health;
@@ -74,6 +77,7 @@ public class Health : MonoBehaviour
         cameraShake = Camera.main.GetComponent<CameraShake>();
         health = maxHealth;
         audioPlayer = FindObjectOfType<AudioPlayer>();
+        scoreKeeper = FindObjectOfType<ScoreKeeper>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -149,6 +153,10 @@ public class Health : MonoBehaviour
 
     void Die()
     {
+        if (!isPlayer)
+        {
+            scoreKeeper.AddScore(score);
+        }
         // return it if it's in an object pool (enemy), else destroy it (player)
         // enemy ships aren't in a pool yet, but they will be
         // for now, just destroy whatever this is attached to
