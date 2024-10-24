@@ -20,3 +20,8 @@ Expanding on the original tutorial by adding:
 - [x] Smoother screen shake w/Perlin noise
 - [x] Enemies may Flee or Dive when damaged
 - [x] Enemy classes -- color & shape determine behavior, health, firing rate, powerup drop odds
+
+## Credits
+Music: ["Mythica" by congusbongus](https://opengameart.org/users/congusbongus)
+Graphics: [KennyNL](https://www.kenney.nl/assets)
+(TODO: credit the star and nebula backgrounds creator)
