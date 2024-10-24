@@ -27,7 +27,7 @@ public class DropPowerUp : MonoBehaviour
 
     public void SetEnabled(bool value)
     {
-        Debug.Log("DropPowerUp set to " + (value ? "enabled" : "disabled"));
+        // Debug.Log("DropPowerUp set to " + (value ? "enabled" : "disabled"));
         canDrop = value;
     }
 
@@ -43,7 +43,7 @@ public class DropPowerUp : MonoBehaviour
         if (isQuitting || !Application.isPlaying) return;
         if (!canDrop)
         {
-            Debug.Log("DropPowerUp on destroy canceled");
+            // Debug.Log("DropPowerUp on destroy canceled");
             return;
         }
 

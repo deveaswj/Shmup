@@ -1272,6 +1272,7 @@ GameObject:
   - component: {fileID: 1493121081}
   - component: {fileID: 1493121080}
   - component: {fileID: 1493121079}
+  - component: {fileID: 1493121083}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1336,8 +1337,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 1
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -1362,6 +1363,38 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1493121083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493121078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848003159e16ece4abb847291685a9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthSlider: {fileID: 1929121637}
+  playerHealth: {fileID: 1599970184}
+  warningPercentage: 66
+  dangerPercentage: 33
+  healColor: {r: 0, g: 1, b: 0.6255162, a: 1}
+  warningColor: {r: 0.8037735, g: 0.7397278, b: 0, a: 1}
+  dangerColor: {r: 1, g: 0, b: 0.2509804, a: 1}
+  dangerColor2: {r: 0.7490196, g: 0, b: 1, a: 1}
+  scoreText: {fileID: 2138523447}
+--- !u!114 &1599970184 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -313352406710969328, guid: c347bd6a0ed284345b24c2036acf41fb, type: 3}
+  m_PrefabInstance: {fileID: 4530284209782361028}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2629f692fb9710c4b95c314136f02669, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1651057513 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7651374407398158287, guid: 800ce85bdaa552a4b97068a3ed8f6bf1, type: 3}
@@ -1636,7 +1669,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 100
   m_WholeNumbers: 1
-  m_Value: 75
+  m_Value: 46
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1652,7 +1685,7 @@ GameObject:
   - component: {fileID: 2138523448}
   - component: {fileID: 2138523447}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: ScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

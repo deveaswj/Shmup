@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 // Track health and damage. Flash when hit, explode when health runs out.
 // Used by Player ship and Enemy ships.
@@ -12,11 +11,11 @@ using UnityEngine.SocialPlatforms.Impl;
 public class Health : MonoBehaviour
 {
     [SerializeField] bool isPlayer;
-    [SerializeField] int score = 50;
+    [SerializeField] int score = 50;    // default score for enemies; ignored if isPlayer
     [SerializeField] int health;
     [SerializeField] int maxHealth = 50;
-    [SerializeField] int minorHealPercent = 20;
-    [SerializeField] int majorHealPercent = 50;
+    [SerializeField] [Range(0, 100)] int minorHealPercent = 20;
+    [SerializeField] [Range(0, 100)] int majorHealPercent = 50;
     [SerializeField] ParticleSystem explodeEffect;
     [SerializeField] SimpleFlash flashEffect;
 
@@ -29,7 +28,9 @@ public class Health : MonoBehaviour
     AudioPlayer audioPlayer;
 
     public int GetHealth() => health;
+    public int GetMaxHealth() => maxHealth;
     public int GetDamage() => maxHealth - health;
+    public int GetHealthPercentage() => Mathf.RoundToInt(100 * ((float)health / maxHealth));
 
     public void MinorHeal()
     {
@@ -46,7 +47,7 @@ public class Health : MonoBehaviour
         // add maxhealth if already at full
         if (health == maxHealth)
         {
-            AddMaxHealth(maxHealth * (minorHealPercent / 100));
+            AddMaxHealth(Mathf.RoundToInt(maxHealth * (minorHealPercent / 100f)));
         }
         else
         {
@@ -59,7 +60,7 @@ public class Health : MonoBehaviour
         // add maxhealth if already at full
         if (health == maxHealth)
         {
-            AddMaxHealth(maxHealth * (majorHealPercent / 100));
+            AddMaxHealth(Mathf.RoundToInt(maxHealth * (majorHealPercent / 100f)));
         }
         else
         {
@@ -93,7 +94,7 @@ public class Health : MonoBehaviour
 
     public void AddHealthPercentage(int percent)
     {
-        AddHealth(maxHealth * (percent / 100));
+        AddHealth(Mathf.RoundToInt(maxHealth * (percent / 100f)));
     }
 
     public void AddHealth(int amount)

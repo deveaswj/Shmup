@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Serialization;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 // For toggling visibility of rocket fire FX objects.
 
