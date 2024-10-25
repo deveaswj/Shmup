@@ -33,6 +33,9 @@ public class Player : MonoBehaviour
     // [SerializeField] float rollAmount = 15f;
     // [SerializeField] float rollSpeed = 5f;
 
+    PowerUpType lastWeaponType = PowerUpType.None;
+    int duplicateWeaponCount = 0;
+
     // Main camera bounds
     Vector2 minBounds, maxBounds;
 
@@ -175,19 +178,10 @@ public class Player : MonoBehaviour
                 SpeedPowerUp();
                 break;
             case PowerUpType.Weapon1:
-                Debug.Log("Power up: Weapon 1 (DoubleSpeed)");
-                audioPlayer.PlayPowerUpClip();
-                Weapon_DoubleSpeed();
-                break;
             case PowerUpType.Weapon2:
-                Debug.Log("Power up: Weapon 2 (DoubleShot)");
-                audioPlayer.PlayPowerUpClip();
-                Weapon_DoubleShot();
-                break;
             case PowerUpType.Weapon3:
-                Debug.Log("Power up: Weapon 3 (Photon)");
-                audioPlayer.PlayPowerUpClip();
-                Weapon_Photon();
+                Debug.Log("Power up: Weapon");
+                WeaponPowerUp(powerUpType);
                 break;
             case PowerUpType.Drone:
                 Debug.Log("Power up: Drone");
@@ -197,6 +191,44 @@ public class Player : MonoBehaviour
                 break;
         }
     }
+
+    void WeaponPowerUp(PowerUpType powerUpType)
+    {
+        audioPlayer.PlayPowerUpClip();
+        // figure out speed bonus if collected same weapon twice
+        if (lastWeaponType == powerUpType)
+        {
+            duplicateWeaponCount++;
+        }
+        else
+        {
+            duplicateWeaponCount = 0;
+        }
+        // #TODO: alternate increasing speed (velocity) or firing rate
+        // based on whether the count is even or odd
+        // increase speed first, then rate, then speed, then rate ...
+        //
+        float speedBonus = duplicateWeaponCount * 0.5f;
+        // float rateBonus = duplicateWeaponCount * 0.5f;
+        // Add weapon
+        switch (powerUpType)
+        {
+            case PowerUpType.Weapon1:
+                Debug.Log("Power up: Weapon 1 (DoubleSpeed)");
+                Weapon_DoubleSpeed(speedBonus);
+                break;
+            case PowerUpType.Weapon2:
+                Debug.Log("Power up: Weapon 2 (DoubleShot)");
+                Weapon_DoubleShot(speedBonus);
+                break;
+            case PowerUpType.Weapon3:
+                Debug.Log("Power up: Weapon 3 (Photon)");
+                Weapon_Photon(speedBonus);
+                break;
+        }
+        lastWeaponType = powerUpType;
+    }
+
 
     void HealthPowerUp(PowerUpType powerUpType)
     {
@@ -251,40 +283,37 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Weapon_Default()
+    void Weapon_Default()   // called at startup and when player resets
     {
         // Add weapon
-        shooter.SetProjectileType(ProjectileType.SingleShot);
-        shooter.SetSpeedMultiplier();
-        ammoEventChannel.RaiseTypeEvent(ProjectileType.SingleShot);
-        ammoEventChannel.RaiseSpeedEvent();
+        SetWeapon(ProjectileType.SingleShot);
+        lastWeaponType = PowerUpType.None;
     }
 
-    void Weapon_DoubleSpeed()
+    void Weapon_DoubleSpeed(float speedBonus = 0.0f)
     {
         // Add weapon
-        shooter.SetProjectileType(ProjectileType.SingleShot);
-        shooter.SetSpeedMultiplier(2.0f);
-        ammoEventChannel.RaiseTypeEvent(ProjectileType.SingleShot);
-        ammoEventChannel.RaiseSpeedEvent(2.0f);
+        SetWeapon(ProjectileType.SingleShot, speedBonus + 2.0f);
     }
 
-    void Weapon_DoubleShot()
+    void Weapon_DoubleShot(float speedBonus = 0.0f)
     {
         // Add weapon
-        shooter.SetProjectileType(ProjectileType.DoubleShot);
-        shooter.SetSpeedMultiplier();
-        ammoEventChannel.RaiseTypeEvent(ProjectileType.DoubleShot);
-        ammoEventChannel.RaiseSpeedEvent();
+        SetWeapon(ProjectileType.DoubleShot, speedBonus + 1.0f);
     }
 
-    void Weapon_Photon()
+    void Weapon_Photon(float speedBonus = 0.0f)
     {
         // Add weapon
-        shooter.SetProjectileType(ProjectileType.Photon);
-        shooter.SetSpeedMultiplier();
-        ammoEventChannel.RaiseTypeEvent(ProjectileType.Photon);
-        ammoEventChannel.RaiseSpeedEvent();
+        SetWeapon(ProjectileType.Photon, speedBonus + 1.0f);
+    }
+
+    void SetWeapon(ProjectileType type, float speed = 1.0f)
+    {
+        shooter.SetProjectileType(type);
+        shooter.SetSpeedMultiplier(speed);
+        ammoEventChannel.RaiseTypeEvent(type);
+        ammoEventChannel.RaiseSpeedEvent(speed);
     }
 
     void DronePowerUp()

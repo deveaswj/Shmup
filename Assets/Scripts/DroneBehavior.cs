@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DroneBehavior : MonoBehaviour
 {
@@ -19,12 +20,14 @@ public class DroneBehavior : MonoBehaviour
     {
         // Subscribe to events
         fireEventChannel.OnFireEvent += HandleFireEvent;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
     void OnDisable()
     {
         // Unsubscribe from events
         fireEventChannel.OnFireEvent -= HandleFireEvent;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 
     void HandleFireEvent(bool isFiring)
@@ -49,5 +52,10 @@ public class DroneBehavior : MonoBehaviour
         {
             shooter.SetSpeedMultiplier(speed);
         }
+    }
+
+    void OnSceneUnloaded(Scene scene)
+    {
+        Destroy(gameObject);
     }
 }

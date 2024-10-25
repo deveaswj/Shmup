@@ -1,6 +1,6 @@
 public enum PowerUpType
 {
-    Health, // deprecated
+    None,   // for comparison, instead of null
     Shield,
     Speed,
     Weapon1,

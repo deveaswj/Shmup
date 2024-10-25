@@ -23,6 +23,7 @@ public class DamageDealer : MonoBehaviour
     [SerializeField] int damage = 25;
     [SerializeField] bool isProjectile = false;
     public int GetDamage() => damage;
+    public void SetDamage(int amount) => damage = amount;
 
     public void Hit()
     {

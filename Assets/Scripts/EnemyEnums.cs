@@ -3,7 +3,8 @@ public enum EnemyBehaviorType
 {
     None,
     Flee,
-    Dive
+    Dive,
+    Either
 }
 
 // ship type, for damage messaging

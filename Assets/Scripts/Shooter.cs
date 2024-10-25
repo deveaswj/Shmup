@@ -14,6 +14,7 @@ public class Shooter : MonoBehaviour
     float speedMultiplier;
     float adjustedSpeed;
     float adjustedLifetime;
+    float rateMultiplier = 1f;
     Vector2 velocity;
     Vector3 direction;
     float cameraHeight;
@@ -57,6 +58,13 @@ public class Shooter : MonoBehaviour
     }
 
     public void SetSpeedMultiplier() => SetSpeedMultiplier(1.0f);
+
+    public void SetRateMultiplier(float multiplier)
+    {
+        rateMultiplier = multiplier;
+    }
+
+    public void SetRateMultiplier() => SetRateMultiplier(1.0f);
 
     void Start()
     {
@@ -164,6 +172,11 @@ public class Shooter : MonoBehaviour
             {
                 firingRate += Random.Range(-firingRateVariance, firingRateVariance);
                 firingRate = Mathf.Max(firingRate, minimumFiringRate);
+            }
+            else
+            {
+                // player and drones fire at the same rate
+                firingRate *= rateMultiplier;
             }
 
             yield return new WaitForSeconds(firingRate);

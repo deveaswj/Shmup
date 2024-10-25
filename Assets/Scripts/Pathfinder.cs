@@ -32,8 +32,28 @@ public class Pathfinder : MonoBehaviour
         waypoints = waveConfig.GetWaypoints();
         transform.position = waypoints[waypointIndex];
         hasHealth = TryGetComponent(out health);
+
         random = Random.Range(0f, 1f);
         actOnOdds = random < behaviorOdds;
+
+        if (behaviorWhenShot == EnemyBehaviorType.Either)
+        {
+            int newBehavior = Random.Range(0, 2);
+            switch (newBehavior)
+            {
+                case 0:
+                    behaviorWhenShot = EnemyBehaviorType.None;
+                    break;
+                case 1:
+                    behaviorWhenShot = EnemyBehaviorType.Flee;
+                    break;
+                case 2:
+                    behaviorWhenShot = EnemyBehaviorType.Dive;
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     void Update()

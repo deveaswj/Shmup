@@ -23,6 +23,7 @@ public class UIDisplay : MonoBehaviour
     Color normalColor;
     Color currentColor;
     Color alertColor;
+    string scoreFormat = new('0', 9);
 
     [Header("Score")]
     [SerializeField] TextMeshProUGUI scoreText;
@@ -41,7 +42,7 @@ public class UIDisplay : MonoBehaviour
     {
         healthPercentage = playerHealth.GetHealthPercentage();
         healthSlider.value = healthPercentage;
-        scoreText.text = scoreKeeper.GetScore().ToString();
+        scoreText.text = scoreKeeper.GetScore().ToString(scoreFormat);
 
         currentColor = healthSliderFill.color;
         // 3 kinds of color change

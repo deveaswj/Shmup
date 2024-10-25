@@ -14,11 +14,14 @@ public class Health : MonoBehaviour
     [SerializeField] int score = 50;    // default score for enemies; ignored if isPlayer
     [SerializeField] int health;
     [SerializeField] int maxHealth = 50;
+
+    [Header("Healing")]
     [SerializeField] [Range(0, 100)] int minorHealPercent = 20;
     [SerializeField] [Range(0, 100)] int majorHealPercent = 50;
+
+    [Header("Effects")]
     [SerializeField] ParticleSystem explodeEffect;
     [SerializeField] SimpleFlash flashEffect;
-
     [SerializeField] bool applyCameraShake;
     [SerializeField] ShakeSettings smallShake;
     [SerializeField] ShakeSettings largeShake;
@@ -26,6 +29,7 @@ public class Health : MonoBehaviour
     ShakeSettings nextShake;
     ScoreKeeper scoreKeeper;
     AudioPlayer audioPlayer;
+    LevelManager levelManager;
 
     public int GetHealth() => health;
     public int GetMaxHealth() => maxHealth;
@@ -79,6 +83,7 @@ public class Health : MonoBehaviour
         health = maxHealth;
         audioPlayer = FindObjectOfType<AudioPlayer>();
         scoreKeeper = FindObjectOfType<ScoreKeeper>();
+        levelManager = FindObjectOfType<LevelManager>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -157,11 +162,15 @@ public class Health : MonoBehaviour
         if (!isPlayer)
         {
             scoreKeeper.AddScore(score);
+            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
-        // return it if it's in an object pool (enemy), else destroy it (player)
-        // enemy ships aren't in a pool yet, but they will be
-        // for now, just destroy whatever this is attached to
-        Destroy(gameObject);
+        else
+        {
+            // delay loading the gameover until the explosion effects are done
+            // this gives the player time to see and hear the explosion
+            gameObject.SetActive(false);
+            LevelManager.Instance.LoadGameOver(3f);
+       }
     }
-
 }

@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1822177650303809889, guid: 4d884c035fa67784b9e1af4863ca20e7, type: 3}
+      propertyPath: behaviorWhenShot
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4090837379865809827, guid: 4d884c035fa67784b9e1af4863ca20e7, type: 3}
       propertyPath: shipColor
       value: 1
@@ -51,6 +55,10 @@ PrefabInstance:
     - target: {fileID: 4105952051043912510, guid: 4d884c035fa67784b9e1af4863ca20e7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5643787345830440951, guid: 4d884c035fa67784b9e1af4863ca20e7, type: 3}
+      propertyPath: score
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8445925152129014255, guid: 4d884c035fa67784b9e1af4863ca20e7, type: 3}
       propertyPath: m_Name
