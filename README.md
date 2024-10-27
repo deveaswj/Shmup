@@ -24,6 +24,7 @@ Expanding on the original tutorial by adding:
   - [x] Booster (speed boost)
   - [ ] Gold Wings (increases score but also player's hitbox)
   - [x] Drones (collect up to 3; they trail the ship and fire the same projectile type)
+  - [ ] 1-Up (add after implementing multiple lives)
 - [x] Smoother screen shake w/Perlin noise
 - [x] Enemies may Flee or Dive when damaged
 - [x] Enemy classes -- color & shape determine behavior, health, firing rate, powerup drop odds
@@ -44,7 +45,10 @@ Expanding on the original tutorial by adding:
     
   </details>
 - [ ] Additional levels
+  - [ ] Continue/Restart
+  - [ ] Level Selection
 - [ ] Boss fights
+- [ ] Multiple lives
 
 ## Credits
 Music: ["Mythica" by congusbongus](https://opengameart.org/users/congusbongus)
