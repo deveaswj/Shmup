@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6effb30c22c96db42aaf9fb07c8afbc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCount: 10
+  maxCount: 24
   projectile:
     audioClip: {fileID: 8300000, guid: 3eede14b5e3d2fe4abef7283436c9a45, type: 3}
     volume: 1

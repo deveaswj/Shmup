@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2408777261556675213, guid: 3efa3b536f1de0c4e876ec763c7e07b6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7394752732058499891, guid: 3efa3b536f1de0c4e876ec763c7e07b6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1463,6 +1463,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6536639819622274421, guid: 3a9168181eb466743ada34e26722b504, type: 3}
+      propertyPath: gameState
+      value: 
+      objectReference: {fileID: 11400000, guid: 8897c3b0369d9a940b1323e4a94c689b, type: 2}
     - target: {fileID: 7635320241581547229, guid: 3a9168181eb466743ada34e26722b504, type: 3}
       propertyPath: m_Name
       value: ScoreKeeper

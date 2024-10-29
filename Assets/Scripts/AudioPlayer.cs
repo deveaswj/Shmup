@@ -32,23 +32,25 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField] AudioClip boosterClip;
     [SerializeField] [Range(0f, 1f)] float boosterVolume = 1f;
 
-    public static AudioPlayer Instance { get; private set; }
+    static AudioPlayer instance;
 
     void Awake()
     {
+        // The *object* this is attached to needs to be a (pseudo-)singleton so that
+        // its music (not handled by this script) doesn't get interrupted across scenes.
         ManageSingleton();
     }
 
     void ManageSingleton()
     {
-        if (Instance != null  && Instance != this)
+        if (instance != null && instance != this)
         {
             gameObject.SetActive(false);
             Destroy(gameObject);
         }
         else
         {
-            Instance = this;
+            instance = this;
             DontDestroyOnLoad(gameObject);
         }
     }

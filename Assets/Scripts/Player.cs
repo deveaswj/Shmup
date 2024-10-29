@@ -45,14 +45,14 @@ public class Player : MonoBehaviour
     // Health
     Health health;
 
-    AudioPlayer audioPlayer;
+    AudioManager audioManager;
 
     void Awake()
     {
         shooter = GetComponent<Shooter>();
         droneGroupController = GetComponent<DroneGroupController>();
         health = GetComponent<Health>();
-        audioPlayer = FindObjectOfType<AudioPlayer>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void Start()
@@ -194,7 +194,7 @@ public class Player : MonoBehaviour
 
     void WeaponPowerUp(PowerUpType powerUpType)
     {
-        audioPlayer.PlayPowerUpClip();
+        audioManager.PlayPowerUpClip();
         // figure out speed bonus if collected same weapon twice
         if (lastWeaponType == powerUpType)
         {
@@ -235,7 +235,7 @@ public class Player : MonoBehaviour
         // Add health
         if (health != null)
         {
-            audioPlayer.PlayPowerUpClip();
+            audioManager.PlayPowerUpClip();
             switch (powerUpType)
             {
                 case PowerUpType.MinorHeal:
@@ -263,7 +263,7 @@ public class Player : MonoBehaviour
         if (shieldScript != null)
         {
             Debug.Log("Shield ready to turn on");
-            audioPlayer.PlayShieldOnClip();
+            audioManager.PlayShieldOnClip();
             shieldScript.TurnOn();
         }
         else
@@ -277,7 +277,7 @@ public class Player : MonoBehaviour
         // Add speed
         if (!boosted)
         {
-            audioPlayer.PlayPowerUpClip();
+            audioManager.PlayPowerUpClip();
             // start boost coroutine
             StartCoroutine(BoostSpeed());
         }
@@ -321,7 +321,7 @@ public class Player : MonoBehaviour
         // Add drone
         if (droneGroupController != null)
         {
-            audioPlayer.PlayPowerUpClip();
+            audioManager.PlayPowerUpClip();
             droneGroupController.AddDrone();
         }
     }
@@ -329,7 +329,7 @@ public class Player : MonoBehaviour
     IEnumerator BoostSpeed()
     {
         boosted = true;
-        audioPlayer.PlayBoosterClip();
+        audioManager.PlayBoosterClip();
         yield return new WaitForSeconds(boostDuration);
         boosted = false;
     }

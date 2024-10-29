@@ -15,7 +15,7 @@ public class AudioClipData
 
 public class AudioManager : MonoBehaviour
 {
-    [SerializeField] int maxCount = 10;
+    [SerializeField] int maxCount = 24;
     [SerializeField] AudioClipData projectile;
     [SerializeField] AudioClipData damage;
     [SerializeField] AudioClipData explosion;
@@ -35,9 +35,9 @@ public class AudioManager : MonoBehaviour
     Queue<AudioSource> audioPool;
     List<AudioSourceWrapper> activeSources;
 
-    public void PlayShootingClip()
+    public void PlayShootingClip(float? pitchOverride = null)
     {
-        PlaySound(projectile);
+        PlaySound(projectile, pitch: pitchOverride);
     }
 
     public void PlayDamageClip()
@@ -81,6 +81,8 @@ public class AudioManager : MonoBehaviour
         for (int i = 0; i < maxCount; i++)
         {
             AudioSource source = gameObject.AddComponent<AudioSource>();
+            source.name = "Managed AudioSource (" + i + ")";
+            Debug.Log("Created AudioSource: " + source.name);
             source.playOnAwake = false;
             audioPool.Enqueue(source);
         }
@@ -100,7 +102,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    void PlaySound(AudioClipData clipData)
+    void PlaySound(AudioClipData clipData, float? pitch = null, float? volume = null)
     {
         if (clipData == null || clipData.audioClip == null)
         {
@@ -111,7 +113,7 @@ public class AudioManager : MonoBehaviour
         // If there is an available AudioSource in the pool
         if (audioPool.Count > 0)
         {
-            UseAudioSource(clipData);
+            UseAudioSource(clipData, pitchOverride: pitch, volumeOverride: volume);
         }
         else
         {
@@ -121,21 +123,26 @@ public class AudioManager : MonoBehaviour
             // If the new sound's priority is higher, replace the lowest priority sound
             if (lowestPrioritySource != null && lowestPrioritySource.Priority < clipData.priority)
             {
-                ReplaceAudioSource(lowestPrioritySource, clipData);
+                ReplaceAudioSource(lowestPrioritySource, clipData, pitchOverride: pitch, volumeOverride: volume);
             }
             else
             {
                 // No available source and the new clip's priority is not high enough
-                Debug.Log("Max audio source count reached, and no lower priority source found. Ignoring request.");
+                Debug.LogWarning("Max audio source count (" + maxCount + ") reached, and no lower priority source found. Ignoring request.");
             }
         }
     }
 
-    void UseAudioSource(AudioClipData clipData)
+    void UseAudioSource(AudioClipData clipData, float? pitchOverride, float? volumeOverride)
     {
+        Debug.Log("Attempting to use AudioSource for " + clipData.audioClip);
+
         // Get an available AudioSource from the pool
         AudioSource source = audioPool.Dequeue();
-        ConfigureAudioSource(source, clipData);
+
+        Debug.Log("Using AudioSource: " + source.name);
+
+        ConfigureAudioSource(source, clipData, pitchOverride, volumeOverride);
         source.Play();
 
         // Add to the active list with the associated priority
@@ -146,11 +153,11 @@ public class AudioManager : MonoBehaviour
         StartCoroutine(ReturnToPoolAfterPlayback(wrapper, clipData.audioClip.length));
     }
 
-    void ReplaceAudioSource(AudioSourceWrapper wrapper, AudioClipData clipData)
+    void ReplaceAudioSource(AudioSourceWrapper wrapper, AudioClipData clipData, float? pitchOverride, float? volumeOverride)
     {
         // Stop the current low-priority sound
         wrapper.Source.Stop();
-        ConfigureAudioSource(wrapper.Source, clipData);
+        ConfigureAudioSource(wrapper.Source, clipData, pitchOverride, volumeOverride);
         wrapper.Priority = clipData.priority;
         wrapper.Source.Play();
 
@@ -159,11 +166,11 @@ public class AudioManager : MonoBehaviour
         StartCoroutine(ReturnToPoolAfterPlayback(wrapper, clipData.audioClip.length));
     }
 
-    void ConfigureAudioSource(AudioSource source, AudioClipData clipData)
+    void ConfigureAudioSource(AudioSource source, AudioClipData clipData, float? pitchOverride, float? volumeOverride)
     {
         source.clip = clipData.audioClip;
-        source.volume = clipData.volume;
-        source.pitch = clipData.pitch;
+        source.pitch = pitchOverride ?? clipData.pitch;
+        source.volume = volumeOverride ?? clipData.volume;
     }
 
     AudioSourceWrapper GetLowestPrioritySource()
@@ -188,6 +195,9 @@ public class AudioManager : MonoBehaviour
         wrapper.Source.Stop();
         wrapper.Source.clip = null;
         activeSources.Remove(wrapper);
+
+        Debug.Log("Releasing AudioSource: " + wrapper.Source.name);
+
         audioPool.Enqueue(wrapper.Source);
     }
 }

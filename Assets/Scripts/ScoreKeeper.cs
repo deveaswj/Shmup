@@ -5,29 +5,23 @@ using UnityEngine;
 
 public class ScoreKeeper : MonoBehaviour
 {
-    public static ScoreKeeper Instance { get; private set; }
+    [SerializeField] private GameState gameState;
 
-    int score = 0;
+    public int GetScore() => gameState.score;
+    public void AddScore(int amount) => gameState.AddScore(amount);
+    public void ResetScore() => gameState.ResetScore();
+    public void SetScore(int amount) => gameState.SetScore(amount);
 
-    public int GetScore() => score;
-    public void AddScore(int amount) => score = Mathf.Clamp(score + amount, 0, int.MaxValue);
-    public void ResetScore() => score = 0;
-    public void SetScore(int amount) => score = Mathf.Clamp(amount, 0, int.MaxValue);
-
-    void Awake() => ManageSingleton();
-
-    void ManageSingleton()
+    void Awake()
     {
-        if (Instance != null  && Instance != this)
+        // Let there be only one
+        ScoreKeeper[] existingInstances = FindObjectsByType<ScoreKeeper>(FindObjectsSortMode.None);
+        if (existingInstances.Length > 1)
         {
             gameObject.SetActive(false);
             Destroy(gameObject);
+            return;
         }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
+        DontDestroyOnLoad(gameObject);
     }
-
 }

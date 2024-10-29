@@ -35,14 +35,16 @@ public class Shooter : MonoBehaviour
 
     Coroutine firingCoroutine;
 
-    AudioPlayer audioPlayer;
+    AudioManager audioManager;
     bool useAudio = true;
+    float projectilePitch = 1.0f;
+    float enemyProjectilePitchVariance = 0.25f;
 
     int counter = 0;
 
     void Awake()
     {
-        audioPlayer = FindObjectOfType<AudioPlayer>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     public void SetFiring(bool value) => isFiring = value;
@@ -68,15 +70,24 @@ public class Shooter : MonoBehaviour
 
     void Start()
     {
+        debugPrefix = (enemyAI ? "Enemy " : (droneAI ? "Drone " : "Player ")) + "Shooter: ";
+
         InitializeBounds();
         cameraHeight = 2 * Camera.main.orthographicSize;
+
         // player & drones fire up, enemies fire down
         direction = enemyAI ? -transform.up : transform.up;
-        debugPrefix = (enemyAI ? "Enemy " : (droneAI ? "Drone " : "Player ")) + "Shooter: ";
+
         FindProjectilePool();
         SetFiring(enemyAI);
         SetSpeedMultiplier();   // call in Start to precalculate some variables
+
         useAudio = !droneAI;    // drones don't need audio
+
+        if (enemyAI)
+        {
+            projectilePitch = 1f + Random.Range(-enemyProjectilePitchVariance, enemyProjectilePitchVariance);
+        }
     }
 
     void FindProjectilePool()
@@ -205,7 +216,7 @@ public class Shooter : MonoBehaviour
             projectile.Fire(transform.position, velocity, counter);
             counter++;
 
-            if (useAudio) audioPlayer.PlayShootingClip();
+            if (useAudio) audioManager.PlayShootingClip(projectilePitch);
 
             StartCoroutine(ReturnProjectileAfterLifetime(projectile, adjustedLifetime));
         }

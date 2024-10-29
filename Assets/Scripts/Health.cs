@@ -28,7 +28,7 @@ public class Health : MonoBehaviour
     CameraShake cameraShake;
     ShakeSettings nextShake;
     ScoreKeeper scoreKeeper;
-    AudioPlayer audioPlayer;
+    AudioManager audioManager;
     LevelManager levelManager;
 
     public int GetHealth() => health;
@@ -81,7 +81,7 @@ public class Health : MonoBehaviour
     {
         cameraShake = Camera.main.GetComponent<CameraShake>();
         health = maxHealth;
-        audioPlayer = FindObjectOfType<AudioPlayer>();
+        audioManager = FindObjectOfType<AudioManager>();
         scoreKeeper = FindObjectOfType<ScoreKeeper>();
         levelManager = FindObjectOfType<LevelManager>();
     }
@@ -119,13 +119,13 @@ public class Health : MonoBehaviour
         if (health > 0)
         {
             nextShake = smallShake;
-            audioPlayer.PlayDamageClip();
+            audioManager.PlayDamageClip();
             PlayFlashEffect();
         }
         else
         {
             nextShake = largeShake;
-            audioPlayer.PlayExplosionClip();
+            audioManager.PlayExplosionClip();
             PlayExplosion();
             Die();
         }

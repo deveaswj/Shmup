@@ -2,60 +2,67 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Text.RegularExpressions;
 
 public class LevelManager : MonoBehaviour
 {
-    public static LevelManager Instance { get; private set; }
 
-    public int CurrentLevel { get; private set; } = 1;
+    [SerializeField] GameState gameState;
 
-    private void Awake()
+    // public int CurrentLevel { get; private set; } = 1;
+
+    private int thisSceneLevel = 0;
+
+    private void Start()
     {
-        ManageSingleton();
+        SetThisSceneLevel();
     }
 
-    void OnDestroy()
+    private void SetThisSceneLevel()
     {
-        if (Instance == this)
-        {
-            Instance = null;
-        }
-    }
+        // Get the current scene name
+        string sceneName = SceneManager.GetActiveScene().name;
 
-    private void ManageSingleton()
-    {
-        Debug.Log("Scene is " + SceneManager.GetActiveScene().name);
-        if (Instance != null && Instance != this)
+        // Use regex to check if this scene's name starts with "Level"
+        // followed by optional spaces, leading zeros, and a number
+        Regex levelRegex = new(@"^Level\s*0*(\d+)$");
+        Match match = levelRegex.Match(sceneName);
+
+        if (match.Success)
         {
-            Debug.Log("LM: Destroying duplicate");
-            gameObject.SetActive(false);
-            Destroy(gameObject);
+            // If a match is found, parse the level number
+            thisSceneLevel = int.Parse(match.Groups[1].Value);
+
+            // Update CurrentLevel in GameState only if thisSceneLevel is valid
+            gameState.CurrentLevel = thisSceneLevel;
+            Debug.Log("Current Level set to: " + gameState.CurrentLevel);
         }
         else
         {
-            Debug.Log("LM: Using this as the Instance");
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            // If no valid level number is found, set thisSceneLevel to 0 or some default value
+            thisSceneLevel = 0;
+            Debug.Log("Non-level scene detected. thisSceneLevel not set.");
         }
     }
 
     public void NewGame()
     {
         Debug.Log("LM: New Game");
-        CurrentLevel = 1;
+        gameState.ResetLevel();
+        gameState.ResetScore();
         LoadCurrentLevel();
     }
 
     public void LoadNextLevel()
     {
         Debug.Log("LM: Next Level");
-        CurrentLevel++;
+        gameState.CurrentLevel++;
         LoadCurrentLevel();
     }
 
     public void LoadCurrentLevel()
     {
-        string sceneName = "Level " + CurrentLevel;
+        string sceneName = "Level " + gameState.CurrentLevel;
         Debug.Log("LM: Load " + sceneName);
         LoadSceneByName(sceneName);
     }

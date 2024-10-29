@@ -30,15 +30,8 @@ public class DropPowerUp : MonoBehaviour
         debugPrefix = "DropPowerUp (" + gameObject.name + ") - ";
     }
 
-    public void DisableDrop()
-    {
-        canDrop = false;
-    }
-
-    public void EnableDrop()
-    {
-        canDrop = true;
-    }
+    public void DisableDrop() => canDrop = false;
+    public void EnableDrop() => canDrop = true;
 
     void OnApplicationQuit()
     {
