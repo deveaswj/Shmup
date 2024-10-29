@@ -22,6 +22,8 @@ public class DroneGroupController : MonoBehaviour
     Vector3 lastPlayerPosition;
     bool playerIsMoving;
 
+    public int Count { get { return drones.Count; } }
+
     void OnEnable()
     {
         // Subscribe to events

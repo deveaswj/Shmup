@@ -136,7 +136,7 @@ public class Pathfinder : MonoBehaviour
     {
         if (TryGetComponent<DropPowerUp>(out var dropPowerUp))
         {
-            dropPowerUp.SetEnabled(false);
+            dropPowerUp.DisableDrop();
         }
         Destroy(gameObject);
     }

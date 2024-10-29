@@ -24,6 +24,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClipData shieldOff;
     [SerializeField] AudioClipData booster;
 
+    public static AudioManager Instance { get; private set; }
+
     private class AudioSourceWrapper
     {
         public AudioSource Source;
@@ -70,6 +72,8 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
+        ManageSingleton();
+
         audioPool = new Queue<AudioSource>();
         activeSources = new List<AudioSourceWrapper>();
 
@@ -79,6 +83,20 @@ public class AudioManager : MonoBehaviour
             AudioSource source = gameObject.AddComponent<AudioSource>();
             source.playOnAwake = false;
             audioPool.Enqueue(source);
+        }
+    }
+
+    void ManageSingleton()
+    {
+        if (Instance != null)
+        {
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 

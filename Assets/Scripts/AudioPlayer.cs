@@ -32,6 +32,26 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField] AudioClip boosterClip;
     [SerializeField] [Range(0f, 1f)] float boosterVolume = 1f;
 
+    public static AudioPlayer Instance { get; private set; }
+
+    void Awake()
+    {
+        ManageSingleton();
+    }
+
+    void ManageSingleton()
+    {
+        if (Instance != null  && Instance != this)
+        {
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
 
     public void PlayShootingClip()
     {

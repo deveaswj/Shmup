@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Type and Behaviour of PowerUps
 
@@ -154,6 +155,21 @@ public class PowerUp : MonoBehaviour
             {
                 Debug.LogError("The other object does not have a Player script with a PowerUp function");
             }
+            Destroy(gameObject);
+        }
+    }
+
+    // Make sure the power-up is destroyed when its scene is unloaded
+
+    void OnEnable()
+    {
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+    }
+
+    void OnSceneUnloaded(Scene current)
+    {
+        if (this != null && gameObject != null)
+        {
             Destroy(gameObject);
         }
     }

@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Add this to Enemy prefabs
-
+ 
 public class DropPowerUp : MonoBehaviour
 {
     [System.Serializable]
@@ -19,33 +20,46 @@ public class DropPowerUp : MonoBehaviour
     private static bool isQuitting = false;
     private bool canDrop = true;
 
+    string debugPrefix = "";
+
     void Awake()
     {
         // Register for shutdown events
         Application.quitting += OnApplicationQuit;
+
+        debugPrefix = "DropPowerUp (" + gameObject.name + ") - ";
     }
 
-    public void SetEnabled(bool value)
+    public void DisableDrop()
     {
-        // Debug.Log("DropPowerUp set to " + (value ? "enabled" : "disabled"));
-        canDrop = value;
+        canDrop = false;
+    }
+
+    public void EnableDrop()
+    {
+        canDrop = true;
     }
 
     void OnApplicationQuit()
     {
         isQuitting = true;
-        SetEnabled(false);
+        DisableDrop();
     }
 
     void OnDestroy()
     {
+        Debug.Log(debugPrefix + "OnDestroy");
+
         // Skip the logic if the game is quitting
-        if (isQuitting || !Application.isPlaying) return;
+        if (isQuitting || !Application.isPlaying) DisableDrop();
+
         if (!canDrop)
         {
-            // Debug.Log("DropPowerUp on destroy canceled");
+            Debug.Log(debugPrefix + "OnDestroy - don't drop");
             return;
         }
+
+        Debug.Log(debugPrefix + "OnDestroy - roll to drop");
 
         // Random chance to drop a power-up
         if (powerUpEntries.Count > 0 && Random.value < dropChance)
@@ -74,5 +88,25 @@ public class DropPowerUp : MonoBehaviour
                 }
             }
         }
+    }
+
+    // Make sure we can't drop when a scene is unloaded
+
+    void OnEnable()
+    {
+        // SceneManager.sceneUnloaded += OnSceneUnloaded;
+        EnableDrop();
+    }
+
+    void OnDisable()
+    {
+        // don't unsubscribe
+        DisableDrop();
+    }
+
+    void OnSceneUnloaded(Scene current)
+    {
+        Debug.Log(debugPrefix + "OnSceneUnloaded");
+        DisableDrop();
     }
 }
