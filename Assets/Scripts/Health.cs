@@ -170,7 +170,7 @@ public class Health : MonoBehaviour
             // delay loading the gameover until the explosion effects are done
             // this gives the player time to see and hear the explosion
             gameObject.SetActive(false);
-            LevelManager.Instance.LoadGameOver(3f);
+            levelManager.LoadGameOver();
        }
     }
 }
