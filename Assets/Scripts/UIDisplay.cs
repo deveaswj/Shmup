@@ -23,7 +23,7 @@ public class UIDisplay : MonoBehaviour
     Color normalColor;
     Color currentColor;
     Color alertColor;
-    string scoreFormat = new('0', 9);
+    readonly string scoreFormat = new('0', 9);
 
     [Header("Score")]
     [SerializeField] TextMeshProUGUI scoreText;
@@ -34,7 +34,7 @@ public class UIDisplay : MonoBehaviour
         scoreKeeper = FindObjectOfType<ScoreKeeper>();
         healthSliderFill = healthSlider.fillRect.GetComponent<Image>();
         normalColor = healthSliderFill.color;
-        Debug.Log("normalColor: " + normalColor);
+        // Debug.Log("normalColor: " + normalColor);
         alertColor = normalColor;
     }
 

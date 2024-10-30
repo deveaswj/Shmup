@@ -15,7 +15,10 @@ public class AudioClipData
 
 public class AudioManager : MonoBehaviour
 {
+    [Header("Pool Settings")]
     [SerializeField] int maxCount = 24;
+
+    [Header("Sound Effects")]
     [SerializeField] AudioClipData projectile;
     [SerializeField] AudioClipData damage;
     [SerializeField] AudioClipData explosion;
@@ -23,8 +26,11 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClipData shieldOn;
     [SerializeField] AudioClipData shieldOff;
     [SerializeField] AudioClipData booster;
+    
+    [Header("Source Prefab")]
+    [SerializeField] GameObject audioSourcePrefab;
 
-    public static AudioManager Instance { get; private set; }
+    static AudioManager instance;
 
     private class AudioSourceWrapper
     {
@@ -32,8 +38,8 @@ public class AudioManager : MonoBehaviour
         public int Priority;
     }
 
-    Queue<AudioSource> audioPool;
-    List<AudioSourceWrapper> activeSources;
+    private Queue<AudioSource> audioPool;
+    private List<AudioSourceWrapper> activeSources;
 
     public void PlayShootingClip(float? pitchOverride = null)
     {
@@ -72,43 +78,101 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
-        ManageSingleton();
+        if (!CreateSingleton()) return;
 
         audioPool = new Queue<AudioSource>();
         activeSources = new List<AudioSourceWrapper>();
+        InitializePool();
+        VerifyPool();
+    }
 
-        // Initialize the pool with maxCount AudioSources
+    bool CreateSingleton()
+    {
+        if (instance != null && instance != this)
+        {
+            Debug.Log("Removing duplicate AudioManager");
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+            return false;
+        }
+        Debug.Log("Creating AudioManager");
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+        return true;
+    }
+
+    void InitializePool()
+    {
+        if (audioSourcePrefab == null)
+        {
+            Debug.LogError("AudioManager: audioSourcePrefab is null (assign it in the inspector)");
+            return;
+        }
+
+        // Initialize the pool
         for (int i = 0; i < maxCount; i++)
         {
-            AudioSource source = gameObject.AddComponent<AudioSource>();
-            source.name = "Managed AudioSource (" + i + ")";
-            Debug.Log("Created AudioSource: " + source.name);
+            GameObject audioObject = Instantiate(audioSourcePrefab);
+            audioObject.name = "Managed Audio (" + i + ")";
+            AudioSource source = audioObject.GetComponent<AudioSource>();
+
+            if (source == null)
+            {
+                Debug.LogError("AudioManager: AudioSource component is missing on " + audioObject.name);
+                continue;
+            }
             source.playOnAwake = false;
+
+            Debug.Log("Created AudioSource: " + source.name + " on " + gameObject.name);
+
+            audioObject.transform.SetParent(transform); // Make the AudioSource a child of the AudioManager
             audioPool.Enqueue(source);
         }
     }
 
-    void ManageSingleton()
+    bool VerifyPool()
     {
-        if (Instance != null)
+        // check that each AudioSource in the pool is not null
+        bool isValid = true;
+        int counter = 0;
+        if (audioPool == null)
         {
-            gameObject.SetActive(false);
-            Destroy(gameObject);
+            Debug.LogError("AudioManager: audioPool is null");
+            isValid = false;
         }
-        else
+        if (isValid)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            Debug.Log("Verifying " + audioPool.Count + " items in audioPool...");
+            foreach (var source in audioPool)
+            {
+                if (source == null)
+                {
+                    Debug.LogError("AudioSource " + counter + " in pool is null");
+                    isValid = false;
+                    break;
+                }
+                else
+                {
+                    Debug.Log("AudioSource " + counter + " in pool is: " + source.name);
+                }
+                counter++;
+            }
         }
+        return isValid;
     }
 
     void PlaySound(AudioClipData clipData, float? pitch = null, float? volume = null)
     {
         if (clipData == null || clipData.audioClip == null)
         {
-            Debug.LogWarning("Invalid AudioClipData or missing AudioClip.");
+            Debug.LogWarning("PlaySound: Invalid AudioClipData or missing AudioClip.");
             return;
         }
+
+        Debug.Log("PlaySound: Clip: " + clipData.audioClip);
+
+        if (!VerifyPool()) return;
+        Debug.Log("PlaySound: audioPool count: " + audioPool.Count);
 
         // If there is an available AudioSource in the pool
         if (audioPool.Count > 0)
@@ -120,8 +184,8 @@ public class AudioManager : MonoBehaviour
             // If the pool is full, find the lowest-priority active source
             var lowestPrioritySource = GetLowestPrioritySource();
 
-            // If the new sound's priority is higher, replace the lowest priority sound
-            if (lowestPrioritySource != null && lowestPrioritySource.Priority < clipData.priority)
+            // If the new sound's priority is higher or equal, replace the lowest priority sound
+            if (lowestPrioritySource != null && lowestPrioritySource.Priority <= clipData.priority)
             {
                 ReplaceAudioSource(lowestPrioritySource, clipData, pitchOverride: pitch, volumeOverride: volume);
             }
@@ -139,6 +203,12 @@ public class AudioManager : MonoBehaviour
 
         // Get an available AudioSource from the pool
         AudioSource source = audioPool.Dequeue();
+
+        if (source == null)
+        {
+            Debug.LogError("Failed to get AudioSource from pool.");
+            return;
+        }
 
         Debug.Log("Using AudioSource: " + source.name);
 

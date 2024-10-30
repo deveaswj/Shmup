@@ -7,21 +7,33 @@ public class ScoreKeeper : MonoBehaviour
 {
     [SerializeField] private GameState gameState;
 
-    public int GetScore() => gameState.score;
+    public int GetScore() => gameState.GetScore();
     public void AddScore(int amount) => gameState.AddScore(amount);
     public void ResetScore() => gameState.ResetScore();
     public void SetScore(int amount) => gameState.SetScore(amount);
 
+    static ScoreKeeper instance;
+
     void Awake()
     {
-        // Let there be only one
-        ScoreKeeper[] existingInstances = FindObjectsByType<ScoreKeeper>(FindObjectsSortMode.None);
-        if (existingInstances.Length > 1)
+        CreateSingleton();
+    }
+
+    bool CreateSingleton()
+    {
+        if (instance != null && instance != this)
         {
+            Debug.Log("Removing duplicate ScoreKeeper");
             gameObject.SetActive(false);
             Destroy(gameObject);
-            return;
+            return false;
         }
+        Debug.Log("Creating ScoreKeeper");
+        instance = this;
         DontDestroyOnLoad(gameObject);
+        return true;
     }
+
+
+
 }

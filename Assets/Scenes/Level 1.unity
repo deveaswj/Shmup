@@ -1408,7 +1408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4348563486761213101, guid: dd40d0f814aa3ea429b49463f9c6a4f7, type: 3}
       propertyPath: m_Name
-      value: AudioPlayer
+      value: AudioManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1425,15 +1425,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6044135511667480581, guid: 3a9168181eb466743ada34e26722b504, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.5736203
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6044135511667480581, guid: 3a9168181eb466743ada34e26722b504, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.2767787
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6044135511667480581, guid: 3a9168181eb466743ada34e26722b504, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.11555875
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6044135511667480581, guid: 3a9168181eb466743ada34e26722b504, type: 3}
       propertyPath: m_LocalRotation.w

@@ -8,6 +8,7 @@ public class UIGameOver : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI scoreText;
     ScoreKeeper scoreKeeper;
+    readonly string scoreFormat = new('0', 9);
 
     void Awake()
     {
@@ -16,7 +17,7 @@ public class UIGameOver : MonoBehaviour
 
     void Start()
     {
-        scoreText.text = "Final Score: " + scoreKeeper.GetScore().ToString("000000000");
+        scoreText.text = "Final Score: " + scoreKeeper.GetScore().ToString(scoreFormat);
     }
 
 }

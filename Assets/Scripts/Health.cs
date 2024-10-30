@@ -159,6 +159,8 @@ public class Health : MonoBehaviour
 
     void Die()
     {
+        Debug.Log("Died: " + gameObject.name);
+
         if (!isPlayer)
         {
             scoreKeeper.AddScore(score);
@@ -167,8 +169,6 @@ public class Health : MonoBehaviour
         }
         else
         {
-            // delay loading the gameover until the explosion effects are done
-            // this gives the player time to see and hear the explosion
             gameObject.SetActive(false);
             levelManager.LoadGameOver();
        }

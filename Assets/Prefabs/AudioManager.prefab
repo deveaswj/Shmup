@@ -9,11 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1718538443844031672}
-  - component: {fileID: 8330108612464378063}
   - component: {fileID: 3320580648752864047}
   - component: {fileID: 6927769610345828338}
   m_Layer: 0
-  m_Name: AudioPlayer
+  m_Name: AudioManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,32 +33,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8330108612464378063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4348563486761213101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cfd8d901fd9a3f47ac7bee5cb707928, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shootingClip: {fileID: 8300000, guid: 3eede14b5e3d2fe4abef7283436c9a45, type: 3}
-  shootingVolume: 0.3
-  damageClip: {fileID: 8300000, guid: 48764ac72abb06d42a66eb3fd9a52097, type: 3}
-  damageVolume: 1
-  explosionClip: {fileID: 8300000, guid: d3de54ebf91d3c74f87f746c48ab16aa, type: 3}
-  explosionVolume: 0.5
-  powerUpClip: {fileID: 8300000, guid: 10ae85295742bd64b919119225216f93, type: 3}
-  powerUpVolume: 1
-  shieldOnClip: {fileID: 8300000, guid: e4b2004b7d6340a468ba08c9d6291a84, type: 3}
-  shieldOnVolume: 1
-  shieldOffClip: {fileID: 8300000, guid: 288f81e9c81d34d4c80d03efaa7b0597, type: 3}
-  shieldOffVolume: 1
-  boosterClip: {fileID: 8300000, guid: ac52fa904c696284eb4c1ce3c5a41a9a, type: 3}
-  boosterVolume: 1
 --- !u!114 &3320580648752864047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,7 +48,7 @@ MonoBehaviour:
   maxCount: 24
   projectile:
     audioClip: {fileID: 8300000, guid: 3eede14b5e3d2fe4abef7283436c9a45, type: 3}
-    volume: 1
+    volume: 0.3
     pitch: 1
     priority: 0
   damage:
@@ -85,7 +58,7 @@ MonoBehaviour:
     priority: 1
   explosion:
     audioClip: {fileID: 8300000, guid: d3de54ebf91d3c74f87f746c48ab16aa, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     priority: 1
   powerUp:
@@ -104,10 +77,11 @@ MonoBehaviour:
     pitch: 1
     priority: 3
   booster:
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: ac52fa904c696284eb4c1ce3c5a41a9a, type: 3}
     volume: 1
     pitch: 1
-    priority: 0
+    priority: 1
+  audioSourcePrefab: {fileID: 3927714786335425924, guid: 22ecdc098dab013409cceb30c39515ab, type: 3}
 --- !u!82 &6927769610345828338
 AudioSource:
   m_ObjectHideFlags: 0

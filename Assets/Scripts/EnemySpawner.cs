@@ -19,19 +19,25 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnEnemyWaves()
     {
+        int waveNumber = 0;
         do {
             foreach (var wave in waves)
             {
                 currentWave = wave;
                 for (int i = 0; i < currentWave.GetEnemyCount(); i++)
                 {
-                    Instantiate(currentWave.GetEnemyPrefab(i), 
+                    var newEnemy = Instantiate(currentWave.GetEnemyPrefab(i), 
                                 currentWave.GetStartingWaypoint(), 
                                 Quaternion.identity,
                                 transform);
+                    newEnemy.name = "(W" + waveNumber + " E" + i + ") " + newEnemy.name;
+
+                    Debug.Log("Created Enemy: " + newEnemy.name);
+
                     yield return new WaitForSeconds(currentWave.GetRandomSpawnTime());
                 }
                 yield return new WaitForSeconds(timeBetweenWaves);
+                waveNumber++;
             }
         } while (isLooping);
     }

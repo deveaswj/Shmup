@@ -34,8 +34,8 @@ public class LevelManager : MonoBehaviour
             thisSceneLevel = int.Parse(match.Groups[1].Value);
 
             // Update CurrentLevel in GameState only if thisSceneLevel is valid
-            gameState.CurrentLevel = thisSceneLevel;
-            Debug.Log("Current Level set to: " + gameState.CurrentLevel);
+            gameState.SetLevel(thisSceneLevel);
+            Debug.Log("Current Level set to: " + gameState.GetLevel());
         }
         else
         {
@@ -56,13 +56,13 @@ public class LevelManager : MonoBehaviour
     public void LoadNextLevel()
     {
         Debug.Log("LM: Next Level");
-        gameState.CurrentLevel++;
+        gameState.NextLevel();
         LoadCurrentLevel();
     }
 
     public void LoadCurrentLevel()
     {
-        string sceneName = "Level " + gameState.CurrentLevel;
+        string sceneName = "Level " + gameState.GetLevel();
         Debug.Log("LM: Load " + sceneName);
         LoadSceneByName(sceneName);
     }
@@ -75,6 +75,7 @@ public class LevelManager : MonoBehaviour
 
     public void LoadGameOver()
     {
+        // delay loading the gameover until the player death effects are done
         float delay = 3.0f;
         Debug.Log("LM: Game Over");
         LoadSceneByName("Game Over", delay);
@@ -90,6 +91,7 @@ public class LevelManager : MonoBehaviour
     public void LoadSceneByName(string sceneName)
     {
         // CleanupPowerUps();
+        Debug.Log("LM: Loading " + sceneName);
         SceneManager.LoadScene(sceneName);
     }
 

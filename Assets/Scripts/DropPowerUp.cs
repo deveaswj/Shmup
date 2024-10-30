@@ -30,8 +30,20 @@ public class DropPowerUp : MonoBehaviour
         debugPrefix = "DropPowerUp (" + gameObject.name + ") - ";
     }
 
-    public void DisableDrop() => canDrop = false;
-    public void EnableDrop() => canDrop = true;
+    void Start()
+    {
+        debugPrefix = "DropPowerUp (" + gameObject.name + ") - ";
+        EnableDrop();
+    }
+
+    public void DisableDrop() => SetDrop(false);
+    public void EnableDrop() => SetDrop(true);
+
+    private void SetDrop(bool value)
+    {
+        Debug.Log(debugPrefix + "SetDrop: " + value);
+        canDrop = value;
+    }
 
     void OnApplicationQuit()
     {
@@ -87,14 +99,16 @@ public class DropPowerUp : MonoBehaviour
 
     void OnEnable()
     {
+        Debug.Log(debugPrefix + "OnEnable");
         // SceneManager.sceneUnloaded += OnSceneUnloaded;
         EnableDrop();
     }
 
     void OnDisable()
     {
+        Debug.Log(debugPrefix + "OnDisable - Quitting? " + isQuitting);
         // don't unsubscribe
-        DisableDrop();
+        if (isQuitting) DisableDrop();
     }
 
     void OnSceneUnloaded(Scene current)
