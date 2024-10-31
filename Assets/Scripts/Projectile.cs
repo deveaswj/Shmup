@@ -23,7 +23,7 @@ public class Projectile : MonoBehaviour
     //[SerializeField] float minimumFiringRate = 0.1f;
 
     [SerializeField] ProjectileType projectileType;
-    [SerializeField] GameObject spriteSource;
+    // [SerializeField] GameObject spriteSource;
 
     private Rigidbody2D rb;
 

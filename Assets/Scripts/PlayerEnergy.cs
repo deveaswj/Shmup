@@ -50,9 +50,9 @@ public class PlayerEnergy : MonoBehaviour
 
     public float GetCurrentEnergy() => currentEnergy;
     public float GetEnergyDifference() => currentEnergy - previousEnergy;
-    public float GetEnergyPercentage() => 100 * (currentEnergy / maxEnergy);
+    public int GetEnergyPercentage() => Mathf.RoundToInt(100 * (currentEnergy / maxEnergy));
     public bool IsBelowCritical() => currentEnergy <= criticalThreshold;
-    public bool IsEmpty() => currentEnergy <= 0;
+    public bool IsEmpty() => currentEnergy <= 1;
     
     public void ResetEnergy() => currentEnergy = maxEnergy;
 

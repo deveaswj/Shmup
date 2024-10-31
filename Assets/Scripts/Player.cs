@@ -41,9 +41,11 @@ public class Player : MonoBehaviour
 
     // How we shoot
     Shooter shooter;
+    bool canFire = true;
 
-    // Health
+    // Health & Energy
     Health health;
+    PlayerEnergy energy;
 
     AudioManager audioManager;
 
@@ -52,6 +54,7 @@ public class Player : MonoBehaviour
         shooter = GetComponent<Shooter>();
         droneGroupController = GetComponent<DroneGroupController>();
         health = GetComponent<Health>();
+        energy = GetComponent<PlayerEnergy>();
         audioManager = FindObjectOfType<AudioManager>();
     }
 
@@ -121,8 +124,36 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        CheckEnergy();
         // Roll();
         Move();
+    }
+
+    void CheckEnergy()
+    {
+        bool couldFire = canFire;
+        if (energy != null)
+        {
+            if (couldFire)
+            {
+                // if we could, stop if we're at empty
+                canFire = !energy.IsEmpty();
+            }
+            else
+            {
+                // if we couldn't, don't restart until we're above critical
+                canFire = !energy.IsBelowCritical();
+            }
+        }
+        else
+        {
+            canFire = true;
+        }
+        // if we could before, and can't now, stop firing
+        if (couldFire && !canFire)
+        {
+            SetFiring(false);
+        }
     }
 
     void Roll()
@@ -147,18 +178,35 @@ public class Player : MonoBehaviour
 
     void OnFire(InputValue value)
     {
-        if (shooter != null)
+        if (canFire)
         {
-            shooter.SetFiring(value.isPressed);
-        }
-
-        // let any drones know we're firing
-        if (fireEventChannel != null)
-        {
-            fireEventChannel.RaiseEvent(value.isPressed);
+            bool isFiring = value.isPressed;
+            if (energy != null)
+            {
+                if (energy.IsEmpty())
+                {
+                    Debug.Log("OnFire: No energy left!");
+                    isFiring = false;
+                }
+            }
+            SetFiring(isFiring);
         }
     }
     
+    void SetFiring(bool value)
+    {
+        if (shooter != null)
+        {
+            shooter.SetFiring(value);
+        }
+        // let any drones know the firing state
+        if (fireEventChannel != null)
+        {
+            fireEventChannel.RaiseEvent(value);
+        }
+    }
+
+
     public void PowerUp(PowerUpType powerUpType)
     {
         switch (powerUpType)

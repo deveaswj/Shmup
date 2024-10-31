@@ -1034,6 +1034,7 @@ GameObject:
   - component: {fileID: 350435422559544783}
   - component: {fileID: 6202430379768296286}
   - component: {fileID: 392398278056835616}
+  - component: {fileID: 970397932563964273}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1278,6 +1279,24 @@ MonoBehaviour:
   startingDrones: 0
   maxDrones: 3
   ammoEventChannel: {fileID: 11400000, guid: 9c4e91eeec48c8844aa89b5f7fea62b1, type: 2}
+--- !u!114 &970397932563964273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6300503877240476345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ec29fbf8edb59408aeb6b09a90adad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireEventChannel: {fileID: 11400000, guid: 9dfe36f8268279b4d8594a09a8c63af3, type: 2}
+  maxEnergy: 100
+  criticalThreshold: 20
+  drainRate: 5
+  regenRate: 10
+  gracePeriod: 0.5
 --- !u!1 &6832067960055746664
 GameObject:
   m_ObjectHideFlags: 0

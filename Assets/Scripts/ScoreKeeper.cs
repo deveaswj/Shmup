@@ -12,6 +12,9 @@ public class ScoreKeeper : MonoBehaviour
     public void ResetScore() => gameState.ResetScore();
     public void SetScore(int amount) => gameState.SetScore(amount);
 
+    public int GetHighScore() => gameState.GetHighScore();
+    public void ResetHighScore() => gameState.ResetHighScore();
+
     static ScoreKeeper instance;
 
     void Awake()

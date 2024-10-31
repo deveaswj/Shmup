@@ -47,6 +47,7 @@ public class Shooter : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
     }
 
+    public bool IsFiring() => isFiring;
     public void SetFiring(bool value) => isFiring = value;
     public void SetProjectileType(ProjectileType newType) => projectileType = newType;
 
