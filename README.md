@@ -37,18 +37,18 @@ Expanding on the original tutorial by adding:
       - Green: More HP, Never flees or dives. Worth 50.
       - Orange: Standard HP, Chance to dive. Worth 75.
     - Types
-      - Type 1: Prefers to drop Heal or Drone Powerups.
-      - Type 2: Prefers to drop Weapon or Drone Powerups. Lower chance to Flee or Dive.
-      - Type 3: Prefers to drop Shield or Heal Powerups. Higher chance to Flee or Dive.
-      - Type 4: Prefers to drop Shield or Speed Powerups. Fires twice as often, and projectiles are faster.
-      - Type 5: Prefers to drop Speed or Weapon Powerups.
+      - Type 1 "Frog": Prefers to drop Heal or Drone Powerups.
+      - Type 2 "Bat": Prefers to drop Weapon or Drone Powerups. Lower chance to Flee or Dive.
+      - Type 3 "Cowl": Prefers to drop Shield or Heal Powerups. Higher chance to Flee or Dive.
+      - Type 4 "Hex": Prefers to drop Shield or Speed Powerups. Fires twice as often, and projectiles are faster.
+      - Type 5 "Vamp": Prefers to drop Speed or Weapon Powerups.
     
   </details>
 - [ ] Additional levels
   - [ ] Continue/Restart
   - [ ] Level Selection
 - [ ] Boss fights
-- [ ] Multiple lives
+- [ ] Multiple lives? (But we already get so many Health drops. Maybe instead "retries" where you keep your score on replay?)
 
 ## Credits
 Music: ["Mythica" by congusbongus](https://opengameart.org/users/congusbongus)
