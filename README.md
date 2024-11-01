@@ -4,6 +4,7 @@ From a Udemy course: [Complete C# Unity Game Developer 2D](https://www.udemy.com
 
 Expanding on the original tutorial by adding:
 - [x] Asteroids (background)
+- [x] Energy — drains while firing, regens while not firing
 - Object pooling
   - [x] for projectiles
   - [ ] ~~for enemy ships~~
@@ -53,6 +54,6 @@ Expanding on the original tutorial by adding:
 ## Credits
 Music: ["Mythica" by congusbongus](https://opengameart.org/users/congusbongus)
 
-Graphics: [KennyNL](https://www.kenney.nl/assets)
+Graphics: [KenneyNL](https://www.kenney.nl/assets)
 
 (TODO: credit the star and nebula backgrounds creator)
