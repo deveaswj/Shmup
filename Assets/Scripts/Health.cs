@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,9 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    public event Action OnPlayerDeath;
+    public event Action OnEnemyDeath;
+
     [SerializeField] bool isPlayer;
     [SerializeField] int score = 50;    // default score for enemies; ignored if isPlayer
     [SerializeField] int health;
@@ -163,12 +167,14 @@ public class Health : MonoBehaviour
 
         if (!isPlayer)
         {
+            OnEnemyDeath?.Invoke();
             scoreKeeper.AddScore(score);
             gameObject.SetActive(false);
             Destroy(gameObject);
         }
         else
         {
+            OnPlayerDeath?.Invoke();
             gameObject.SetActive(false);
             levelManager.LoadGameOver();
        }
