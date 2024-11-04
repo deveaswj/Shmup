@@ -65,6 +65,19 @@ public class DropPowerUp : MonoBehaviour
         }
 
         Debug.Log(debugPrefix + "OnDestroy - roll to drop");
+        RandomDrop();
+    }
+
+
+    void RandomDrop()
+    {
+        if (!canDrop)
+        {
+            Debug.Log(debugPrefix + "RandomDrop - don't drop");
+            return;
+        }
+
+        Debug.Log(debugPrefix + "RandomDrop - roll to drop");
 
         // Random chance to drop a power-up
         if (powerUpEntries.Count > 0 && Random.value < dropChance)
@@ -77,7 +90,7 @@ public class DropPowerUp : MonoBehaviour
             }
 
             // Roll a random number between 1 and the total weight (inclusive)
-            int randomRoll = Random.Range(1, totalWeight + 1); // Random number from 1 to totalWeight (inclusive)
+            int randomRoll = Random.Range(1, totalWeight + 1);
 
             // Determine which power-up to drop based on the random roll
             int cumulativeWeight = 0;
@@ -94,6 +107,7 @@ public class DropPowerUp : MonoBehaviour
             }
         }
     }
+
 
     // Make sure we can't drop when a scene is unloaded
 

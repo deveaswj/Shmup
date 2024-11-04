@@ -18,6 +18,7 @@ public class Pathfinder : MonoBehaviour
     Vector3 v3up = Vector3.up;
     int damage = 0;
     int loopCount = 0;
+    bool isBossWave = false;
     float random;
     bool actOnOdds = false;
 
@@ -30,6 +31,7 @@ public class Pathfinder : MonoBehaviour
     {
         waveConfig = enemySpawner.GetCurrentWave();
         waypoints = waveConfig.GetWaypoints();
+        isBossWave = waveConfig.IsBossWave();
         transform.position = waypoints[waypointIndex];
         hasHealth = TryGetComponent(out health);
 
@@ -101,7 +103,7 @@ public class Pathfinder : MonoBehaviour
         }
         else
         {
-			if (loopCount < waveConfig.Loops)
+			if (isBossWave || loopCount < waveConfig.Loops)
 			{
 				loopCount++;
 				waypointIndex = 0;

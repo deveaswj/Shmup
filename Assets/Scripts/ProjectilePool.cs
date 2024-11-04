@@ -9,11 +9,13 @@ public class ProjectilePool : MonoBehaviour
 
     private Dictionary<ProjectileType, Queue<Projectile>> poolDictionary;
 	private Dictionary<ProjectileType, GameObject> prefabDictionary;
+    private Dictionary<ProjectileType, int> serialNumbersDictionary;
 
     void Start()
     {
         poolDictionary = new();
         prefabDictionary = new();
+        serialNumbersDictionary = new();
 
         // Populate the pool with projectiles from each prefab
         foreach (GameObject prefab in projectilePrefabs)
@@ -29,7 +31,7 @@ public class ProjectilePool : MonoBehaviour
 
             for (int i = 0; i < poolSize; i++)
             {
-                Projectile newProjectile = NewProjectileComponent(prefab);
+                Projectile newProjectile = NewProjectileComponent(prefab, type);
                 pool.Enqueue(newProjectile);
             }
 
@@ -37,7 +39,7 @@ public class ProjectilePool : MonoBehaviour
         }
     }
 
-    Projectile NewProjectileComponent(GameObject prefab)
+    Projectile NewProjectileComponent(GameObject prefab, ProjectileType type)
     {
         if (prefab == null)
         {
@@ -50,6 +52,23 @@ public class ProjectilePool : MonoBehaviour
             Debug.LogError("Failed to instantiate projectile");
             return null;
         }
+
+        // Check serialNumbersDictionary for this projectile type
+        // If not found, add an entry with a serial number of 0
+        // If found, add 1 to the serial number
+        int serialNumber = 0;
+        if (!serialNumbersDictionary.ContainsKey(type))
+        {
+            serialNumbersDictionary.Add(type, serialNumber);
+        }
+        else
+        {
+            serialNumber = serialNumbersDictionary[type] + 1;
+            serialNumbersDictionary[type] = serialNumber;
+        }
+        // rename this object to include the type and serial number
+        obj.name = "(" + type + ") " + serialNumber;
+
         obj.SetActive(false); // Deactivate the projectile
         if (!obj.TryGetComponent<Projectile>(out var projectile))
         {
@@ -73,7 +92,7 @@ public class ProjectilePool : MonoBehaviour
             else
             {
 				GameObject prefab = prefabDictionary[type];
-                projectile = NewProjectileComponent(prefab);
+                projectile = NewProjectileComponent(prefab, type);
             }
         }
         else

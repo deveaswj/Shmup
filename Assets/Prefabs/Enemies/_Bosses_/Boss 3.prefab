@@ -80,6 +80,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: fa2929b6b1f1b604fa037ecce52a3094, type: 3}
+    - target: {fileID: 4898958879986578313, guid: 215b8b55eb594b645a9bf01a094cc3ab, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1fccae1e395920d47bb41b2dc3de1d56, type: 3}
+    - target: {fileID: 4898958879986578313, guid: 215b8b55eb594b645a9bf01a094cc3ab, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6118587510001733097, guid: 215b8b55eb594b645a9bf01a094cc3ab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.725
@@ -112,8 +120,74 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8985377557219422691, guid: 215b8b55eb594b645a9bf01a094cc3ab, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5778872377429889776, guid: 215b8b55eb594b645a9bf01a094cc3ab, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3848288070353463631}
+    - targetCorrespondingSourceObject: {fileID: 8114068363573542474, guid: 215b8b55eb594b645a9bf01a094cc3ab, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7098162233975683660}
   m_SourcePrefab: {fileID: 100100000, guid: 215b8b55eb594b645a9bf01a094cc3ab, type: 3}
+--- !u!1 &56908260941645593 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5778872377429889776, guid: 215b8b55eb594b645a9bf01a094cc3ab, type: 3}
+  m_PrefabInstance: {fileID: 5834554107313051113}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3848288070353463631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56908260941645593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e9bbe949f9d53d4b9a8ac0478bff84a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePool: {fileID: 0}
+  projectileType: 3
+  projectileSpeed: 8
+  projectileLifetime: 5
+  baseFiringRate: 0.8
+  droneAI: 0
+  droneAIProjectilePoolTag: PlayerProjectilePool
+  enemyAI: 1
+  enemyAIProjectilePoolTag: EnemyProjectilePool
+  firingRateVariance: 0.4
+  minimumFiringRate: 0.2
+--- !u!1 &2333557451828882339 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8114068363573542474, guid: 215b8b55eb594b645a9bf01a094cc3ab, type: 3}
+  m_PrefabInstance: {fileID: 5834554107313051113}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7098162233975683660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2333557451828882339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e9bbe949f9d53d4b9a8ac0478bff84a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePool: {fileID: 0}
+  projectileType: 3
+  projectileSpeed: 8
+  projectileLifetime: 5
+  baseFiringRate: 0.8
+  droneAI: 0
+  droneAIProjectilePoolTag: PlayerProjectilePool
+  enemyAI: 1
+  enemyAIProjectilePoolTag: EnemyProjectilePool
+  firingRateVariance: 0.4
+  minimumFiringRate: 0.2

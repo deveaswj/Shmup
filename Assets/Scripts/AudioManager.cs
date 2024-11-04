@@ -40,6 +40,7 @@ public class AudioManager : MonoBehaviour
 
     private Queue<AudioSource> audioPool;
     private List<AudioSourceWrapper> activeSources;
+    private Dictionary<AudioSourceWrapper, Coroutine> playbackCoroutines = new Dictionary<AudioSourceWrapper, Coroutine>();
 
     public void PlayShootingClip(float? pitchOverride = null)
     {
@@ -220,11 +221,20 @@ public class AudioManager : MonoBehaviour
         activeSources.Add(wrapper);
 
         // Set a callback to release it after the clip ends
-        StartCoroutine(ReturnToPoolAfterPlayback(wrapper, clipData.audioClip.length));
+        // Start the coroutine and store it in the dictionary
+        Coroutine playbackCoroutine = StartCoroutine(ReturnToPoolAfterPlayback(wrapper, clipData.audioClip.length));
+        playbackCoroutines[wrapper] = playbackCoroutine;
     }
 
     void ReplaceAudioSource(AudioSourceWrapper wrapper, AudioClipData clipData, float? pitchOverride, float? volumeOverride)
     {
+        // Stop the specific coroutine for this wrapper if it exists
+        if (playbackCoroutines.TryGetValue(wrapper, out Coroutine coroutine))
+        {
+            StopCoroutine(coroutine);
+            playbackCoroutines.Remove(wrapper);
+        }
+
         // Stop the current low-priority sound
         wrapper.Source.Stop();
         ConfigureAudioSource(wrapper.Source, clipData, pitchOverride, volumeOverride);
@@ -232,8 +242,9 @@ public class AudioManager : MonoBehaviour
         wrapper.Source.Play();
 
         // Restart the coroutine to return it to the pool after the new clip finishes
-        StopAllCoroutines(); // Stop previous coroutines for clean management
-        StartCoroutine(ReturnToPoolAfterPlayback(wrapper, clipData.audioClip.length));
+        // Restart the coroutine and update the dictionary
+        Coroutine playbackCoroutine = StartCoroutine(ReturnToPoolAfterPlayback(wrapper, clipData.audioClip.length));
+        playbackCoroutines[wrapper] = playbackCoroutine;
     }
 
     void ConfigureAudioSource(AudioSource source, AudioClipData clipData, float? pitchOverride, float? volumeOverride)
@@ -269,5 +280,8 @@ public class AudioManager : MonoBehaviour
         Debug.Log("Releasing AudioSource: " + wrapper.Source.name);
 
         audioPool.Enqueue(wrapper.Source);
+
+        // Remove the coroutine from the dictionary
+        playbackCoroutines.Remove(wrapper);
     }
 }

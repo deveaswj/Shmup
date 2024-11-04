@@ -5,11 +5,19 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] List<WaveConfigSO> waves;
-    [SerializeField] float timeBetweenWaves = 5f;
+    [System.Serializable]
+    public class WaveSchedule
+    {
+        public WaveConfigSO wave;
+        public float cooldown = 5f;
+    }
+
+    [SerializeField] List<WaveSchedule> schedules;
+    // [SerializeField] float timeBetweenWaves = 5f;
     [SerializeField] bool isLooping = false;
 
     WaveConfigSO currentWave;
+    float currentCooldown;
     private int activeEnemies;
 
     void Start()
@@ -24,10 +32,12 @@ public class EnemySpawner : MonoBehaviour
     {
         int waveNumber = 0;
         do {
-            foreach (var wave in waves)
+            foreach (var schedule in schedules)
             {
-                bool isBossWave = wave.IsBossWave();
-                currentWave = wave;
+                currentWave = schedule.wave;
+                currentCooldown = schedule.cooldown;
+
+                bool isBossWave = currentWave.IsBossWave();
                 for (int i = 0; i < currentWave.GetEnemyCount(); i++)
                 {
                     var newEnemy = Instantiate(currentWave.GetEnemyPrefab(i), 
@@ -56,7 +66,7 @@ public class EnemySpawner : MonoBehaviour
                     yield return new WaitUntil(() => activeEnemies == 0);
                 }
 
-                yield return new WaitForSeconds(timeBetweenWaves);
+                yield return new WaitForSeconds(currentCooldown);
                 waveNumber++;
             }
         } while (isLooping);

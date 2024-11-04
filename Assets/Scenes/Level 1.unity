@@ -850,14 +850,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce9885cc77da3d418ce4f49df1ef99e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waves:
-  - {fileID: 11400000, guid: c9fe56aa4128c914d87487cfd647a56c, type: 2}
-  - {fileID: 11400000, guid: 847bfa7036ebc60489a073ce1aab3222, type: 2}
-  - {fileID: 11400000, guid: 4ba4c01b16b88b64a8614d8c78239580, type: 2}
-  - {fileID: 11400000, guid: c26007e9fbef8ca4398577b5a4e94b8c, type: 2}
-  - {fileID: 11400000, guid: 3d4d16926a0793e418971a4e7abb31e3, type: 2}
-  - {fileID: 11400000, guid: 5b99d4df7c4058544b5593fc63e999fc, type: 2}
-  timeBetweenWaves: 7
+  schedules:
+  - wave: {fileID: 11400000, guid: c9fe56aa4128c914d87487cfd647a56c, type: 2}
+    cooldown: 7
+  - wave: {fileID: 11400000, guid: 5b99d4df7c4058544b5593fc63e999fc, type: 2}
+    cooldown: 7
+  - wave: {fileID: 11400000, guid: 37ca4f0531992c949b2176c5047308e5, type: 2}
+    cooldown: 2
   isLooping: 1
 --- !u!4 &1080349113
 Transform:
