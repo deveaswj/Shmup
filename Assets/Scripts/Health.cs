@@ -11,8 +11,10 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public event Action OnPlayerDeath;
-    public event Action OnEnemyDeath;
+    // events for this specific Health script on this particular object
+    // get the script's reference and subscribe to e.g. health.OnDefeat
+    // (as used by EnemySpawner which only needs to be informed by *specific* enemies)
+    public event Action<Health> OnDefeat;
 
     [SerializeField] bool isPlayer;
     [SerializeField] int score = 50;    // default score for enemies; ignored if isPlayer
@@ -34,6 +36,8 @@ public class Health : MonoBehaviour
     ScoreKeeper scoreKeeper;
     AudioManager audioManager;
     LevelManager levelManager;
+
+    private static bool isQuitting = false;
 
     public int GetHealth() => health;
     public int GetMaxHealth() => maxHealth;
@@ -88,6 +92,14 @@ public class Health : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         scoreKeeper = FindObjectOfType<ScoreKeeper>();
         levelManager = FindObjectOfType<LevelManager>();
+
+        // Register for shutdown events
+        Application.quitting += OnApplicationQuit;
+    }
+
+    void OnApplicationQuit()
+    {
+        isQuitting = true;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -167,14 +179,16 @@ public class Health : MonoBehaviour
 
         if (!isPlayer)
         {
-            OnEnemyDeath?.Invoke();
+            if (!isQuitting)
+            {
+                OnDefeat?.Invoke(this);
+            }
             scoreKeeper.AddScore(score);
             gameObject.SetActive(false);
             Destroy(gameObject);
         }
         else
         {
-            OnPlayerDeath?.Invoke();
             gameObject.SetActive(false);
             levelManager.LoadGameOver();
        }

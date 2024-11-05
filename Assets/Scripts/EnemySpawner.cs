@@ -13,12 +13,13 @@ public class EnemySpawner : MonoBehaviour
     }
 
     [SerializeField] List<WaveSchedule> schedules;
-    // [SerializeField] float timeBetweenWaves = 5f;
     [SerializeField] bool isLooping = false;
 
     WaveConfigSO currentWave;
     float currentCooldown;
     private int activeEnemies;
+
+    private List<Health> trackedEnemies = new();
 
     void Start()
     {
@@ -53,7 +54,8 @@ public class EnemySpawner : MonoBehaviour
                         if (newEnemy.TryGetComponent<Health>(out var health))
                         {
                             activeEnemies++;
-                            health.OnEnemyDeath += HandleEnemyDefeated;
+                            health.OnDefeat += HandleEnemyDefeated;
+                            trackedEnemies.Add(health);
                         }
                     }
 
@@ -69,8 +71,26 @@ public class EnemySpawner : MonoBehaviour
                 yield return new WaitForSeconds(currentCooldown);
                 waveNumber++;
             }
+            UnsubscribeFromAllEnemies();
         } while (isLooping);
     }
 
-    void HandleEnemyDefeated() => activeEnemies--;
+    void HandleEnemyDefeated(Health defeatedEnemy)
+    {
+        activeEnemies--;
+        defeatedEnemy.OnDefeat -= HandleEnemyDefeated;
+        trackedEnemies.Remove(defeatedEnemy);
+    }
+
+    void UnsubscribeFromAllEnemies()
+    {
+        foreach (var health in trackedEnemies)
+        {
+            if (health != null)
+            {
+                health.OnDefeat -= HandleEnemyDefeated;
+            }
+        }
+        trackedEnemies.Clear();
+    }
 }

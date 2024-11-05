@@ -20,12 +20,17 @@ public class DropPowerUp : MonoBehaviour
     private static bool isQuitting = false;
     private bool canDrop = true;
 
+    private Health health;
+
     string debugPrefix = "";
 
     void Awake()
     {
         // Register for shutdown events
         Application.quitting += OnApplicationQuit;
+
+        // Get the health component
+        health = GetComponent<Health>();
 
         debugPrefix = "DropPowerUp (" + gameObject.name + ") - ";
     }
@@ -45,13 +50,24 @@ public class DropPowerUp : MonoBehaviour
         canDrop = value;
     }
 
+    void HandleDropRequest(Health ignored)
+    {
+        if (!canDrop || isQuitting || !Application.isPlaying)
+        {
+            Debug.Log(debugPrefix + "HandleDropRequest - don't drop");
+            return;
+        }
+
+        RandomDrop();
+    }
+
     void OnApplicationQuit()
     {
         isQuitting = true;
         DisableDrop();
     }
 
-    void OnDestroy()
+/*     void OnDestroy()
     {
         Debug.Log(debugPrefix + "OnDestroy");
 
@@ -66,17 +82,11 @@ public class DropPowerUp : MonoBehaviour
 
         Debug.Log(debugPrefix + "OnDestroy - roll to drop");
         RandomDrop();
-    }
+    } */
 
 
     void RandomDrop()
     {
-        if (!canDrop)
-        {
-            Debug.Log(debugPrefix + "RandomDrop - don't drop");
-            return;
-        }
-
         Debug.Log(debugPrefix + "RandomDrop - roll to drop");
 
         // Random chance to drop a power-up
@@ -108,12 +118,22 @@ public class DropPowerUp : MonoBehaviour
         }
     }
 
+    void OnBecameInvisible()
+    {
+        DisableDrop();
+    }
 
-    // Make sure we can't drop when a scene is unloaded
+    void OnBecameVisible()
+    {
+        EnableDrop();
+    }
 
     void OnEnable()
     {
         Debug.Log(debugPrefix + "OnEnable");
+
+        if (health != null) health.OnDefeat += HandleDropRequest;
+
         // SceneManager.sceneUnloaded += OnSceneUnloaded;
         EnableDrop();
     }
@@ -121,6 +141,9 @@ public class DropPowerUp : MonoBehaviour
     void OnDisable()
     {
         Debug.Log(debugPrefix + "OnDisable - Quitting? " + isQuitting);
+
+        if (health != null) health.OnDefeat -= HandleDropRequest;
+
         // don't unsubscribe
         if (isQuitting) DisableDrop();
     }

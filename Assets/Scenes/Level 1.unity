@@ -1745,6 +1745,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Background
       objectReference: {fileID: 0}
+    - target: {fileID: 4267824190782988694, guid: bff72af1cc67b9249995c80ba73c411d, type: 3}
+      propertyPath: xVariance
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267824190782988694, guid: bff72af1cc67b9249995c80ba73c411d, type: 3}
+      propertyPath: moveSpeed.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6119488218859846694, guid: bff72af1cc67b9249995c80ba73c411d, type: 3}
       propertyPath: m_IsActive
       value: 1

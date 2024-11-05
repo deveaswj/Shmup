@@ -136,22 +136,6 @@ public class Pathfinder : MonoBehaviour
 
     void DestroyShip()
     {
-        if (TryGetComponent<DropPowerUp>(out var dropPowerUp))
-        {
-            Debug.Log(gameObject.name + " DestroyShip - Off screen? " + isOffScreen);
-            if (isOffScreen)
-            {
-                dropPowerUp.DisableDrop();
-            }
-            else
-            {
-                dropPowerUp.EnableDrop();
-            }
-        }
-        else
-        {
-            Debug.Log(gameObject.name + " DestroyShip - DropPowerUp not found");
-        }
         Destroy(gameObject);
     }
 

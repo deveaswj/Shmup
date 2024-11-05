@@ -154,7 +154,7 @@ public class AudioManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("AudioSource " + counter + " in pool is: " + source.name);
+                    // Debug.Log("AudioSource " + counter + " in pool is: " + source.name);
                 }
                 counter++;
             }
