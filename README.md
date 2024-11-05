@@ -3,7 +3,9 @@
 From a Udemy course: [Complete C# Unity Game Developer 2D](https://www.udemy.com/course/unitycourse/)
 
 Expanding on the original tutorial by adding:
-- [x] Asteroids (background)
+- [x] Background enhancements
+  - [x] Asteroids
+  - [x] "Nebula cloud" shifts randomly every 90 seconds
 - [x] Energy — drains while firing, regens while not firing
 - Object pooling
   - [x] for projectiles
@@ -48,7 +50,7 @@ Expanding on the original tutorial by adding:
 - [ ] Additional levels
   - [ ] Continue/Restart
   - [ ] Level Selection
-- [ ] Boss fights
+- [x] Boss fights
 - [ ] Multiple lives? (But we already get so many Health drops. Maybe instead "retries" where you keep your score on replay?)
 
 ## Credits
