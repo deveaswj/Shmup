@@ -10,16 +10,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4605893000009568254, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: shipType
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1001191620367743566, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: m_Name
-      value: Enemy Type 3
+      value: 1 Frog
       objectReference: {fileID: 0}
     - target: {fileID: 1557956015073297079, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 72bb0c59faf17d346956aab96ea841d5, type: 3}
+      objectReference: {fileID: 21300000, guid: 886bbf3db8cd6cd4aba6897435ab2072, type: 3}
     - target: {fileID: 3928199785275935830, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: score
       value: 50
@@ -37,20 +37,32 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7032558556061735616, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
+      propertyPath: courage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032558556061735616, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: behaviorOdds
-      value: 0.75
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032558556061735616, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
+      propertyPath: behaviorWhenShot
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7955808420418633069, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
-      propertyPath: powerUpEntries.Array.data[1].dropWeight
+      propertyPath: powerUpEntries.Array.data[0].dropWeight
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7955808420418633069, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: powerUpEntries.Array.data[6].dropWeight
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7955808420418633069, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: powerUpEntries.Array.data[7].dropWeight
-      value: 2
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7955808420418633069, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
+      propertyPath: powerUpEntries.Array.data[8].dropWeight
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

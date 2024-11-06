@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 568baf78c744b634d97c9fbd06642420, type: 3}
-  m_Name: Wave 1
+  m_Name: Orange 01
   m_EditorClassIdentifier: 
+  _isBossWave: 0
   enemyPrefabs:
   - {fileID: 3078036110989812702, guid: e37f5af7880a9394d8fd0bc2fb4dbb55, type: 3}
   - {fileID: 411126370440091895, guid: d7aff2f66a4e7fd4db462998b7f07d8d, type: 3}
@@ -21,9 +22,10 @@ MonoBehaviour:
   - {fileID: 411126370440091895, guid: d7aff2f66a4e7fd4db462998b7f07d8d, type: 3}
   - {fileID: 3078036110989812702, guid: e37f5af7880a9394d8fd0bc2fb4dbb55, type: 3}
   pathPrefab: {fileID: 554176011694297026, guid: f72c0d310129da740ae31555554f2ce3, type: 3}
-  flipX: 0
+  flipX: 1
   flipY: 0
   rotationAngle: 0
+  offset: {x: 0, y: 0}
   moveSpeed: 3
   reverseOrder: 0
   timeBetweenSpawns: 0.5

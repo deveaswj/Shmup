@@ -10,23 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 568baf78c744b634d97c9fbd06642420, type: 3}
-  m_Name: Wave 0 Rev
+  m_Name: Blue-Black Hexes (R)
   m_EditorClassIdentifier: 
   _isBossWave: 0
   enemyPrefabs:
-  - {fileID: 3078036110989812702, guid: a27b2138ba65ea24cb8902a2a9d0dc87, type: 3}
-  - {fileID: 411126370440091895, guid: fd2153f227dbe9849a8d8a8aca73b865, type: 3}
-  - {fileID: 4832855796194583430, guid: 04868dcdeca58d94188a1f6b11aa30c0, type: 3}
+  - {fileID: 3673773955051773386, guid: e9403cc4b3db50b4fb50fe8e8b6c7df3, type: 3}
   - {fileID: 3673773955051773386, guid: d1c9efa66569ef448a893f7dfbc74065, type: 3}
-  - {fileID: 3630923394743746187, guid: ee0c1fb7b9610d8478b47591ff7fb1a7, type: 3}
-  pathPrefab: {fileID: 1286659809220722298, guid: 8bba80c9a001fb249bbb0e3b218b65ff, type: 3}
-  flipX: 0
+  - {fileID: 3673773955051773386, guid: e9403cc4b3db50b4fb50fe8e8b6c7df3, type: 3}
+  - {fileID: 3673773955051773386, guid: d1c9efa66569ef448a893f7dfbc74065, type: 3}
+  pathPrefab: {fileID: 8002720079918658362, guid: 39f675c8a0537af478947a3c00504029, type: 3}
+  flipX: 1
   flipY: 0
   rotationAngle: 0
   offset: {x: 0, y: 0}
-  moveSpeed: 4
-  reverseOrder: 1
-  timeBetweenSpawns: 0.5
-  spawnTimeVariance: 0.3
+  moveSpeed: 3
+  reverseOrder: 0
+  timeBetweenSpawns: 1
+  spawnTimeVariance: 0.25
   minimumSpawnTime: 0.2
   _loops: 1

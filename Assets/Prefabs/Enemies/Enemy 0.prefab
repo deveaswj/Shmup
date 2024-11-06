@@ -69,6 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   behaviorWhenShot: 0
   behaviorOdds: 0.5
+  courage: 0.5
 --- !u!212 &1557956015073297079
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -133,8 +134,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2629f692fb9710c4b95c314136f02669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 30
-  maxHealth: 30
+  isPlayer: 0
+  score: 50
+  health: 20
+  maxHealth: 20
   minorHealPercent: 20
   majorHealPercent: 50
   explodeEffect: {fileID: 3766303964827541746, guid: f1a4f39157dc997468e5269df1835807, type: 3}

@@ -10,24 +10,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4605893000009568254, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: shipType
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1001191620367743566, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: m_Name
-      value: Enemy Type 4
+      value: 3 Cowl
       objectReference: {fileID: 0}
     - target: {fileID: 1557956015073297079, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9e0b4e2fc07588d4897adf6456d19eba, type: 3}
-    - target: {fileID: 3084993028967645405, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
-      propertyPath: baseFiringRate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3084993028967645405, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
-      propertyPath: projectileSpeed
-      value: 15
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 21300000, guid: 72bb0c59faf17d346956aab96ea841d5, type: 3}
     - target: {fileID: 3928199785275935830, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: score
       value: 50
@@ -44,25 +36,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7032558556061735616, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
+      propertyPath: courage
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032558556061735616, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
+      propertyPath: behaviorOdds
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032558556061735616, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
+      propertyPath: behaviorWhenShot
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7955808420418633069, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: powerUpEntries.Array.data[1].dropWeight
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7955808420418633069, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
-      propertyPath: powerUpEntries.Array.data[2].dropWeight
-      value: 3
+      propertyPath: powerUpEntries.Array.data[6].dropWeight
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7955808420418633069, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
-      propertyPath: powerUpEntries.Array.data[3].dropWeight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7955808420418633069, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
-      propertyPath: powerUpEntries.Array.data[4].dropWeight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7955808420418633069, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
-      propertyPath: powerUpEntries.Array.data[5].dropWeight
-      value: 1
+      propertyPath: powerUpEntries.Array.data[7].dropWeight
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -13,6 +13,7 @@ public class WaveConfigEditor : Editor
     private SerializedProperty flipX;
     private SerializedProperty flipY;
     private SerializedProperty rotationAngle;
+    private SerializedProperty offset;
     private SerializedProperty moveSpeed;
     private SerializedProperty reverseOrder;
     private SerializedProperty timeBetweenSpawns;
@@ -31,6 +32,7 @@ public class WaveConfigEditor : Editor
         flipX = serializedWave.FindProperty("flipX");
         flipY = serializedWave.FindProperty("flipY");
         rotationAngle = serializedWave.FindProperty("rotationAngle");
+        offset = serializedWave.FindProperty("offset");
         moveSpeed = serializedWave.FindProperty("moveSpeed");
         reverseOrder = serializedWave.FindProperty("reverseOrder");
         timeBetweenSpawns = serializedWave.FindProperty("timeBetweenSpawns");
@@ -49,9 +51,14 @@ public class WaveConfigEditor : Editor
         EditorGUILayout.PropertyField(isBossWave);
         EditorGUILayout.PropertyField(enemyPrefabs);
 
+        if (enemyPrefabs.arraySize == 0)
+        {
+            EditorGUILayout.HelpBox("Add at least one prefab to 'Enemy Prefabs'.", MessageType.Warning);
+        }
+
         EditorGUILayout.Space();
         EditorGUILayout.LabelField(".Path", EditorStyles.boldLabel);
-        EditorGUILayout.PropertyField(pathPrefab);
+        EditorGUILayout.PropertyField(pathPrefab, new GUIContent("Path Prefab"));
         EditorGUILayout.PropertyField(flipX);
         EditorGUILayout.PropertyField(flipY);
 
@@ -59,11 +66,12 @@ public class WaveConfigEditor : Editor
         EditorGUILayout.Slider(rotationAngle, 0f, 180f, new GUIContent("Rotation Angle"));
         // EditorGUILayout.PropertyField(rotationAngle);
 
-        EditorGUILayout.PropertyField(reverseOrder);
+        EditorGUILayout.PropertyField(offset, new GUIContent("Offset")); // Draw offset field
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField(".Movement", EditorStyles.boldLabel);
         EditorGUILayout.PropertyField(moveSpeed);
+        EditorGUILayout.PropertyField(reverseOrder);
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField(".Spawning", EditorStyles.boldLabel);

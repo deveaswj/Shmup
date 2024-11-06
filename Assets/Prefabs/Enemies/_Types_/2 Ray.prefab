@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1001191620367743566, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: m_Name
-      value: Enemy Type 2
+      value: 2 Ray
       objectReference: {fileID: 0}
     - target: {fileID: 1557956015073297079, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: m_Sprite
@@ -37,8 +37,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7032558556061735616, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
+      propertyPath: courage
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032558556061735616, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: behaviorOdds
-      value: 0.25
+      value: 0.333
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032558556061735616, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
+      propertyPath: behaviorWhenShot
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7955808420418633069, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: powerUpEntries.Array.data[0].dropWeight

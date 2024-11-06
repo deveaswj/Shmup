@@ -9,12 +9,13 @@ public class WaveConfigSO : ScriptableObject
     // which will override Headers and Ranges in this script
     //[Header("Enemies")]
     [SerializeField] bool _isBossWave = false;
-    [SerializeField] List<GameObject> enemyPrefabs;
+    [SerializeField] List<GameObject> enemyPrefabs = new();
     //[Header("Path")]
     [SerializeField] Transform pathPrefab;
     [SerializeField] bool flipX;
     [SerializeField] bool flipY;
     [SerializeField] [Range(0, 180)] float rotationAngle;
+    [SerializeField] Vector2 offset;
     //[Header("Movement")]
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] bool reverseOrder;
@@ -64,6 +65,8 @@ public class WaveConfigSO : ScriptableObject
         {
             Vector3 newPosition = ApplyTransform(child.position, quatRotation);
 
+            newPosition += (Vector3)offset;
+
             waypoints.Add(newPosition);
         }
         if (reverseOrder) waypoints.Reverse();
@@ -92,7 +95,7 @@ public class WaveConfigSO : ScriptableObject
         {
             totalDistance += Vector3.Distance(waypoints[i], waypoints[i + 1]);
         }
-        totalDistance *= _loops;
+        totalDistance *= (_loops + 1);
         return totalDistance;
     }
 

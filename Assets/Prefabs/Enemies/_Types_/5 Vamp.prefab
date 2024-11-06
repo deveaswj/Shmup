@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1001191620367743566, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: m_Name
-      value: Enemy Type 5
+      value: 5 Vamp
       objectReference: {fileID: 0}
     - target: {fileID: 1557956015073297079, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: m_Sprite
@@ -35,6 +35,18 @@ PrefabInstance:
     - target: {fileID: 4623582694837610655, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032558556061735616, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
+      propertyPath: courage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032558556061735616, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
+      propertyPath: behaviorOdds
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032558556061735616, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
+      propertyPath: behaviorWhenShot
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7955808420418633069, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: powerUpEntries.Array.data[2].dropWeight

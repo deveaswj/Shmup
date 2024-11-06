@@ -12,8 +12,13 @@ public class EnemySpawner : MonoBehaviour
         public float cooldown = 5f;
     }
 
+    [SerializeField] float initialDelay = 3f;
     [SerializeField] List<WaveSchedule> schedules;
     [SerializeField] bool isLooping = false;
+    [SerializeField] int initialLevel = 1;
+    int level;
+    // the intent of "level" here is to level-up the ships after each full loop
+
 
     WaveConfigSO currentWave;
     float currentCooldown;
@@ -24,6 +29,7 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         activeEnemies = 0;
+        level = initialLevel;
         StartCoroutine(SpawnEnemyWaves());
     }
 
@@ -31,6 +37,10 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnEnemyWaves()
     {
+        if (initialDelay > 0)
+        {
+            yield return new WaitForSeconds(initialDelay);
+        }
         int waveNumber = 0;
         do {
             foreach (var schedule in schedules)
@@ -72,6 +82,7 @@ public class EnemySpawner : MonoBehaviour
                 waveNumber++;
             }
             UnsubscribeFromAllEnemies();
+            level++;
         } while (isLooping);
     }
 

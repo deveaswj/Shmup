@@ -850,14 +850,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce9885cc77da3d418ce4f49df1ef99e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialDelay: 3
   schedules:
-  - wave: {fileID: 11400000, guid: c9fe56aa4128c914d87487cfd647a56c, type: 2}
-    cooldown: 7
+  - wave: {fileID: 11400000, guid: 7617e321050bbc24c9e92919fa428308, type: 2}
+    cooldown: 8
   - wave: {fileID: 11400000, guid: 5b99d4df7c4058544b5593fc63e999fc, type: 2}
-    cooldown: 7
+    cooldown: 5
+  - wave: {fileID: 11400000, guid: e30c95c9e64fad24bb163d35fac29571, type: 2}
+    cooldown: 8
+  - wave: {fileID: 11400000, guid: 3d4d16926a0793e418971a4e7abb31e3, type: 2}
+    cooldown: 6
+  - wave: {fileID: 11400000, guid: dcda79a6585037e41b1a942223195aee, type: 2}
+    cooldown: 0
+  - wave: {fileID: 11400000, guid: fb3eb80deb98dc3468f2f38f4692721c, type: 2}
+    cooldown: 0
+  - wave: {fileID: 11400000, guid: 3cf6ed47ff1b5b54cafa9be26d65db1a, type: 2}
+    cooldown: 14
   - wave: {fileID: 11400000, guid: 37ca4f0531992c949b2176c5047308e5, type: 2}
     cooldown: 2
   isLooping: 1
+  initialLevel: 1
 --- !u!4 &1080349113
 Transform:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 568baf78c744b634d97c9fbd06642420, type: 3}
-  m_Name: Wave 0 Rev
+  m_Name: Blue 02
   m_EditorClassIdentifier: 
   _isBossWave: 0
   enemyPrefabs:
@@ -20,12 +20,11 @@ MonoBehaviour:
   - {fileID: 3673773955051773386, guid: d1c9efa66569ef448a893f7dfbc74065, type: 3}
   - {fileID: 3630923394743746187, guid: ee0c1fb7b9610d8478b47591ff7fb1a7, type: 3}
   pathPrefab: {fileID: 1286659809220722298, guid: 8bba80c9a001fb249bbb0e3b218b65ff, type: 3}
-  flipX: 0
+  flipX: 1
   flipY: 0
   rotationAngle: 0
-  offset: {x: 0, y: 0}
   moveSpeed: 4
-  reverseOrder: 1
+  reverseOrder: 0
   timeBetweenSpawns: 0.5
   spawnTimeVariance: 0.3
   minimumSpawnTime: 0.2

@@ -8,10 +8,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1822177650303809889, guid: 9d9b966dbd150b543a09e9ab5968a1fc, type: 3}
-      propertyPath: behaviorWhenShot
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4090837379865809827, guid: 9d9b966dbd150b543a09e9ab5968a1fc, type: 3}
       propertyPath: shipColor
       value: 4

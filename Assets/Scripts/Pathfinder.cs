@@ -8,6 +8,9 @@ public class Pathfinder : MonoBehaviour
 {
     [SerializeField] EnemyBehaviorType behaviorWhenShot;
     [SerializeField] [Range(0f, 1f)] float behaviorOdds = 0.5f;
+    // courage: odds of diving or fleeing (0 = always flee, 1 = always dive)
+    [SerializeField] [Range(0f, 1f)] float courage = 0.5f;
+
     EnemySpawner enemySpawner;
     WaveConfigSO waveConfig;
     List<Vector3> waypoints;
@@ -19,7 +22,6 @@ public class Pathfinder : MonoBehaviour
     int damage = 0;
     int loopCount = 0;
     bool isBossWave = false;
-    float random;
     bool actOnOdds = false;
 
     void Awake()
@@ -35,22 +37,36 @@ public class Pathfinder : MonoBehaviour
         transform.position = waypoints[waypointIndex];
         hasHealth = TryGetComponent(out health);
 
-        random = Random.Range(0f, 1f);
+        float random = Random.Range(0f, 1f);
         actOnOdds = random < behaviorOdds;
+
+        if (behaviorWhenShot == EnemyBehaviorType.Courage)
+        {
+            // roll a new random number between 0 and 1
+            // if within courage threshold, dive, else flee
+            // ex: if 80% courage threshold, up through 79% dives, 80% and above flees
+
+            float courageCheck = Random.Range(0f, 1f);
+            if (courageCheck < courage)
+            {
+                behaviorWhenShot = EnemyBehaviorType.Dive;
+            }
+            else
+            {
+                behaviorWhenShot = EnemyBehaviorType.Flee;
+            }
+        }
 
         if (behaviorWhenShot == EnemyBehaviorType.Either)
         {
-            int newBehavior = Random.Range(0, 2);
+            int newBehavior = Random.Range(0, 2);   // 0 or 1 and never 2
             switch (newBehavior)
             {
                 case 0:
-                    behaviorWhenShot = EnemyBehaviorType.None;
+                    behaviorWhenShot = EnemyBehaviorType.Dive;
                     break;
                 case 1:
                     behaviorWhenShot = EnemyBehaviorType.Flee;
-                    break;
-                case 2:
-                    behaviorWhenShot = EnemyBehaviorType.Dive;
                     break;
                 default:
                     break;
