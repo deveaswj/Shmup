@@ -32,6 +32,10 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField] AudioClip boosterClip;
     [SerializeField] [Range(0f, 1f)] float boosterVolume = 1f;
 
+    [Header("Error")]
+    [SerializeField] AudioClip errorClip;
+    [SerializeField] [Range(0f, 1f)] float errorVolume = 1f;
+
     static AudioPlayer instance;
 
     void Awake()
@@ -88,6 +92,11 @@ public class AudioPlayer : MonoBehaviour
     public void PlayBoosterClip()
     {
         PlayClipAtVolume(boosterClip, boosterVolume);
+    }
+
+    public void PlayErrorClip()
+    {
+        PlayClipAtVolume(errorClip, errorVolume);
     }
 
     void PlayClipAtVolume(AudioClip clip, float volume)

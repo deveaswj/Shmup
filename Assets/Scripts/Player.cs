@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField] float boostSpeed = 10f;
     [SerializeField] float boostDuration = 5f;
     [SerializeField] bool boosted = false;
+    int boostCount = 0;
 
     Vector2 rawInput;
 
@@ -176,6 +177,28 @@ public class Player : MonoBehaviour
         rawInput = value.Get<Vector2>();
     }
 
+    void OnBoost(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            if (!boosted)
+            {
+                if (boostCount < 1)
+                {
+                    audioManager.PlayErrorClip();
+                    return;
+                }
+                else
+                // Add speed
+                {
+                    // start boost coroutine
+                    StartCoroutine(BoostSpeed());
+                    boostCount--;
+                }
+            }
+        }
+    }
+
     void OnFire(InputValue value)
     {
         if (canFire)
@@ -322,14 +345,10 @@ public class Player : MonoBehaviour
 
     void SpeedPowerUp()
     {
-        // Add speed
-        if (!boosted)
-        {
-            audioManager.PlayPowerUpClip();
-            // start boost coroutine
-            StartCoroutine(BoostSpeed());
-        }
-    }
+        // Add to boost count
+        audioManager.PlayPowerUpClip();
+        boostCount++;
+   }
 
     void Weapon_Default()   // called at startup and when player resets
     {

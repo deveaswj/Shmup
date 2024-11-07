@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3016511256173328153}
   - component: {fileID: 4100737439392022816}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: Wing L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1222479022869450581}
   - component: {fileID: 8834252397699599630}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: Gun L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7695090274463574723}
   - component: {fileID: 6232882292927302641}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: Core 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6118587510001733097}
   - component: {fileID: 1425159286107650445}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: Gun R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8930637504068128764}
   - component: {fileID: 2246987158569135364}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: Core 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -430,7 +430,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3203569734430994228}
   - component: {fileID: 3405567771469229932}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: Wing R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -527,6 +527,14 @@ PrefabInstance:
     - target: {fileID: 1001191620367743566, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: m_Name
       value: Boss 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001191620367743566, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001191620367743566, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
+      propertyPath: m_TagString
+      value: Boss Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 1557956015073297079, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: m_Enabled

@@ -26,6 +26,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClipData shieldOn;
     [SerializeField] AudioClipData shieldOff;
     [SerializeField] AudioClipData booster;
+    [SerializeField] AudioClipData error;
     
     [Header("Source Prefab")]
     [SerializeField] GameObject audioSourcePrefab;
@@ -75,6 +76,11 @@ public class AudioManager : MonoBehaviour
     public void PlayBoosterClip()
     {
         PlaySound(booster);
+    }
+
+    public void PlayErrorClip()
+    {
+        PlaySound(error);
     }
 
     void Awake()

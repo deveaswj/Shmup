@@ -141,5 +141,8 @@ MonoBehaviour:
   projectileLayer:
     serializedVersion: 2
     m_Bits: 512
+  bossLayer:
+    serializedVersion: 2
+    m_Bits: 4096
   shieldHitColor: {r: 1, g: 0.25471687, b: 0.25471687, a: 1}
   shieldHitFXDuration: 0.1

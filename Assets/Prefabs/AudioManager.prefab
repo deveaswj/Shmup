@@ -81,6 +81,11 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     priority: 1
+  error:
+    audioClip: {fileID: 8300000, guid: b5e9e2d02591016429219ae679e493f4, type: 3}
+    volume: 1
+    pitch: 1
+    priority: 4
   audioSourcePrefab: {fileID: 3927714786335425924, guid: 22ecdc098dab013409cceb30c39515ab, type: 3}
 --- !u!82 &6927769610345828338
 AudioSource:

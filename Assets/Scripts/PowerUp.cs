@@ -26,6 +26,10 @@ public class PowerUp : MonoBehaviour
     [SerializeField] float lifetime = 10f;
     bool isBlinking = false;
 
+    bool magnetized = false;
+    float magnetDuration, magnetTimer, magnetSpeed;
+    Transform magnetTarget;
+
     float spawnTime;
     float blinkStartTime;
     float expireTime;
@@ -48,11 +52,37 @@ public class PowerUp : MonoBehaviour
         randomDirection = Random.insideUnitCircle.normalized;
     }
 
+    public void ActivateMagnet(Transform targetTransform, float speed, float duration)
+    {
+        if (magnetized) return;
+
+        magnetized = true;
+        magnetTarget = targetTransform;
+        magnetSpeed = speed;
+        magnetDuration = duration;
+        magnetTimer = 0;
+    }
+
     void Update()
     {
-        MoveAnchorPoint();
-        FloatAround();
-        ChangeDirectionOnTimer();
+        if (magnetized && magnetTarget != null)
+        {
+            magnetTimer += Time.deltaTime;
+            if (magnetTimer < magnetDuration)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, magnetTarget.position, magnetSpeed * Time.deltaTime);
+            }
+            else
+            {
+                magnetized = false;
+            }
+        }
+        else
+        {
+            MoveAnchorPoint();
+            FloatAround();
+            ChangeDirectionOnTimer();
+        }
         BlinkAsNeeded();
         DestroyIfExpired();
     }

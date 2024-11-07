@@ -31,6 +31,8 @@ public class RocketFX : MonoBehaviour
     {
         foreach (SpriteRenderer sr in spriteRenderers)
         {
+            // only if the parent object of the object hosting the spriterenderer is active
+            if (!sr.transform.parent.gameObject.activeSelf) continue;
             sr.enabled = show;
         }
     }

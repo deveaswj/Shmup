@@ -10,6 +10,7 @@ public class Shield : MonoBehaviour
     [SerializeField] int shieldHitPoints = 10;         // Number of hits the shield can take
     [SerializeField] LayerMask enemyLayer;             // Layer for detecting enemies
     [SerializeField] LayerMask projectileLayer;        // Layer for detecting projectiles
+    [SerializeField] LayerMask bossLayer;              // Layer for detecting boss enemies
     [Header("Effects")]
     [SerializeField] Color shieldHitColor = Color.red;    // Color of the shield
     [SerializeField] float shieldHitFXDuration = 0.1f;
@@ -18,6 +19,7 @@ public class Shield : MonoBehaviour
     Color originalColor;
     SpriteRenderer sr;
     CircleCollider2D cc;
+    Rigidbody2D playerRB;
     bool shieldOn = false;
     bool hitShield = false;
     Transform shipTransform;
@@ -48,8 +50,10 @@ public class Shield : MonoBehaviour
         {
             playerShip = GameObject.FindWithTag("Player");
         }
+        playerRB = playerShip.GetComponent<Rigidbody2D>();
         shipTransform = playerShip.transform;
         originalColor = sr.color;
+        // don't combine bossLayer - we handle bosses separately
         combinedLayerMask = enemyLayer | projectileLayer;
     }
 
@@ -84,20 +88,61 @@ public class Shield : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (shieldOn && IsInLayerMask(other.gameObject, combinedLayerMask))
+        if (shieldOn)
         {
-            if (other.TryGetComponent<Health>(out var otherHealth))
+            if (IsInLayerMask(other.gameObject, bossLayer))    // Boss
             {
-                Debug.Log("Shield hit by " + otherHealth.gameObject.name);
-                otherHealth.TakeDamage(int.MaxValue);    // damage the enemy to the max!
+                Debug.Log("Shield hit by Boss: " + other.gameObject.name);
+
+                // Calculate initial knockback direction based on relative position
+                Vector2 knockbackDirection = (transform.position - other.transform.position).normalized;
+
+                // Apply edge trap adjustment only if vertical knockback component is minimal
+                knockbackDirection = AdjustForEdgeTrap(knockbackDirection);
+
+                // Perform the knockback by moving the player position
+                if (playerRB != null)
+                {
+                    float knockbackDistance = 1.0f;  // Customize this based on desired knockback effect
+                    Vector2 newPosition = (Vector2)transform.position + knockbackDirection * knockbackDistance;
+                    playerRB.MovePosition(newPosition);  // Smoothly moves player to new position
+                }
+                else
+                {
+                    Debug.LogWarning("Shield: Player has no Rigidbody2D component.");
+                }
+                TakeShieldHit();
             }
-            else if (other.TryGetComponent<DamageDealer>(out var damageDealer))
+            else if (IsInLayerMask(other.gameObject, combinedLayerMask))
             {
-                Debug.Log("Shield hit by " + damageDealer.gameObject.name);
-                damageDealer.Hit();
+                if (other.TryGetComponent<Health>(out var otherHealth))     // Enemy
+                {
+                    Debug.Log("Shield hit by Enemy: " + otherHealth.gameObject.name);
+                    otherHealth.TakeDamage(int.MaxValue);    // damage the enemy to the max!
+                }
+                else if (other.TryGetComponent<DamageDealer>(out var damageDealer))     // Projectile
+                {
+                    Debug.Log("Shield hit by Projectile: " + damageDealer.gameObject.name);
+                    damageDealer.Hit();
+                }
+                TakeShieldHit();
             }
-            TakeShieldHit();
         }
+    }
+
+    private Vector2 AdjustForEdgeTrap(Vector2 knockbackDirection)
+    {
+        float minVerticalThreshold = 0.2f;  // Set threshold for minimal vertical movement
+
+        // Check if vertical component of knockbackDirection is negligible
+        if (Mathf.Abs(knockbackDirection.y) < minVerticalThreshold)
+        {
+            // Apply a small vertical adjustment to prevent edge trapping
+            float verticalAdjustment = Random.Range(0.5f, 1.0f) * (Random.value > 0.5f ? 1 : -1);
+            knockbackDirection.y += verticalAdjustment;
+        }
+
+        return knockbackDirection.normalized;  // Re-normalize to maintain consistent force
     }
 
     private void TakeShieldHit()
