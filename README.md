@@ -9,7 +9,6 @@ Expanding on the original tutorial by adding:
 - [x] Energy — drains while firing, regens while not firing
 - Object pooling
   - [x] for projectiles
-  - [ ] ~~for enemy ships~~
 - Collectable power-ups (dropped randomly by defeated enemies)
   - [x] Heal: minor, major, full, increase max health
   - Ammo types
@@ -35,16 +34,16 @@ Expanding on the original tutorial by adding:
     <summary>(Class details)</summary>
     
     - Colors
-      - Black: Standard HP, Chance to flee OR dive. Worth 100.
-      - Blue: Lower HP, Chance to flee. Worth 50.
-      - Green: More HP, Never flees or dives. Worth 50.
-      - Orange: Standard HP, Chance to dive. Worth 75.
+      - Black: Standard HP. Worth 100. Often faster.
+      - Blue: Lower HP. Worth 25. Less likely to respond when shot.
+      - Green: More HP. Worth 50. Often slower.
+      - Orange: Standard HP. Worth 75. More likely to respond when shot.
     - Types
-      - Type 1 "Frog": Prefers to drop Heal or Drone Powerups.
-      - Type 2 "Bat": Prefers to drop Weapon or Drone Powerups. Lower chance to Flee or Dive.
-      - Type 3 "Cowl": Prefers to drop Shield or Heal Powerups. Higher chance to Flee or Dive.
+      - Type 1 "Frog": Prefers to drop Heal or Drone Powerups. Likely to flee when shot.
+      - Type 2 "Bat": Prefers to drop Weapon or Drone Powerups. Likely to dive when shot, or maybe flee.
+      - Type 3 "Cowl": Prefers to drop Shield or Heal Powerups. Likely to flee when shot, or maybe dive.
       - Type 4 "Hex": Prefers to drop Shield or Speed Powerups. Fires twice as often, and projectiles are faster.
-      - Type 5 "Vamp": Prefers to drop Speed or Weapon Powerups.
+      - Type 5 "Vamp": Prefers to drop Speed or Weapon Powerups. Likely to dive when shot.
     
   </details>
 - [ ] Additional levels
