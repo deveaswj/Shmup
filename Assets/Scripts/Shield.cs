@@ -118,7 +118,7 @@ public class Shield : MonoBehaviour
                 if (other.TryGetComponent<Health>(out var otherHealth))     // Enemy
                 {
                     Debug.Log("Shield hit by Enemy: " + otherHealth.gameObject.name);
-                    otherHealth.TakeDamage(int.MaxValue);    // damage the enemy to the max!
+                    otherHealth.TakeDamage(int.MaxValue, true);    // damage the enemy to the max!
                 }
                 else if (other.TryGetComponent<DamageDealer>(out var damageDealer))     // Projectile
                 {

@@ -46,7 +46,7 @@ public class DropPowerUp : MonoBehaviour
 
     private void SetDrop(bool value)
     {
-        Debug.Log(debugPrefix + "SetDrop: " + value);
+        // Debug.Log(debugPrefix + "SetDrop: " + value);
         canDrop = value;
     }
 

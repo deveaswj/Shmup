@@ -37,6 +37,8 @@ public class Health : MonoBehaviour
     AudioManager audioManager;
     LevelManager levelManager;
 
+    AOEDealer aoeDealer = null;
+
     private static bool isQuitting = false;
 
     public int GetHealth() => health;
@@ -104,13 +106,22 @@ public class Health : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        // if what collided with us has an AOEDealer component, store its reference
+        aoeDealer = other.GetComponent<AOEDealer>();
+
         // if what collided with us is a DamageDealer, take damage and destroy it
         if (other.TryGetComponent<DamageDealer>(out var damageDealer))
         {
             TakeDamage(damageDealer.GetDamage());
             ShakeCameraAsNeeded();
             damageDealer.Hit();
+            DieAsNeeded();
         }
+    }
+
+    private void DieAsNeeded()
+    {
+        if (health <= 0) Die();
     }
 
     public void AddHealthPercentage(int percent)
@@ -129,7 +140,7 @@ public class Health : MonoBehaviour
         AddHealth(amount);
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, bool dieWhenZero = false)
     {
         health -= damage;
         if (health > 0)
@@ -143,7 +154,10 @@ public class Health : MonoBehaviour
             nextShake = largeShake;
             audioManager.PlayExplosionClip();
             PlayExplosion();
-            Die();
+            if (dieWhenZero)
+            {
+                Die();
+            }
         }
     }
 
@@ -182,6 +196,12 @@ public class Health : MonoBehaviour
             if (!isQuitting)
             {
                 OnDefeat?.Invoke(this);
+                if (aoeDealer != null)
+                {
+                    AOEDealer newAOEDealer = aoeDealer.CreateAOE(transform.position, gameObject.name);
+                    // explicitly call DestroyLater() because of Unity timing issues
+                    newAOEDealer.DestroyLater();
+                }
             }
             scoreKeeper.AddScore(score);
             gameObject.SetActive(false);
