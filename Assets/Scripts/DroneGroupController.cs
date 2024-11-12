@@ -129,7 +129,10 @@ public class DroneGroupController : MonoBehaviour
         int index = drones.IndexOf(drone);
         drones.RemoveAt(index);          // Remove from the list
         droneBuffers.RemoveAt(index);    // Remove the corresponding buffer
-        Destroy(drone.gameObject);       // Destroy the drone object
+        if (drone.gameObject != null)
+        {
+            Destroy(drone.gameObject);       // Destroy the drone object
+        }
     }
 
     public void RemoveAllDrones()

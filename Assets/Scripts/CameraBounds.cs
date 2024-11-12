@@ -11,10 +11,17 @@ public class CameraBounds : MonoBehaviour
     public Vector2 Min => minBounds;
     public Vector2 Max => maxBounds;
 
+    Camera mainCamera;
+
+    void Awake()
+    {
+        mainCamera = Camera.main;
+        InitializeBounds();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        InitializeBounds();
     }
 
     public bool OutOfBounds(Vector3 point) => point.x < minBounds.x || point.x > maxBounds.x || point.y < minBounds.y || point.y > maxBounds.y;
@@ -24,7 +31,6 @@ public class CameraBounds : MonoBehaviour
 
     void InitializeBounds()
     {
-        Camera mainCamera = Camera.main;
         minBounds = mainCamera.ViewportToWorldPoint(new Vector2(0, 0));
         maxBounds = mainCamera.ViewportToWorldPoint(new Vector2(1, 1));
         Debug.Log("Camera Bounds: " + minBounds + " to " + maxBounds);

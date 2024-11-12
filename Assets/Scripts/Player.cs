@@ -127,6 +127,7 @@ public class Player : MonoBehaviour
         minPadded.y += padding0.y;
         maxPadded.x -= padding1.x;
         maxPadded.y -= padding1.y;
+        Debug.Log("Player Bounds: " + minPadded + " to " + maxPadded);
     }
 
     void Update()

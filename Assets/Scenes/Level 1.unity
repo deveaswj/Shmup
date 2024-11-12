@@ -896,6 +896,8 @@ MonoBehaviour:
     cooldown: 0
   - wave: {fileID: 11400000, guid: 7ddf7397bfd176a49920d6a986217794, type: 2}
     cooldown: 0
+  - wave: {fileID: 11400000, guid: 241b67dcfc24d98488736fe6cbdf2d46, type: 2}
+    cooldown: 18
   isLooping: 1
   initialLevel: 1
 --- !u!4 &1080349113
@@ -1616,6 +1618,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4231d4ba823099b419363dadb6f7080c, type: 3}
+--- !u!1001 &2021494377
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2705540735025828418, guid: 76cf086eb6a49db4a9a58d5556cafe0d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705540735025828418, guid: 76cf086eb6a49db4a9a58d5556cafe0d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705540735025828418, guid: 76cf086eb6a49db4a9a58d5556cafe0d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705540735025828418, guid: 76cf086eb6a49db4a9a58d5556cafe0d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705540735025828418, guid: 76cf086eb6a49db4a9a58d5556cafe0d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705540735025828418, guid: 76cf086eb6a49db4a9a58d5556cafe0d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705540735025828418, guid: 76cf086eb6a49db4a9a58d5556cafe0d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705540735025828418, guid: 76cf086eb6a49db4a9a58d5556cafe0d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705540735025828418, guid: 76cf086eb6a49db4a9a58d5556cafe0d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705540735025828418, guid: 76cf086eb6a49db4a9a58d5556cafe0d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8461991927422028135, guid: 76cf086eb6a49db4a9a58d5556cafe0d, type: 3}
+      propertyPath: m_Name
+      value: PU - Drone
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 76cf086eb6a49db4a9a58d5556cafe0d, type: 3}
 --- !u!1 &2104187104
 GameObject:
   m_ObjectHideFlags: 0
@@ -2055,3 +2114,4 @@ SceneRoots:
   - {fileID: 45879612}
   - {fileID: 1466348307}
   - {fileID: 1940560967}
+  - {fileID: 2021494377}
