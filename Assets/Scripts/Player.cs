@@ -266,7 +266,7 @@ public class Player : MonoBehaviour
     void WeaponPowerUp(PowerUpType powerUpType)
     {
         audioManager.PlayPowerUpClip();
-        // figure out speed bonus if collected same weapon twice
+        // did we collect the same kind of weapon we already have?
         if (lastWeaponType == powerUpType)
         {
             duplicateWeaponCount++;
@@ -275,26 +275,40 @@ public class Player : MonoBehaviour
         {
             duplicateWeaponCount = 0;
         }
-        // #TODO: alternate increasing speed (velocity) or firing rate
-        // based on whether the count is even or odd
+        // if so: formulaically increase speed (velocity) or firing rate
         // increase speed first, then rate, then speed, then rate ...
-        //
-        float speedBonus = duplicateWeaponCount * 0.5f;
-        // float rateBonus = duplicateWeaponCount * 0.5f;
+        float speedBonus = 0.0f;
+        float rateMultiplier = 1.0f;
+        if (duplicateWeaponCount > 0)
+        {
+            if (duplicateWeaponCount % 2 == 0)
+            {
+                // 2, 4, 6, 8, ... get a rate bonus
+                // smaller numbers are faster
+                // default rate multiplier is 1.0f (100%)
+                // reduce it by 3% for each additional duplicate
+                rateMultiplier -= (duplicateWeaponCount * 0.03f);
+            }
+            else
+            {
+                // 1, 3, 5, 7, ... get a speed bonus
+                speedBonus = duplicateWeaponCount * 0.5f;
+            }
+        }
         // Add weapon
         switch (powerUpType)
         {
             case PowerUpType.Weapon1:
                 Debug.Log("Power up: Weapon 1 (DoubleSpeed)");
-                Weapon_DoubleSpeed(speedBonus);
+                Weapon_DoubleSpeed(speedBonus, rateMultiplier);
                 break;
             case PowerUpType.Weapon2:
                 Debug.Log("Power up: Weapon 2 (DoubleShot)");
-                Weapon_DoubleShot(speedBonus);
+                Weapon_DoubleShot(speedBonus, rateMultiplier);
                 break;
             case PowerUpType.Weapon3:
                 Debug.Log("Power up: Weapon 3 (Photon)");
-                Weapon_Photon(speedBonus);
+                Weapon_Photon(speedBonus, rateMultiplier);
                 break;
         }
         lastWeaponType = powerUpType;
@@ -357,30 +371,36 @@ public class Player : MonoBehaviour
         lastWeaponType = PowerUpType.None;
     }
 
-    void Weapon_DoubleSpeed(float speedBonus = 0.0f)
+    void Weapon_DoubleSpeed(float speedBonus = 0.0f, float rateMultiplier = 1.0f)
     {
         // Add weapon
-        SetWeapon(ProjectileType.SingleShot, speedBonus + 2.0f);
+        float defaultSpeed = 2.0f;
+        SetWeapon(ProjectileType.SingleShot, speedBonus + defaultSpeed, rateMultiplier);
     }
 
-    void Weapon_DoubleShot(float speedBonus = 0.0f)
+    void Weapon_DoubleShot(float speedBonus = 0.0f, float rateMultiplier = 1.0f)
     {
         // Add weapon
-        SetWeapon(ProjectileType.DoubleShot, speedBonus + 1.0f);
+        float defaultSpeed = 1.0f;
+        SetWeapon(ProjectileType.DoubleShot, speedBonus + defaultSpeed, rateMultiplier);
     }
 
-    void Weapon_Photon(float speedBonus = 0.0f)
+    void Weapon_Photon(float speedBonus = 0.0f, float rateMultiplier = 1.0f)
     {
         // Add weapon
-        SetWeapon(ProjectileType.Photon, speedBonus + 1.0f);
+        float defaultSpeed = 1.0f;
+        SetWeapon(ProjectileType.Photon, speedBonus + defaultSpeed, rateMultiplier);
     }
 
-    void SetWeapon(ProjectileType type, float speed = 1.0f)
+    void SetWeapon(ProjectileType type, float speed = 1.0f, float rateMultiplier = 1.0f)
     {
+        Debug.Log("SetWeapon: " + type + ", S:" + speed + ", Rm:" + rateMultiplier);
         shooter.SetProjectileType(type);
         shooter.SetSpeedMultiplier(speed);
+        shooter.SetRateMultiplier(rateMultiplier);
         ammoEventChannel.RaiseTypeEvent(type);
         ammoEventChannel.RaiseSpeedEvent(speed);
+        ammoEventChannel.RaiseRateEvent(rateMultiplier);
     }
 
     void DronePowerUp()

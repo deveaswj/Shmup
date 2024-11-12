@@ -50,11 +50,29 @@ public class Shield : MonoBehaviour
         {
             playerShip = GameObject.FindWithTag("Player");
         }
+        if (playerShip.TryGetComponent<Health>(out var playerHealth))
+        {
+            playerHealth.OnDefeat += HandlePlayerDefeat;
+        }
         playerRB = playerShip.GetComponent<Rigidbody2D>();
         shipTransform = playerShip.transform;
         originalColor = sr.color;
         // don't combine bossLayer - we handle bosses separately
         combinedLayerMask = enemyLayer | projectileLayer;
+    }
+
+    private void HandlePlayerDefeat(Health playerHealth)
+    {
+        TurnOff();
+        playerHealth.OnDefeat -= HandlePlayerDefeat;
+    }
+
+    private void OnDisable()
+    {
+        // when player dies, don't let this linger on the screen
+        Debug.Log("Shield OnDisable");
+        sr.enabled = false;
+        TurnOff();
     }
 
     private void Update()
@@ -118,7 +136,10 @@ public class Shield : MonoBehaviour
                 if (other.TryGetComponent<Health>(out var otherHealth))     // Enemy
                 {
                     Debug.Log("Shield hit by Enemy: " + otherHealth.gameObject.name);
-                    otherHealth.TakeDamage(int.MaxValue, true);    // damage the enemy to the max!
+                    //
+                    // 2024/11/11 - let Health call DamageDealer to damage the enemy instead
+                    //
+                    // otherHealth.TakeDamage(int.MaxValue, true);    // damage the enemy to the max!
                 }
                 else if (other.TryGetComponent<DamageDealer>(out var damageDealer))     // Projectile
                 {

@@ -235,6 +235,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8237466641434014150, guid: eed782b16f60ab443bd4c31d43d3decf, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 8237466641434014150, guid: eed782b16f60ab443bd4c31d43d3decf, type: 3}
       propertyPath: m_Name
       value: Smart Waypoint (6)
       objectReference: {fileID: 0}
@@ -358,6 +362,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8237466641434014150, guid: eed782b16f60ab443bd4c31d43d3decf, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 8237466641434014150, guid: eed782b16f60ab443bd4c31d43d3decf, type: 3}
       propertyPath: m_Name
       value: Smart Waypoint (0)

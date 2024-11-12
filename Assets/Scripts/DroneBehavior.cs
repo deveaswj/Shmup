@@ -54,6 +54,14 @@ public class DroneBehavior : MonoBehaviour
         }
     }
 
+    public void SetAmmoRate(float rate = 1.0f)
+    {
+        if (shooter != null)
+        {
+            shooter.SetRateMultiplier(rate);
+        }
+    }
+
     void OnSceneUnloaded(Scene scene)
     {
         Destroy(gameObject);

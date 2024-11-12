@@ -513,8 +513,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -726684176225730681, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
-      propertyPath: damage
-      value: 50
+      propertyPath: isBoss
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 504420710907571316, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: m_Radius

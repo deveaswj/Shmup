@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 568baf78c744b634d97c9fbd06642420, type: 3}
+  m_Name: Orange 02
+  m_EditorClassIdentifier: 
+  _isBossWave: 0
+  enemyPrefabs:
+  - {fileID: 4832855796194583430, guid: ef65e220d144c464b9f03b09ef4f2c6b, type: 3}
+  - {fileID: 4832855796194583430, guid: ef65e220d144c464b9f03b09ef4f2c6b, type: 3}
+  - {fileID: 4832855796194583430, guid: ef65e220d144c464b9f03b09ef4f2c6b, type: 3}
+  - {fileID: 3078036110989812702, guid: e37f5af7880a9394d8fd0bc2fb4dbb55, type: 3}
+  - {fileID: 3078036110989812702, guid: e37f5af7880a9394d8fd0bc2fb4dbb55, type: 3}
+  - {fileID: 3078036110989812702, guid: e37f5af7880a9394d8fd0bc2fb4dbb55, type: 3}
+  pathPrefab: {fileID: 4411708738659366932, guid: 35726384602550a4f95a404c6c956285, type: 3}
+  flipX: 1
+  flipY: 0
+  rotationAngle: 0
+  offset: {x: 0, y: 0}
+  moveSpeed: 3
+  reverseOrder: 0
+  timeBetweenSpawns: 0.5
+  spawnTimeVariance: 0.25
+  minimumSpawnTime: 0.2
+  _loops: 1

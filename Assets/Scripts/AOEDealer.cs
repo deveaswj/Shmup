@@ -5,7 +5,12 @@ using System.Collections;
 public class AOEDealer : MonoBehaviour
 {
     [SerializeField] GameObject aoePrefab;
-    [SerializeField] float lifetime = 1f;
+    [SerializeField] float lifetime = 0.75f;
+
+    // note: Assume this gameObject has a DamageDealer script that will do the actual damage
+    // All this does is create another AOE (if asked, by a Health script) and destroy itself
+    // Enemy ships' Health scripts call CreateAOE() and DestroyLater() if an AOEDealer (such
+    // as an AOE-dealing projectile or another AOE object) collides with them.
 
     private CircleCollider2D circleCollider2D;
     private bool isProjectile = false;

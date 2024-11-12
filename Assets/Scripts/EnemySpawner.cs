@@ -13,6 +13,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
     [SerializeField] float initialDelay = 3f;
+    [SerializeField] float minCooldown = 2f;
     [SerializeField] List<WaveSchedule> schedules;
     [SerializeField] bool isLooping = false;
     [SerializeField] int initialLevel = 1;
@@ -48,6 +49,8 @@ public class EnemySpawner : MonoBehaviour
                 currentWave = schedule.wave;
                 currentCooldown = schedule.cooldown;
 
+                List<GameObject> waveEnemies = new();
+
                 bool isBossWave = currentWave.IsBossWave();
                 for (int i = 0; i < currentWave.GetEnemyCount(); i++)
                 {
@@ -58,6 +61,8 @@ public class EnemySpawner : MonoBehaviour
                     newEnemy.name = "(W" + waveNumber + " E" + i + ") " + newEnemy.name;
 
                     // Debug.Log("Created Enemy: " + newEnemy.name);
+
+                    waveEnemies.Add(newEnemy);
 
                     if (isBossWave)
                     {
@@ -76,10 +81,37 @@ public class EnemySpawner : MonoBehaviour
                 if (isBossWave)
                 {
                     yield return new WaitUntil(() => activeEnemies == 0);
+                    yield return new WaitForSeconds(currentCooldown);
                 }
-
-                yield return new WaitForSeconds(currentCooldown);
+                else
+                {
+                    float elapsedTime = 0f;
+                    bool allEnemiesDead = false;
+                    yield return new WaitUntil(() => {
+                        elapsedTime += Time.deltaTime;
+                        waveEnemies.RemoveAll(enemy => enemy == null);
+                        if (elapsedTime >= currentCooldown)
+                        {
+                            Debug.Log("ES:WU: Cooldown elapsed");
+                            return true;
+                        }
+                        else if (waveEnemies.Count == 0)
+                        {
+                            allEnemiesDead = true;
+                            Debug.Log("ES:WU: All enemies are dead");
+                            return true;
+                        }
+                        return false;
+                    });
+                    // if we defeat all enemies before the cooldown has elapsed, wait the mincooldown
+                    if (allEnemiesDead)
+                    {
+                        yield return new WaitForSeconds(minCooldown);
+                    }
+                }
+                // yield return new WaitForSeconds(currentCooldown);
                 waveNumber++;
+                waveEnemies.Clear();
             }
             UnsubscribeFromAllEnemies();
             level++;

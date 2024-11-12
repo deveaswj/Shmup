@@ -106,10 +106,10 @@ public class Health : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // if what collided with us has an AOEDealer component, store its reference
+        // if the other object has an AOEDealer component, store its reference
         aoeDealer = other.GetComponent<AOEDealer>();
 
-        // if what collided with us is a DamageDealer, take damage and destroy it
+        // if the other object is a DamageDealer, we take damage, and it takes a hit
         if (other.TryGetComponent<DamageDealer>(out var damageDealer))
         {
             TakeDamage(damageDealer.GetDamage());
@@ -195,7 +195,7 @@ public class Health : MonoBehaviour
         {
             if (!isQuitting)
             {
-                OnDefeat?.Invoke(this);
+                OnDefeat?.Invoke(this);     // used in EnemySpawner
                 if (aoeDealer != null)
                 {
                     AOEDealer newAOEDealer = aoeDealer.CreateAOE(transform.position, gameObject.name);
@@ -209,6 +209,7 @@ public class Health : MonoBehaviour
         }
         else
         {
+            OnDefeat?.Invoke(this);
             gameObject.SetActive(false);
             levelManager.LoadGameOver();
        }

@@ -18,6 +18,7 @@ public class DroneGroupController : MonoBehaviour
 
     ProjectileType droneAmmoType = ProjectileType.SingleShot;
     float droneAmmoSpeed = 1.0f;
+    float droneAmmoRate = 1.0f;
 
     Vector3 lastPlayerPosition;
     bool playerIsMoving;
@@ -29,6 +30,7 @@ public class DroneGroupController : MonoBehaviour
         // Subscribe to events
         ammoEventChannel.OnAmmoTypeChange += HandleAmmoTypeChange;
         ammoEventChannel.OnAmmoSpeedChange += HandleAmmoSpeedChange;
+        ammoEventChannel.OnAmmoRateChange += HandleAmmoRateChange;
     }
 
     void OnDisable()
@@ -36,6 +38,7 @@ public class DroneGroupController : MonoBehaviour
         // Unsubscribe from events
         ammoEventChannel.OnAmmoTypeChange -= HandleAmmoTypeChange;
         ammoEventChannel.OnAmmoSpeedChange -= HandleAmmoSpeedChange;
+        ammoEventChannel.OnAmmoRateChange -= HandleAmmoRateChange;
     }
 
 
@@ -108,14 +111,13 @@ public class DroneGroupController : MonoBehaviour
 
         // Get the DroneBehavior component and set its properties
         DroneBehavior drone = droneObject.GetComponent<DroneBehavior>();
-        // drone.SetAmmoType(droneAmmoType);
-        // drone.SetAmmoSpeed(droneAmmoSpeed);
 
         drones.Add(drone);  // Add the drone to the active list
         droneBuffers.Add(new Queue<Vector3>(new Vector3[bufferLength])); // Add a new buffer for the drone
 
         SetAmmoType(droneAmmoType);
         SetAmmoSpeed(droneAmmoSpeed);
+        SetAmmoRate(droneAmmoRate);
     }
 
     // Method to remove a drone (e.g., when destroyed)
@@ -155,6 +157,15 @@ public class DroneGroupController : MonoBehaviour
         }
     }
 
+    public void SetAmmoRate(float rate = 1.0f)
+    {
+        droneAmmoRate = rate;
+        foreach (DroneBehavior drone in drones)
+        {
+            drone.SetAmmoRate(rate);
+        }
+    }
+
     void HandleAmmoTypeChange(ProjectileType type)
     {
         SetAmmoType(type);
@@ -163,5 +174,10 @@ public class DroneGroupController : MonoBehaviour
     void HandleAmmoSpeedChange(float speed)
     {
         SetAmmoSpeed(speed);
+    }
+
+    void HandleAmmoRateChange(float rate)
+    {
+        SetAmmoRate(rate);
     }
 }
