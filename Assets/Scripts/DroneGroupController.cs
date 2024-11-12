@@ -39,6 +39,9 @@ public class DroneGroupController : MonoBehaviour
         ammoEventChannel.OnAmmoTypeChange -= HandleAmmoTypeChange;
         ammoEventChannel.OnAmmoSpeedChange -= HandleAmmoSpeedChange;
         ammoEventChannel.OnAmmoRateChange -= HandleAmmoRateChange;
+
+        // Clear the list of active drones
+        RemoveAllDrones();
     }
 
 
@@ -127,6 +130,14 @@ public class DroneGroupController : MonoBehaviour
         drones.RemoveAt(index);          // Remove from the list
         droneBuffers.RemoveAt(index);    // Remove the corresponding buffer
         Destroy(drone.gameObject);       // Destroy the drone object
+    }
+
+    public void RemoveAllDrones()
+    {
+        for (int i = drones.Count - 1; i >= 0; i--)
+        {
+            RemoveDrone(drones[i]);
+        }
     }
 
     // Update the buffer with a new position

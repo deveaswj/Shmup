@@ -10,26 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 568baf78c744b634d97c9fbd06642420, type: 3}
-  m_Name: Blk-Ora Vamps
+  m_Name: Simple Dive 1 (LL)
   m_EditorClassIdentifier: 
   _isBossWave: 0
   enemyPrefabs:
-  - {fileID: 3630923394743746187, guid: 0f630c741cfbdf5478cc4673c42d3b86, type: 3}
-  - {fileID: 3630923394743746187, guid: 6d6f15665325e3c4e8883860ba40a3e8, type: 3}
-  - {fileID: 3630923394743746187, guid: 0f630c741cfbdf5478cc4673c42d3b86, type: 3}
-  - {fileID: 3630923394743746187, guid: 6d6f15665325e3c4e8883860ba40a3e8, type: 3}
+  - {fileID: 4832855796194583430, guid: fbccaeb15fe82cf4bae4644259859f46, type: 3}
   - {fileID: 3078036110989812702, guid: 8831156fa17811e4da91ecf38dca4f85, type: 3}
-  - {fileID: 3630923394743746187, guid: 6d6f15665325e3c4e8883860ba40a3e8, type: 3}
   - {fileID: 3078036110989812702, guid: 8831156fa17811e4da91ecf38dca4f85, type: 3}
-  - {fileID: 3630923394743746187, guid: 6d6f15665325e3c4e8883860ba40a3e8, type: 3}
-  pathPrefab: {fileID: 1666944661621781668, guid: 271769d883129e542a2efaee3f910363, type: 3}
+  - {fileID: 3078036110989812702, guid: 8831156fa17811e4da91ecf38dca4f85, type: 3}
+  pathPrefab: {fileID: 3412477332328658237, guid: ffd33784daba37545996984356678aa7, type: 3}
   flipX: 0
   flipY: 0
   rotationAngle: 0
-  offset: {x: 0, y: 0}
+  offset: {x: -3, y: 0}
   moveSpeed: 5
   reverseOrder: 0
-  timeBetweenSpawns: 0.675
+  timeBetweenSpawns: 0.5
   spawnTimeVariance: 0.3
   minimumSpawnTime: 0.2
   _loops: 0

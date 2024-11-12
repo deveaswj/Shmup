@@ -37,8 +37,9 @@ public class Player : MonoBehaviour
     PowerUpType lastWeaponType = PowerUpType.None;
     int duplicateWeaponCount = 0;
 
-    // Main camera bounds
-    Vector2 minBounds, maxBounds;
+    // Main camera bounds with padding
+    Vector2 minPadded, maxPadded;
+    CameraBounds cameraBounds;
 
     // How we shoot
     Shooter shooter;
@@ -57,6 +58,7 @@ public class Player : MonoBehaviour
         health = GetComponent<Health>();
         energy = GetComponent<PlayerEnergy>();
         audioManager = FindObjectOfType<AudioManager>();
+        cameraBounds = Camera.main.GetComponent<CameraBounds>();
     }
 
     void Start()
@@ -118,9 +120,13 @@ public class Player : MonoBehaviour
 
     void InitializeBounds()
     {
-        Camera mainCamera = Camera.main;
-        minBounds = mainCamera.ViewportToWorldPoint(new Vector2(0, 0));
-        maxBounds = mainCamera.ViewportToWorldPoint(new Vector2(1, 1));
+        minPadded = cameraBounds.Min;
+        maxPadded = cameraBounds.Max;
+        // add padding
+        minPadded.x += padding0.x;
+        minPadded.y += padding0.y;
+        maxPadded.x -= padding1.x;
+        maxPadded.y -= padding1.y;
     }
 
     void Update()
@@ -167,8 +173,8 @@ public class Player : MonoBehaviour
         float speed = boosted ? boostSpeed : moveSpeed;
         Vector2 delta = speed * Time.deltaTime * rawInput;
         Vector2 newPos = new(transform.position.x + delta.x, transform.position.y + delta.y);
-        newPos.x = Mathf.Clamp(newPos.x, minBounds.x + padding0.x, maxBounds.x - padding1.x);
-        newPos.y = Mathf.Clamp(newPos.y, minBounds.y + padding0.y, maxBounds.y - padding1.y);
+        newPos.x = Mathf.Clamp(newPos.x, minPadded.x, maxPadded.x);
+        newPos.y = Mathf.Clamp(newPos.y, minPadded.y, maxPadded.y);
         transform.position = newPos;
     }
 
@@ -279,6 +285,10 @@ public class Player : MonoBehaviour
         // increase speed first, then rate, then speed, then rate ...
         float speedBonus = 0.0f;
         float rateMultiplier = 1.0f;
+        if (powerUpType == PowerUpType.Weapon3)
+        {
+            rateMultiplier = 1.5f;
+        }
         if (duplicateWeaponCount > 0)
         {
             if (duplicateWeaponCount % 2 == 0)
@@ -292,7 +302,7 @@ public class Player : MonoBehaviour
             else
             {
                 // 1, 3, 5, 7, ... get a speed bonus
-                speedBonus = duplicateWeaponCount * 0.5f;
+                speedBonus = (duplicateWeaponCount * 0.5f);
             }
         }
         // Add weapon

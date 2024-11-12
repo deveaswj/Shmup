@@ -537,6 +537,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -635,6 +636,18 @@ MonoBehaviour:
     magnitude: 0.25
     frequency: 0
     smooth: 0
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b8f782581299974299d8b0fb442b024, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &703512029
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,6 +886,16 @@ MonoBehaviour:
     cooldown: 14
   - wave: {fileID: 11400000, guid: 37ca4f0531992c949b2176c5047308e5, type: 2}
     cooldown: 2
+  - wave: {fileID: 11400000, guid: 7e0da7fbe0337294c8bdc34d560e64cb, type: 2}
+    cooldown: 0
+  - wave: {fileID: 11400000, guid: a474af66a4dca52438316815c4d59ec1, type: 2}
+    cooldown: 0
+  - wave: {fileID: 11400000, guid: b975c7fd2653c5b4fb069ee6d5138fd4, type: 2}
+    cooldown: 0
+  - wave: {fileID: 11400000, guid: 5b7e62332728b6c4fba32f8690478ae7, type: 2}
+    cooldown: 0
+  - wave: {fileID: 11400000, guid: 7ddf7397bfd176a49920d6a986217794, type: 2}
+    cooldown: 0
   isLooping: 1
   initialLevel: 1
 --- !u!4 &1080349113

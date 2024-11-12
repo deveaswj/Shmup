@@ -24,6 +24,7 @@ public class Health : MonoBehaviour
     [Header("Healing")]
     [SerializeField] [Range(0, 100)] int minorHealPercent = 20;
     [SerializeField] [Range(0, 100)] int majorHealPercent = 50;
+    private float nerfFactor = 0.5f;
 
     [Header("Effects")]
     [SerializeField] ParticleSystem explodeEffect;
@@ -58,10 +59,11 @@ public class Health : MonoBehaviour
 
     public void MinorHealPlus()
     {
-        // add maxhealth if already at full
+        // add a fraction to maxhealth if already at full
         if (health == maxHealth)
         {
-            AddMaxHealth(Mathf.RoundToInt(maxHealth * (minorHealPercent / 100f)));
+            float nerfedValue = minorHealPercent * nerfFactor;
+            AddMaxHealth(Mathf.RoundToInt(maxHealth * (nerfedValue / 100f)));
         }
         else
         {
@@ -71,10 +73,11 @@ public class Health : MonoBehaviour
 
     public void MajorHealPlus()
     {
-        // add maxhealth if already at full
+        // add a fraction to maxhealth if already at full
         if (health == maxHealth)
         {
-            AddMaxHealth(Mathf.RoundToInt(maxHealth * (majorHealPercent / 100f)));
+            float nerfedValue = majorHealPercent * nerfFactor;
+            AddMaxHealth(Mathf.RoundToInt(maxHealth * (nerfedValue / 100f)));
         }
         else
         {
@@ -199,6 +202,7 @@ public class Health : MonoBehaviour
                 if (aoeDealer != null)
                 {
                     AOEDealer newAOEDealer = aoeDealer.CreateAOE(transform.position, gameObject.name);
+                    if (newAOEDealer == null) return;
                     // explicitly call DestroyLater() because of Unity timing issues
                     newAOEDealer.DestroyLater();
                 }

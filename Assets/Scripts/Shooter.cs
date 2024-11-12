@@ -27,8 +27,6 @@ public class Shooter : MonoBehaviour
     [SerializeField] float firingRateVariance = 0f;
     [SerializeField] float minimumFiringRate = 0.1f;
 
-    Vector2 minBounds, maxBounds;
-
     bool isFiring = false;
 
     string debugPrefix = "Shooter: ";
@@ -40,11 +38,15 @@ public class Shooter : MonoBehaviour
     float projectilePitch = 1.0f;
     float enemyProjectilePitchVariance = 0.25f;
 
+    CameraBounds cameraBounds;
+
     int counter = 0;
 
     void Awake()
     {
         audioManager = FindObjectOfType<AudioManager>();
+        cameraBounds = Camera.main.GetComponent<CameraBounds>();
+        if (cameraBounds == null) Debug.LogError(debugPrefix + "CameraBounds is null!");
     }
 
     public bool IsFiring() => isFiring;
@@ -73,7 +75,6 @@ public class Shooter : MonoBehaviour
     {
         debugPrefix = (enemyAI ? "Enemy " : (droneAI ? "Drone " : "Player ")) + "Shooter: ";
 
-        InitializeBounds();
         cameraHeight = 2 * Camera.main.orthographicSize;
 
         // player & drones fire up, enemies fire down
@@ -120,15 +121,11 @@ public class Shooter : MonoBehaviour
         }
     }
 
-
-    void InitializeBounds()
+    bool OutOfBounds()
     {
-        Camera mainCamera = Camera.main;
-        minBounds = mainCamera.ViewportToWorldPoint(new Vector2(0, 0));
-        maxBounds = mainCamera.ViewportToWorldPoint(new Vector2(1, 1));
+        if (cameraBounds == null) return false;
+        return cameraBounds.OutOfBounds(transform.position);
     }
-
-    bool OutOfBounds() => transform.position.x < minBounds.x || transform.position.x > maxBounds.x || transform.position.y < minBounds.y || transform.position.y > maxBounds.y;
 
     void Update()
     {

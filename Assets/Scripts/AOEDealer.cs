@@ -13,12 +13,15 @@ public class AOEDealer : MonoBehaviour
     // as an AOE-dealing projectile or another AOE object) collides with them.
 
     private CircleCollider2D circleCollider2D;
+    private CameraBounds cameraBounds;
     private bool isProjectile = false;
     Coroutine destroyLater = null;
 
     void Awake()
     {
         circleCollider2D = GetComponent<CircleCollider2D>();
+        cameraBounds = Camera.main.GetComponent<CameraBounds>();
+
         isProjectile = TryGetComponent<Projectile>(out var projectile);
     }
 
@@ -53,10 +56,15 @@ public class AOEDealer : MonoBehaviour
 
     public AOEDealer CreateAOE(Vector3 position, string source = "(N/A)")
     {
+        if (cameraBounds.OutOfBounds(position))
+        {
+            Debug.Log("CreateAOE: position out of bounds, returning null");
+            return null;
+        }
         GameObject aoe = Instantiate(aoePrefab, position, Quaternion.identity);
         string timestamp = DateTime.Now.ToString("HHmmssfff"); // HH: hour, mm: minute, ss: second, fff: millisecond
         aoe.name = "AOE_" + timestamp;
-        Debug.Log("AOE created: " + aoe.name + " -- by: " + source);
+        Debug.Log("CreateAOE: New AOE '" + aoe.name + "' -- by: " + source);
         return aoe.GetComponent<AOEDealer>();
     }
 

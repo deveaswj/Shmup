@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 568baf78c744b634d97c9fbd06642420, type: 3}
   m_Name: Green(9) 8-ZZ
   m_EditorClassIdentifier: 
+  _isBossWave: 0
   enemyPrefabs:
   - {fileID: 411126370440091895, guid: ad904c264b71298448c58a70f791a9e4, type: 3}
   - {fileID: 4832855796194583430, guid: fbccaeb15fe82cf4bae4644259859f46, type: 3}
@@ -26,9 +27,10 @@ MonoBehaviour:
   flipX: 0
   flipY: 0
   rotationAngle: 0
-  moveSpeed: 6
+  offset: {x: 0, y: 0}
+  moveSpeed: 3
   reverseOrder: 0
-  timeBetweenSpawns: 1
+  timeBetweenSpawns: 1.5
   spawnTimeVariance: 0.3
   minimumSpawnTime: 0.2
   _loops: 0
