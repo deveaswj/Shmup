@@ -18,8 +18,7 @@ Expanding on the original tutorial by adding:
     - <details>
       <summary>(Spoilers)</summary>
 
-      - [x] Whenever you collect the same kind of ammo that you're already using, you get a slight firing velocity boost. Stacking infinitely.
-      - [ ] (TODO: alternate increasing velocity and firing rate)
+      - [x] Whenever you collect the same kind of ammo that you're already using, you get a slight boost to velocity or firing rate.
 
     </details>
   - [x] Shield (big hitbox, takes a few hits and goes away)
@@ -40,7 +39,7 @@ Expanding on the original tutorial by adding:
       - Orange: Standard HP. Worth 75. More likely to respond when shot.
     - Types
       - Type 1 "Frog": Prefers to drop Heal or Drone Powerups. Likely to flee when shot.
-      - Type 2 "Bat": Prefers to drop Weapon or Drone Powerups. Likely to dive when shot, or maybe flee.
+      - Type 2 "Ray": Prefers to drop Weapon or Drone Powerups. Likely to dive when shot, or maybe flee.
       - Type 3 "Cowl": Prefers to drop Shield or Heal Powerups. Likely to flee when shot, or maybe dive.
       - Type 4 "Hex": Prefers to drop Shield or Speed Powerups. Fires twice as often, and projectiles are faster.
       - Type 5 "Vamp": Prefers to drop Speed or Weapon Powerups. Likely to dive when shot.
