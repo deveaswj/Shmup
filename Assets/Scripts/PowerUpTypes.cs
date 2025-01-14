@@ -9,5 +9,6 @@ public enum PowerUpType
     Drone,
     MinorHeal,
     MajorHeal,
-    FullHeal
+    FullHeal,
+    CalmEnemy
 }

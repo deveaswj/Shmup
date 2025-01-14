@@ -12,6 +12,7 @@ public class Pathfinder : MonoBehaviour
     [SerializeField] [Range(0f, 1f)] float courage = 0.5f;
 
     EnemySpawner enemySpawner;
+    EnemyCommander commander;
     WaveConfigSO waveConfig;
     List<Vector3> waypoints;
     int waypointIndex = 0;
@@ -24,9 +25,12 @@ public class Pathfinder : MonoBehaviour
     bool isBossWave = false;
     bool actOnOdds = false;
 
+    bool isCalm = false;
+
     void Awake()
     {
         enemySpawner = FindObjectOfType<EnemySpawner>();
+        commander = FindObjectOfType<EnemyCommander>();
     }
 
     void Start()
@@ -76,6 +80,13 @@ public class Pathfinder : MonoBehaviour
 
     void Update()
     {
+        // once calmed, stay calm for life
+        if (commander.IsCalm)
+        {
+            isCalm = true;
+            behaviorWhenShot = EnemyBehaviorType.None;
+        }
+
         damage = hasHealth ? health.GetDamage() : 0;
         if (damage > 0 && actOnOdds)
         {
@@ -134,6 +145,8 @@ public class Pathfinder : MonoBehaviour
 
     void Flee()
     {
+        if (isCalm) return;
+
         // move upwards, destroy when off screen   
         float deltaMove = waveConfig.GetMoveSpeed() * Time.deltaTime;
         transform.position += v3up * deltaMove;
@@ -143,6 +156,8 @@ public class Pathfinder : MonoBehaviour
 
     void Dive()
     {
+        if (isCalm) return;
+
         // move downwards, destroy when off screen
         float deltaMove = waveConfig.GetMoveSpeed() * Time.deltaTime;
         transform.position -= v3up * deltaMove;

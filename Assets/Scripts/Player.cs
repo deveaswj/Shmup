@@ -51,6 +51,8 @@ public class Player : MonoBehaviour
 
     AudioManager audioManager;
 
+    EnemyCommander enemyCommander;
+
     void Awake()
     {
         shooter = GetComponent<Shooter>();
@@ -59,6 +61,7 @@ public class Player : MonoBehaviour
         energy = GetComponent<PlayerEnergy>();
         audioManager = FindObjectOfType<AudioManager>();
         cameraBounds = Camera.main.GetComponent<CameraBounds>();
+        enemyCommander = FindObjectOfType<EnemyCommander>();
     }
 
     void Start()
@@ -265,9 +268,19 @@ public class Player : MonoBehaviour
                 Debug.Log("Power up: Drone");
                 DronePowerUp();
                 break;
+            case PowerUpType.CalmEnemy:
+                Debug.Log("Power up: Calm Enemy");
+                CalmEnemyPowerUp();
+                break;
             default:
                 break;
         }
+    }
+
+    void CalmEnemyPowerUp()
+    {
+        audioManager.PlayPowerUpClip();
+        enemyCommander.Calm();
     }
 
     void WeaponPowerUp(PowerUpType powerUpType)
