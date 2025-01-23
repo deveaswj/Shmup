@@ -10,5 +10,6 @@ public enum PowerUpType
     MinorHeal,
     MajorHeal,
     FullHeal,
-    CalmEnemy
+    CalmEnemy,
+    SlowEnemy
 }

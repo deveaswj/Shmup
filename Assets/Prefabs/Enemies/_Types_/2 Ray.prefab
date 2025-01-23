@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7955808420418633069, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: powerUpEntries.Array.size
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7955808420418633069, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: powerUpEntries.Array.data[0].dropWeight
@@ -73,9 +73,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7955808420418633069, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
+      propertyPath: powerUpEntries.Array.data[10].dropWeight
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7955808420418633069, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
       propertyPath: powerUpEntries.Array.data[9].powerUpPrefab
       value: 
       objectReference: {fileID: 3684754508410876528, guid: 25fb5bf2dd067984aa544e83633c35cd, type: 3}
+    - target: {fileID: 7955808420418633069, guid: 72389d8a0d9f7814683635f868afdaa7, type: 3}
+      propertyPath: powerUpEntries.Array.data[10].powerUpPrefab
+      value: 
+      objectReference: {fileID: 5406079413382341865, guid: 199ca036f934c7b48a235fcafb239a1c, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

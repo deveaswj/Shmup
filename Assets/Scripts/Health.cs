@@ -47,6 +47,10 @@ public class Health : MonoBehaviour
     public int GetDamage() => maxHealth - health;
     public int GetHealthPercentage() => Mathf.RoundToInt(100 * ((float)health / maxHealth));
 
+    private bool invincible = false;
+
+    public void SetInvincible(bool flag = true) => invincible = flag;
+
     public void MinorHeal()
     {
         AddHealthPercentage(minorHealPercent);
@@ -145,6 +149,8 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int damage, bool dieWhenZero = false)
     {
+        if (invincible) return;
+
         health -= damage;
         if (health > 0)
         {

@@ -54,7 +54,7 @@ public class DropPowerUp : MonoBehaviour
     {
         if (!canDrop || isQuitting || !Application.isPlaying)
         {
-            Debug.Log(debugPrefix + "HandleDropRequest - don't drop");
+            // Debug.Log(debugPrefix + "HandleDropRequest - don't drop");
             return;
         }
 
@@ -87,7 +87,7 @@ public class DropPowerUp : MonoBehaviour
 
     void RandomDrop()
     {
-        Debug.Log(debugPrefix + "RandomDrop - roll to drop");
+        // Debug.Log(debugPrefix + "RandomDrop - roll to drop");
 
         // Random chance to drop a power-up
         if (powerUpEntries.Count > 0 && Random.value < dropChance)
@@ -130,7 +130,7 @@ public class DropPowerUp : MonoBehaviour
 
     void OnEnable()
     {
-        Debug.Log(debugPrefix + "OnEnable");
+        // Debug.Log(debugPrefix + "OnEnable");
 
         if (health != null) health.OnDefeat += HandleDropRequest;
 
@@ -140,7 +140,7 @@ public class DropPowerUp : MonoBehaviour
 
     void OnDisable()
     {
-        Debug.Log(debugPrefix + "OnDisable - Quitting? " + isQuitting);
+        // Debug.Log(debugPrefix + "OnDisable - Quitting? " + isQuitting);
 
         if (health != null) health.OnDefeat -= HandleDropRequest;
 
@@ -150,7 +150,7 @@ public class DropPowerUp : MonoBehaviour
 
     void OnSceneUnloaded(Scene current)
     {
-        Debug.Log(debugPrefix + "OnSceneUnloaded");
+        // Debug.Log(debugPrefix + "OnSceneUnloaded");
         DisableDrop();
     }
 }

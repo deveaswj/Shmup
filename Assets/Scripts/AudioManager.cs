@@ -97,12 +97,12 @@ public class AudioManager : MonoBehaviour
     {
         if (instance != null && instance != this)
         {
-            Debug.Log("Removing duplicate AudioManager");
+            // Debug.Log("Removing duplicate AudioManager");
             gameObject.SetActive(false);
             Destroy(gameObject);
             return false;
         }
-        Debug.Log("Creating AudioManager");
+        // Debug.Log("Creating AudioManager");
         instance = this;
         DontDestroyOnLoad(gameObject);
         return true;
@@ -130,7 +130,7 @@ public class AudioManager : MonoBehaviour
             }
             source.playOnAwake = false;
 
-            Debug.Log("Created AudioSource: " + source.name + " on " + gameObject.name);
+            // Debug.Log("Created AudioSource: " + source.name + " on " + gameObject.name);
 
             audioObject.transform.SetParent(transform); // Make the AudioSource a child of the AudioManager
             audioPool.Enqueue(source);
@@ -149,7 +149,7 @@ public class AudioManager : MonoBehaviour
         }
         if (isValid)
         {
-            Debug.Log("Verifying " + audioPool.Count + " items in audioPool...");
+            // Debug.Log("Verifying " + audioPool.Count + " items in audioPool...");
             foreach (var source in audioPool)
             {
                 if (source == null)
@@ -176,10 +176,10 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        Debug.Log("PlaySound: Clip: " + clipData.audioClip);
+        // Debug.Log("PlaySound: Clip: " + clipData.audioClip);
 
         if (!VerifyPool()) return;
-        Debug.Log("PlaySound: audioPool count: " + audioPool.Count);
+        // Debug.Log("PlaySound: audioPool count: " + audioPool.Count);
 
         // If there is an available AudioSource in the pool
         if (audioPool.Count > 0)
@@ -206,7 +206,7 @@ public class AudioManager : MonoBehaviour
 
     void UseAudioSource(AudioClipData clipData, float? pitchOverride, float? volumeOverride)
     {
-        Debug.Log("Attempting to use AudioSource for " + clipData.audioClip);
+        // Debug.Log("Attempting to use AudioSource for " + clipData.audioClip);
 
         // Get an available AudioSource from the pool
         AudioSource source = audioPool.Dequeue();
@@ -217,7 +217,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        Debug.Log("Using AudioSource: " + source.name);
+        // Debug.Log("Using AudioSource: " + source.name);
 
         ConfigureAudioSource(source, clipData, pitchOverride, volumeOverride);
         source.Play();
@@ -283,7 +283,7 @@ public class AudioManager : MonoBehaviour
         wrapper.Source.clip = null;
         activeSources.Remove(wrapper);
 
-        Debug.Log("Releasing AudioSource: " + wrapper.Source.name);
+        // Debug.Log("Releasing AudioSource: " + wrapper.Source.name);
 
         audioPool.Enqueue(wrapper.Source);
 

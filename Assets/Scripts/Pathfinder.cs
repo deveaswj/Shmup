@@ -116,12 +116,17 @@ public class Pathfinder : MonoBehaviour
         }
     }
 
+    float GetDeltaSpeed()
+    {
+        return commander.GetSpeedMultiplier() * waveConfig.GetMoveSpeed() * Time.deltaTime;
+    }
+
     void FollowPath()
     {
         if (waypointIndex < waypoints.Count)
         {
             Vector3 targetPosition = waypoints[waypointIndex];
-            float deltaMove = waveConfig.GetMoveSpeed() * Time.deltaTime;
+            float deltaMove = GetDeltaSpeed();
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, deltaMove);
             if (transform.position == targetPosition)
             {
@@ -148,7 +153,7 @@ public class Pathfinder : MonoBehaviour
         if (isCalm) return;
 
         // move upwards, destroy when off screen   
-        float deltaMove = waveConfig.GetMoveSpeed() * Time.deltaTime;
+        float deltaMove = GetDeltaSpeed();
         transform.position += v3up * deltaMove;
 
         if (isOffScreen) DestroyShip();
@@ -159,7 +164,7 @@ public class Pathfinder : MonoBehaviour
         if (isCalm) return;
 
         // move downwards, destroy when off screen
-        float deltaMove = waveConfig.GetMoveSpeed() * Time.deltaTime;
+        float deltaMove = GetDeltaSpeed();
         transform.position -= v3up * deltaMove;
 
         if (isOffScreen) DestroyShip();

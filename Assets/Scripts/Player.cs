@@ -5,6 +5,10 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    [Header("Test")]
+    [SerializeField] bool testMode = false;
+
+    [Header("Events")]
     [SerializeField] FireEventChannel fireEventChannel;
     [SerializeField] AmmoEventChannel ammoEventChannel;
     DroneGroupController droneGroupController;
@@ -69,6 +73,11 @@ public class Player : MonoBehaviour
         InitShield();
         InitializeBounds();
         Weapon_Default();
+
+        if (testMode)
+        {
+            health.SetInvincible(true);
+        }
     }
 
     void InitShield()
@@ -272,6 +281,10 @@ public class Player : MonoBehaviour
                 Debug.Log("Power up: Calm Enemy");
                 CalmEnemyPowerUp();
                 break;
+            case PowerUpType.SlowEnemy:
+                Debug.Log("Power up: Slow Enemy");
+                SlowEnemyPowerUp();
+                break;
             default:
                 break;
         }
@@ -281,6 +294,12 @@ public class Player : MonoBehaviour
     {
         audioManager.PlayPowerUpClip();
         enemyCommander.Calm();
+    }
+
+    void SlowEnemyPowerUp()
+    {
+        audioManager.PlayPowerUpClip();
+        enemyCommander.Slow();
     }
 
     void WeaponPowerUp(PowerUpType powerUpType)
