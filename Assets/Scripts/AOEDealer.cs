@@ -43,15 +43,15 @@ public class AOEDealer : MonoBehaviour
 
     IEnumerator DestroySelf()
     {
-        Debug.Log("AOEDealer: Begin coroutine to destroy " + gameObject.name + " in " + lifetime + " seconds");
+        // Debug.Log("AOEDealer: Begin coroutine to destroy " + gameObject.name + " in " + lifetime + " seconds");
         yield return new WaitForSeconds(lifetime);
-        Debug.Log("AOEDealer: Time elapsed -- Attempt to destroy " + gameObject.name);
+        // Debug.Log("AOEDealer: Time elapsed -- Attempt to destroy " + gameObject.name);
         Destroy(gameObject);
     }
 
     void OnDestroy()
     {
-        Debug.Log("AOEDealer: Destroyed " + gameObject.name);
+        // Debug.Log("AOEDealer: Destroyed " + gameObject.name);
     }
 
     public AOEDealer CreateAOE(Vector3 position, string source = "(N/A)")

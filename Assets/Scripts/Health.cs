@@ -198,7 +198,7 @@ public class Health : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("Died: " + gameObject.name);
+        // Debug.Log("Died: " + gameObject.name);
 
         if (!isPlayer)
         {

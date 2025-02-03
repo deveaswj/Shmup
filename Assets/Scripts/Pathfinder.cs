@@ -118,7 +118,8 @@ public class Pathfinder : MonoBehaviour
 
     float GetDeltaSpeed()
     {
-        return commander.GetSpeedMultiplier() * waveConfig.GetMoveSpeed() * Time.deltaTime;
+        float speedMultiplier = isOffScreen ? commander.GetDefaultSpeed() : commander.GetModifiedSpeed();
+        return speedMultiplier * waveConfig.GetMoveSpeed() * Time.deltaTime;
     }
 
     void FollowPath()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,15 +8,15 @@ using UnityEngine;
 public class EnemyCommander : MonoBehaviour
 {
     [SerializeField] bool isCalm = false;
+    [SerializeField] bool isSlow = false;
     [SerializeField] float calmTime = 15f;
     [SerializeField] float slowTime = 15f;
     [SerializeField] float speedMultiplier = 1.0f;
     [SerializeField] float defaultSpeed = 1.0f;
-
-    public float GetSpeedMultiplier() => speedMultiplier;
+    [SerializeField] float slowSpeed = 0.375f;
 
     public bool IsCalm { get => isCalm; }
-    public bool IsSlow { get => speedMultiplier < defaultSpeed; }
+    public bool IsSlow { get => isSlow; }
 
     public void SetCalm(bool value) => isCalm = value;
 
@@ -36,13 +37,23 @@ public class EnemyCommander : MonoBehaviour
 
     public void SlowForSeconds(float seconds)
     {
-        speedMultiplier = 0.25f;
+        isSlow = true;
         StartCoroutine(ResetSlow(seconds));
     }
 
     IEnumerator ResetSlow(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        speedMultiplier = defaultSpeed;
+        isSlow = false;
+    }
+
+    public float GetDefaultSpeed()
+    {
+        return defaultSpeed;
+    }
+
+    public float GetModifiedSpeed()
+    {
+        return (isSlow ? slowSpeed : defaultSpeed);
     }
 }
